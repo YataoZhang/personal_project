@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+                window.WEB_XHR_POLLING = true;
+//        window.WEB_SOCKET_FORCE_FLASH = true;
+        window.onerror = function (x, a, z) {
+            confirm(x);
+            confirm(a);
+            confirm(z);
+        }
+    </script>
+    <script src="../online/rong.min.js"></script>
+    <!--<script src="../online/xhr_polling_rong.js"></script>-->
+    <!--<script src="xhr-polling.js"></script>-->
+</head>
+<body>
+
+</body>
+<div style="margin: 10px 10px">
+    content:<input id="content" type="text" style="width: 80%;" value="1">
+</div>
+<div style="margin: 10px 10px">
+    send to:<input type="text" id="target" style="margin-right: 50px" value="2180">type:<select id="type"
+                                                                                                style="margin-right: 50px">
+    <option value="4" selected>私聊</option>
+    <option value="1">客服</option>
+    <option value="0">聊天室</option>
+    <option value="2">讨论组</option>
+    <option value="3">群组</option>
+</select>
+    <button id="send">send</button>
+</div>
+
+<div id="mydiv" style="width: 100%;height: 200px;background-color: oldlace;overflow-y: auto">
+
+</div>
+<div id="cons">
+
+</div>
+<script>
+    window.onload = function () {
+        var cons = document.getElementById("cons");
+        window.log = function (x) {
+            cons.innerHTML += x + "<br/>";
+        };
+        RongIMClient.init("e0x9wycfx7flq");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq
+
+        RongIMClient.setConnectionStatusListener({//焦点判断
+            onChanged: function (status) {
+                window.console.log(status.getValue(), status.getMessage(), new Date())
+            }
+        });
+        var mydiv = document.getElementById("mydiv");
+        RongIMClient.getInstance().setOnReceiveMessageListener({
+            onReceived: function (data) {
+//            received.value += data.getContent() + "\n";
+                var p = document.createElement("span");
+                p.style.marginRight = "10px";
+                p.innerHTML = data.getContent();
+                mydiv.appendChild(p);
+                //console.log(data.getContent());
+            }
+        });
+        //http://nav.sunquan.rongcloud.net:9001/cometnavi.js?appId=e0x9wycfx7flq&token=LeQZypmg2iTxI6Dt33kA49IkV4VlpjW4WbHSmNHHImW1HYE4xRSVO8tdrzhkZujiUCI8ua3P5kudkN2SfraMTw%3D%3D&callBack=asdf
+        var lipo = 'LeQZypmg2iTxI6Dt33kA49IkV4VlpjW4WbHSmNHHImW1HYE4xRSVO8tdrzhkZujiUCI8ua3P5kudkN2SfraMTw==',  //2189
+                onetowthree = '03JeYSiPZ01dpPeOCgH2x1lsz7j8LIjffmzv+eY1iPI0gErySE4fLXO1dUkBOH4HqFC7Kc4T5+DpFBt3CX737g=='; //2180
+        //jdzZh8TiG5KBcrB0FwD98G2V0rtz9Et1a3Gcs+xV6rscKGpD+69ifhODI/eezHEWl4jUZp2Cb3hJUzA5lvJxCw==    yDlyBkM/yYO+5ppbi1VmU22V0rtz9Et1a3Gcs+xV6rscKGpD+69ifiiOfGPjrm2B2M8A8qh/YQk/OWM5GOhnFw==
+        //gS5zgm\/TIhHfoDLZvDx8KrI6ZiT8q7s0UEaMPWY0lMzAz2ACrnPCL2DrpGFwW5xKCkGzF5JeeTnkTSsvufFgVA==
+        var self = "";
+        RongIMClient.connect(lipo, {
+            onSuccess: function (x) {
+                alert("connected，userid＝" + x)
+                self = x;
+            },
+            onError: function (x) {
+                window.console.log(x.getMessage())
+            }
+        });
+
+        ins = RongIMClient.getInstance();
+
+        var c = document.getElementById("content"), to = document.getElementById("target"), s = document.getElementById("send"), t = document.getElementById("type");
+        s.onclick = function () {
+            var con = RongIMClient.ConversationType.setValue(t.value);
+            ins.sendMessage(con, to.value, RongIMClient.TextMessage.obtain(c.value || Date.now()), null, {
+                onSuccess: function () {
+                    confirm("send successfully");
+                    c.value = (c.value * 1 + 1);
+                }, onError: function () {
+                    confirm("send fail")
+                }
+            });
+        }
+    };
+
+</script>
+</html>

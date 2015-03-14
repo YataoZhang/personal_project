@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="full-screen" content="yes">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <title>客服</title>
+</head>
+<body>
+</body>
+<script src="http://res.websdk.rongcloud.net/Embedded.js"></script>
+<!--<script src="Embedded.js"></script>-->
+<script>
+    if(/type=dyd/.test(location.search)){
+        window.RongCloudWebSDK.instantce({
+            'style': {
+                'headerColor': 'rgba(15, 15, 15, 1)',   //标题背景色
+                'boxColor': 'rgba(255, 255, 255, 0.6)',  //消息盒子背景色
+                'bodyColor': '#E7E7E7', //对话框背景色
+                'kefuMsgColor': '#fff', //客服消息背景色
+                'cusMsgColor': '#30b5ee',  //客服消息背景色
+                'sendBtnColor': '#2992d9', //发送按钮背景色
+                'expressionImg': 'http://rongcloud-web.qiniudn.com/expression.png',    //表情图
+                'cursorcolor': '#78d0f4'    //滚动条色
+            }
+        });
+    }else{
+        window.RongCloudWebSDK.instantce({
+            'style': {
+                'headerColor': 'rgba(120, 208, 244, 0.6)',   //标题背景色
+                'boxColor': 'rgba(120, 208, 244, 0.6)',  //消息盒子背景色
+                'bodyColor': '#CDEEFC', //对话框背景色
+                'kefuMsgColor': '#fff', //客服消息背景色
+                'cusMsgColor': '#30b5ee',  //客服消息背景色
+                'sendBtnColor': '#2992d9', //发送按钮背景色
+                'expressionImg': 'http://rongcloud-web.qiniudn.com/expression.png',    //表情图
+                'cursorcolor': '#78d0f4'    //滚动条色
+
+            },
+            'btncss':"width: 15px; padding: 10px; height: 92px; position: fixed; bottom: 20px; z-index: 999999; right: 0px; border: 1px solid rgb(196, 196, 196); border-radius: 5px; cursor: pointer; color: rgb(14, 180, 216); background-color: #f6f6f6;",
+
+            'appKey':'e0x9wycfx7flq',
+            'token':'FR2KvQHe6clQ\/OiSDzm8TtIkV4VlpjW4WbHSmNHHImUddPK7kWD+Ob0XVzFx6mnzHm0awMAH\/MmdkN2SfraMTw==',
+            'targetId':'rongcloud.net.kefu.service112'
+        });
+    }
+</script>
+</html>

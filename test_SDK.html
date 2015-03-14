@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!--<script src="online/rong.min.js"></script>-->
+    <script src="online/new_SDK.js"></script>
+    <!--<script src="http://res.websdk.rongcloud.net/RongIMClient.min.js"></script>-->
+    <!--<script src="http://res.websdk.rong.io/RongIMClient.min.js"></script>-->
+    <script>
+        // window.WEB_SOCKET_FORCE_FLASH=true;
+
+        window.callback = {
+            onSuccess: function (x) {
+                console.log(1, x)
+            }, onError: function (x) {
+                console.log(2, x)
+            }
+        };
+
+//       window.WEB_XHR_POLLING=true;
+        //"e74d17d7-b087-46cf-b46e-2b9cb120b0cb" release
+        //37abe2b1-1d46-490e-8a63-be736f6f2ba8 讨论组id
+
+        //be6a5792-2841-4cd7-8794-6a51fd692fa0
+
+        //d8378329-ea5f-45e8-acb9-26edf0485013
+        function load() {
+
+
+            RongIMClient.init("e0x9wycfx7flq");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
+
+            RongIMClient.setConnectionStatusListener({//焦点判断
+                onChanged: function (status) {
+                    window.console.log(status.getValue(), status.getMessage(), new Date())
+                }
+            });
+            //release
+            var jeams = 'bEVSfJuyK+vKcWWvsodcDs2yq+hfEluLjZ78E1qo4hGoJtlXfHETWJyjgbNQyiI7wYp5+CmaTzP+\/bv+vI++xg=='; //7991
+            var qwe = '9ACxQKwgWXawwAKvIBbWb7I6ZiT8q7s0UEaMPWY0lMxOPhe7Hp2dtgkbUxMCkoU0HAhlPdxTPg4C80jqu46\/1Q=='; //9813
+            //degub
+            var lipo = 'TOzO1ORZdSKfz9qnv8VAG6ZMo\/KVDHrEYcpc\/b7q1ztnoRGG0NzjemycRjB5XF3Aea2rzNZnQGzgRMdJ12F0ag==',  //2189
+                    onetowthree = 'ZnucOgwOxCFKahyttWB37qZMo\/KVDHrEYcpc\/b7q1ztnoRGG0Nzjeg1b2fUuhRY\/r261hg2zdyI+cSWhr8lNwQ=='; //2180
+
+            //
+            var _erqi='iLgZ5FcvdMIKasmZ6p5oDW2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlJayyApFvl2MeIpTh0vT3g0ZtMOymgc0EA=='; //27
+            var _erwu='ceCwNfOHo1QY0YRBnAiUXG2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlMTBnf8OYqaUNPxcR+fFusEZtMOymgc0EA=='; //25
+            RongIMClient.connect(lipo, {
+                onSuccess: function (x) {
+                    window.console.log("connected，userid＝" + x)
+                },
+                onError: function (x) {
+                    window.console.log(x.getMessage())
+                }
+            });
+
+            RongIMClient.getInstance().setOnReceiveMessageListener({
+                onReceived: function (data) {
+                    received.value += data.getContent() + "\n";
+                }
+            });
+
+            ins = RongIMClient.getInstance();
+
+            contype = RongIMClient.ConversationType.PRIVATE;
+
+            var send = document.getElementById("send");
+            var id = document.getElementById("userid");
+            var con = document.getElementById("sendcontent");
+            var received = document.getElementById("receivedcontent");
+            send.onclick = function () {
+                ins.sendMessage(contype, id.value, RongIMClient.TextMessage.obtain(con.value), null, {
+                    onSuccess: function () {
+                        console.log("send success：" + parseInt(con.value));
+                        con.value = parseInt(con.value) + 1;
+                    },
+                    onError: function (data) {
+                        console.log(data)
+                    }
+                });
+            };
+
+            var ones = document.getElementById("ones");
+            ones.onchange = function () {
+                window.ba = this.files[0];
+            };
+        }
+        if (window.attachEvent) {
+            window.attachEvent("onload", load);
+        } else {
+            window.addEventListener("load", load, false);
+        }
+    </script>
+</head>
+
+<body>
+<input type="text" id="userid" value=""><strong>用户id</strong>
+<textarea id="sendcontent" style="width: 100%;height: 100px;margin-top: 10px">
+1
+</textarea><strong>接受的内容：</strong>
+<textarea id="receivedcontent" style="width: 100%;height: 100px;margin-top: 10px">
+
+</textarea>
+<button id="send">send</button>
+<input type="file" id="ones">
+<input type="checkbox" value="0">asdfdf
+</body>
+
+</html>
