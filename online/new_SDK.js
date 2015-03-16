@@ -2,6 +2,9 @@
     if ("RongIMClient" in window) {
         return;
     }
+    Number.prototype.getValue=function(){
+        return this.valueOf();
+    };
     var io = {}, messageIdHandler, func = function () {
         var script = document.createElement("script");
         io._TransportType = "websocket";
@@ -1691,7 +1694,7 @@
                     con;
                 if (msg.constructor._name != "PublishMessage") {
                     entity = msg;
-                    io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()));
+                    io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()),86400);
                 } else {
                     if (msg.getTopic() == "s_ntf") {
                         entity = Modules.NotifyMsg.decode(msg.getData());
@@ -1699,7 +1702,7 @@
                         return;
                     } else if (msg.getTopic() == "s_msg") {
                         entity = Modules.DownStreamMessage.decode(msg.getData());
-                        io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()));
+                        io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()),86400);
                     } else {
                         console.log(msg.getTopic());
                         return;
@@ -1729,7 +1732,7 @@
                 message.setConversationType(mapping[entity.type || entity.getType()]);
                 message.setTargetId(/^[234]$/.test(entity.type || entity.getType()) ? entity.groupId || entity.getGroupId() : entity.fromUserId || entity.getFromUserId());
                 message.setMessageDirection(RongIMClient.MessageDirection.RECEIVE);
-                message.setReceivedTime(Date.now());
+                message.setReceivedTime((new Date).getTime());
                 message.setMessageId(message.getConversationType() + "_" + ~~(Math.random()*0xffffff));
                 message.setReceivedStatus(new RongIMClient.ReceivedStatus());
                 con = io.util.filter(RongIMClient.getInstance().getConversationList(), function (item, i) {
@@ -1751,7 +1754,7 @@
                 if (/ISCOUNTED/.test(message.getMessageTag())) {
                     con.getConversationType() != 0 && con.setUnreadMessageCount(con.getUnreadMessageCount() + 1);
                 }
-                con.setReceivedTime(Date.now());
+                con.setReceivedTime((new Date).getTime());
                 con.setReceivedStatus(new RongIMClient.ReceivedStatus());
                 con.setSenderUserId(message.getSenderUserId());
                 con.setObjectName(message.getObjectName());
@@ -1815,14 +1818,13 @@
             _enum, _obj;
         this.timeout_ = null;
         this.appId = "";
-        this.sdkVer = "1.0.0";
+        this.sdkVer = "1.0.1";
         this.apiVer = "1.0.0";
         this.channel = null;
         this.appToken = "";
         this.group = null;
         this.handler = null;
         this.userId = "";
-        this.userInfo = null;
         this.ConversationList = [];
         this.oldestConversation = [];
         this.ReceiveMessageListener = null;
@@ -1895,6 +1897,7 @@
             };
             this.socket.on("message", self.handler.handleMessage);
             this.socket.on("disconnect", function () {
+                clearTimeout(self.heartbeat);
                 self.channel.socket.fire("StatusChanged", 4);
             })
         }
@@ -1941,7 +1944,7 @@
                 task = new _myTask(this);
                 this.timeout_ = setTimeout(task.run, timeoutMillis)
             }
-            lastReadTimer = Date.now()
+            lastReadTimer = (new Date).getTime()
         };
         this.pauseTimer = function () {
             if (this.timeout_) {
@@ -2147,7 +2150,7 @@
                             symbol = self.userId + 'CST';
                             chatroomSyncTime == sync && (chatroomSyncTime += "_");
                         }
-                        io.util.cookieHelper.setCookie(symbol, sync);
+                        io.util.cookieHelper.setCookie(symbol, sync,86400);
                         var list = collection.getList();
                         if (_listener) {
                             for (var i = 0; i < list.length; i++) {
@@ -2183,7 +2186,7 @@
                 "navUrl-Release": "http://nav.cn.rong.io/"
             },
             xss = document.createElement("script");
-        xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + Date.now();
+        xss.src = Url["navUrl-Release"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
             _onerror(RongIMClient.ConnectCallback.ErrorCode.setValue(5));
@@ -2382,8 +2385,8 @@
                 e.onError(RongIMClient.callback.ErrorCode.setValue(1))
             }
         };
-        this.clearConversationsList = function (_conversationTypes) {
-            q(["number"]);
+        this.clearConversations = function (_conversationTypes) {
+            q(["array"]);
             return a.clearConversations(_conversationTypes);
         };
         this.getGroupConversationList = function () {
@@ -2471,7 +2474,7 @@
                 i.setMessageId(h + "_" + ~~(Math.random()*0xffffff));
             i.setSentStatus(RongIMClient.SentStatus.SENDING);
             i.setSenderUserId(window.RongBrIdge._client.userId);
-            i.setSentTime(Date.now());
+            i.setSentTime((new Date).getTime());
             i.setTargetId(v);
             if (/ISCOUNTED/.test(i.getMessageTag().toString())) {
                 j = m.util.filter(this.getConversationList(), function (s, t) {
@@ -2489,7 +2492,7 @@
                     j.setConversationType(h);
                     j.setConversationTitle("")
                 }
-                j.setSentTime(Date.now());
+                j.setSentTime((new Date).getTime());
                 j.setSentStatus(RongIMClient.SentStatus.SENDING);
                 j.setSenderUserName("");
                 j.setSenderUserId(window.RongBrIdge._client.userId);
@@ -2604,7 +2607,7 @@
                             if (status == 0) {
                                 var collection = Modules.DownStreamMessages.decode(data),
                                     sync = m.util.int64ToTimestamp(collection.getSyncTime());
-                                m.util.cookieHelper.setCookie(window.RongBrIdge._client.userId + 'CST', sync);
+                                m.util.cookieHelper.setCookie(window.RongBrIdge._client.userId + 'CST', sync,86400);
                                 var list = collection.getList();
                                 for (var i = 0; i < list.length; i++) {
                                     RongBrIdge._client.handler.listener.onReceived(list[i])
@@ -2787,7 +2790,7 @@
         }
     };
     RongIMClient.RongIMMessage = function (content) {
-        var x = "unknow",
+        var x = "unknown",
             u, z = content || {},
             o, q, t, y, a, p, s, v, r;
         this.getDetail = function () {
@@ -2870,7 +2873,7 @@
         };
         this.toJSONString = function () {
             var c = {
-                "receivedTime": u || "",
+                "receivedTime": u,
                 "messageType": x,
                 "details": z,
                 "conversationType": o,
@@ -2908,7 +2911,7 @@
     RongIMClient.StatusMessage.prototype.constructor = RongIMClient.StatusMessage;
     RongIMClient.Conversation = function () {
         var s = this,
-            a = Date.now(),
+            a = (new Date).getTime(),
             D, v, B, w, E, G, t, F, y, C, A, H, x, u = 0,
             z = RongIMClient.ConversationNotificationStatus.NOTIFY;
         this.getConversationTitle = function () {
@@ -2916,15 +2919,15 @@
         };
         this.toJSONString = function () {
             var c = {
-                "senderUserName": E || "",
+                "senderUserName": E ,
                 lastTime: a,
-                "objectName": D || "",
-                "senderUserId": v || "",
-                "receivedTime": B || "",
-                "conversationTitle": G || "",
-                "conversationType": (+t == t ? t : t),
+                "objectName": D ,
+                "senderUserId": v ,
+                "receivedTime": B ,
+                "conversationTitle": G ,
+                "conversationType": t,
                 "latestMessageId": C,
-                "sentTime": H || "",
+                "sentTime": H ,
                 "targetId": x,
                 "notificationStatus": z
             };
@@ -3466,7 +3469,10 @@
     };
     RongIMClient.ConversationNotificationStatus = {
         'DO_NOT_DISTURB': 0,
-        'NOTIFY': 1
+        'NOTIFY': 1,
+        setValue:function(x){
+            return x*1||0;
+        }
     };
     RongIMClient.ConversationType = {
         'CHATROOM':0,
@@ -3474,7 +3480,10 @@
         'DISCUSSION': 2,
         'GROUP': 3,
         'PRIVATE': 4,
-        'SYSTEM': 5
+        'SYSTEM': 5,
+        setValue:function(x){
+            return x*1||0;
+        }
     };
     RongIMClient.SentStatus = {
         'DESTROYED': 0,
@@ -3482,21 +3491,33 @@
         'READ':2,
         'RECEIVED': 3,
         'SENDING': 4,
-        'SENT': 5
+        'SENT': 5,
+        setValue:function(x){
+            return x*1||0;
+        }
     };
     RongIMClient.DiscussionInviteStatus = {
         'CLOSED': 0,
-        'OPENED': 1
+        'OPENED': 1,
+        setValue:function(x){
+            return x*1||0;
+        }
     };
     RongIMClient.MediaType = {
         'AUDIO': 0,
         'FILE': 1,
         'IMAGE': 2,
-        'VIDEO': 3
+        'VIDEO': 3,
+        setValue:function(x){
+            return x*1||0;
+        }
     };
     RongIMClient.MessageDirection = {
         'RECEIVE': 0,
-        'SEND': 1
+        'SEND': 1,
+        setValue:function(x){
+            return x*1||0;
+        }
     };
     RongIMClient.MessageType = {
         DiscussionNotificationMessage: "dizntf",

@@ -8,6 +8,7 @@
     <script src="online/new_SDK.js"></script>
     <!--<script src="http://res.websdk.rongcloud.net/RongIMClient.min.js"></script>-->
     <!--<script src="http://res.websdk.rong.io/RongIMClient.min.js"></script>-->
+
     <script>
         // window.WEB_SOCKET_FORCE_FLASH=true;
         window.callback = {
@@ -28,7 +29,7 @@
         function load() {
 
 
-            RongIMClient.init("e0x9wycfx7flq");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
+            RongIMClient.init("z3v5yqkbv8v30");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
 
             RongIMClient.setConnectionStatusListener({//焦点判断
                 onChanged: function (status) {
@@ -45,7 +46,7 @@
             //
             var _erqi='iLgZ5FcvdMIKasmZ6p5oDW2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlJayyApFvl2MeIpTh0vT3g0ZtMOymgc0EA=='; //27
             var _erwu='ceCwNfOHo1QY0YRBnAiUXG2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlMTBnf8OYqaUNPxcR+fFusEZtMOymgc0EA=='; //25
-            RongIMClient.connect(lipo, {
+            RongIMClient.connect(jeams, {
                 onSuccess: function (x) {
                     window.console.log("connected，userid＝" + x)
                 },
