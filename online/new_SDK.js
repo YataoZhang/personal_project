@@ -1,5 +1,5 @@
-(function () {
-    if ("RongIMClient" in window) {
+(function (global,undefined) {
+    if (global.RongIMClient) {
         return;
     }
     Number.prototype.getValue=function(){
@@ -8,13 +8,13 @@
     var io = {}, messageIdHandler, func = function () {
         var script = document.createElement("script");
         io._TransportType = "websocket";
-        if ("WebSocket" in window && "ArrayBuffer" in window && !window.WEB_SOCKET_FORCE_FLASH && !window.WEB_XHR_POLLING) {
+        if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
             script.src = "http://res.websdk.rongcloud.cn/protobuf-0.1.min.js";
-        } else if (!window.WEB_XHR_POLLING && (function () {
-            if ('navigator' in window && 'plugins' in navigator && navigator.plugins['Shockwave Flash']) {
+        } else if (!global.WEB_XHR_POLLING && (function () {
+            if ('navigator' in global && 'plugins' in navigator && navigator.plugins['Shockwave Flash']) {
                 return !!navigator.plugins['Shockwave Flash'].description;
             }
-            if ('ActiveXObject' in window) {
+            if ('ActiveXObject' in global) {
                 try {
                     return !!new ActiveXObject('ShockwaveFlash.ShockwaveFlash').GetVariable('$version');
                 } catch (e) {
@@ -68,7 +68,7 @@
             }
         })
     }
-    var binaryHelper = window.RongBinaryHelper = {
+    var binaryHelper = global.RongBinaryHelper = {
         init: function (array) {
             for (var i = 0; i < array.length; i++) {
                 array[i] *= 1;
@@ -975,10 +975,10 @@
                 if (document.readyState == "complete" || _pageLoaded) {
                     return fn()
                 }
-                if ("attachEvent" in window) {
-                    window.attachEvent("onload", fn)
+                if (global.attachEvent) {
+                    global.attachEvent("onload", fn)
                 } else {
-                    window.addEventListener("load", fn, false)
+                    global.addEventListener("load", fn, false)
                 }
             },
             inherit: function (ctor, superCtor) {
@@ -1093,8 +1093,8 @@
         io.util.opera = /opera/i.test(navigator.userAgent);
         io.util.load(function () {
             _pageLoaded = true;
-            if (!window.JSON) {
-                window.JSON = {
+            if (!global.JSON) {
+                global.JSON = {
                     parse: function (sJSON) {
                         return eval('(' + sJSON + ')');
                     },
@@ -1207,7 +1207,6 @@
         Transport.prototype._onDisconnect = function () {
             this.connecting = false;
             this.connected = false;
-            this.sessionid = null;
             this.base._onDisconnect()
         };
     })();
@@ -1251,7 +1250,7 @@
             msg.writeMessage(data);
             var val = stream.getBytesArray(true);
             if (this.socket.readyState == 1) {
-                if (window.Int8Array && !window.WEB_SOCKET_FORCE_FLASH) {
+                if (global.Int8Array && !global.WEB_SOCKET_FORCE_FLASH) {
                     var binary = new Int8Array(val);
                     this.socket.send(binary.buffer)
                 } else {
@@ -1271,7 +1270,7 @@
             return this
         };
         WS.check = function () {
-            return "WebSocket" in window && WebSocket.prototype && WebSocket.prototype.send && typeof WebSocket !== "undefined"
+            return "WebSocket" in global && WebSocket.prototype && WebSocket.prototype.send && typeof WebSocket !== "undefined"
         };
         WS.XDomainCheck = function () {
             return true;
@@ -1280,15 +1279,15 @@
     (function () {
         var empty = new Function,
             XMLHttpRequestCORS = (function () {
-                if (!('XMLHttpRequest' in window))
+                if (!('XMLHttpRequest' in global))
                     return false;
                 var a = new XMLHttpRequest();
                 return a.withCredentials != undefined;
             })(),
             request = function () {
-                if ('XDomainRequest' in window)
+                if ('XDomainRequest' in global)
                     return new XDomainRequest();
-                if ('XMLHttpRequest' in window && XMLHttpRequestCORS)
+                if ('XMLHttpRequest' in global && XMLHttpRequestCORS)
                     return new XMLHttpRequest();
                 return false;
             },
@@ -1435,7 +1434,9 @@
                 return;
             }
             this._onData(a, b);
-
+            if(/"headerCode":-32,/.test(a)){
+                return;
+            }
             this._get(Client.Endpoint.host + "/pullmsg.js?topic=pullMsg&messageid=" + msgId + "&header=82&sessionid=" + io.util.cookieHelper.getCookie(Client.Endpoint.userId + "sId"), "{\"ispolling\":false,\"syncTime\":0}");
         };
         XHRPolling.prototype._get = function (symbol, arg) {
@@ -1962,9 +1963,9 @@
         this.connect = function (_token, _callback) {
             this.appToken = _token;
             if (Client.Endpoint.port && Client.Endpoint.host) {
-                clearInterval(window.getEndpoint);
+                clearInterval(global.getEndpoint);
                 if (io._TransportType == "websocket") {
-                    if (!('WebSocket' in window)) {
+                    if (!global.WebSocket) {
                         _callback.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(1));
                         return;
                     }
@@ -2197,7 +2198,7 @@
         }
     };
     Client.Endpoint = {};
-    window.getServerEndpoint = function (x) {
+    global.getServerEndpoint = function (x) {
         Client.Endpoint.host = x.server;
         Client.Endpoint.port = "/websocket";
         Client.Endpoint.userId = x.userId;
@@ -2258,10 +2259,10 @@
             bridge._client.publishMessage(_topic[10][topic], content, targetId, callback, msg)
         }
     }
-    window.RongBrIdge = bridge;
-})();
-(function () {
-    this.RongIMClient = function (r) {
+    global.RongBrIdge = bridge;
+})(window);
+(function (global,undefined) {
+    global.RongIMClient = function (r) {
         function getType(str) {
             var temp = Object.prototype.toString.call(str).toLowerCase();
             return temp.slice(8, temp.length - 1);
@@ -2282,7 +2283,7 @@
                 }
                 if (c.length == c.arguments.length && (a || d)) {
                     for (var g = 0, e = c.arguments.length; g < e; g++) {
-                        if (!(new RegExp(getType(c.arguments[g])).test(f[g]))) {
+                        if (getType(c.arguments[g])!==f[g]) {
                             throw new TypeError("The index of " + g + " parameter was wrong type " + getType(c.arguments[g]) + " [" + f[g] + "]")
                         }
                     }
@@ -2291,7 +2292,7 @@
                 }
             },
             o = [],
-            n = window.sessionStorage || new function () {
+            n = global.sessionStorage || new function () {
                 var c = {};
                 this.length = 0;
                 this.clear = function () {
@@ -2336,7 +2337,7 @@
         };
         this.connect = function (c, e) {
             q(["string", "object"], true);
-            a = new window.RongBrIdge(l, c, e);
+            a = new global.RongBrIdge(l, c, e);
             m = a.getIO();
             if (o.length) {
                 for (var d = 0; d < o.length; d++) {
@@ -2435,7 +2436,7 @@
         };
         this.getCurrentUserInfo = function (callback) {
             q(["object"]);
-            this.getUserInfo(window.RongBrIdge._client.userId,callback);
+            this.getUserInfo(global.RongBrIdge._client.userId,callback);
         };
         this.getUserInfo = function (c, e) {
             q(["string", "object"]);
@@ -2468,7 +2469,7 @@
             if (!i.getMessageId())
                 i.setMessageId(h + "_" + ~~(Math.random()*0xffffff));
             i.setSentStatus(RongIMClient.SentStatus.SENDING);
-            i.setSenderUserId(window.RongBrIdge._client.userId);
+            i.setSenderUserId(global.RongBrIdge._client.userId);
             i.setSentTime((new Date).getTime());
             i.setTargetId(v);
             if (/ISCOUNTED/.test(i.getMessageTag().toString())) {
@@ -2490,7 +2491,7 @@
                 j.setSentTime((new Date).getTime());
                 j.setSentStatus(RongIMClient.SentStatus.SENDING);
                 j.setSenderUserName("");
-                j.setSenderUserId(window.RongBrIdge._client.userId);
+                j.setSenderUserId(global.RongBrIdge._client.userId);
                 j.setObjectName(i.getObjectName());
                 j.setNotificationStatus(RongIMClient.ConversationNotificationStatus.DO_NOT_DISTURB);
                 j.setLatestMessageId(i.getMessageId());
@@ -2512,14 +2513,14 @@
             q(["object"]);
             var d = new Modules.GetQNupTokenInput();
             d.setType(1);
-            a.queryMsg("14", m.util.arrayFrom(d.toArrayBuffer()),window.RongBrIdge._client.userId, c, "GetQNupTokenOutput")
+            a.queryMsg("14", m.util.arrayFrom(d.toArrayBuffer()),global.RongBrIdge._client.userId, c, "GetQNupTokenOutput")
         };
         this.getDownloadUrl = function (d, c) {
             q(["string", "object"]);
             var e = new Modules.GetQNdownloadUrlInput();
             e.setType(1);
             e.setKey(d);
-            a.queryMsg("14", m.util.arrayFrom(e.toArrayBuffer()), window.RongBrIdge._client.userId, c, "GetQNdownloadUrlOutput")
+            a.queryMsg("14", m.util.arrayFrom(e.toArrayBuffer()), global.RongBrIdge._client.userId, c, "GetQNdownloadUrlOutput")
         };
         this.setConnectionStatusListener = function (c) {
             if (!a) {
@@ -2580,7 +2581,7 @@
         //聊天室
         this.initChatRoom = function (Id) {
             q(["string"]);
-            window.RongBrIdge._client.chatroomId = Id;
+            global.RongBrIdge._client.chatroomId = Id;
         };
         this.joinChatRoom = function (Id, defMessageCount, callback) {
             q(["string", "number", "object"]);
@@ -2589,12 +2590,12 @@
             a.queryMsg("19", m.util.arrayFrom(e.toArrayBuffer()), Id, {
                 onSuccess: function () {
                     callback.onSuccess();
-                    window.RongBrIdge._client.chatroomId = Id;
+                    global.RongBrIdge._client.chatroomId = Id;
                     var modules = new Modules.ChrmPullMsg();
                     defMessageCount==0&&(defMessageCount=-1);
                     modules.setCount(defMessageCount);
                     modules.setSyncTime(0);
-                    window.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, {
+                    global.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, {
                         currentValue: function () {
                             return 1
                         }
@@ -2603,7 +2604,7 @@
                             if (status == 0) {
                                 var collection = Modules.DownStreamMessages.decode(data),
                                     sync = m.util.int64ToTimestamp(collection.getSyncTime());
-                                m.util.cookieHelper.setCookie(window.RongBrIdge._client.userId + 'CST', sync,86400);
+                                m.util.cookieHelper.setCookie(global.RongBrIdge._client.userId + 'CST', sync,86400);
                                 var list = collection.getList();
                                 for (var i = 0; i < list.length; i++) {
                                     RongBrIdge._client.handler.listener.onReceived(list[i])
@@ -2665,7 +2666,7 @@
             q(["string", "array", "object"]);
             var modules = new Modules.CreateDiscussionInput();
             modules.setName(_name);
-            a.queryMsg("1", m.util.arrayFrom(modules.toArrayBuffer()), window.RongBrIdge._client.userId, {
+            a.queryMsg("1", m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
                 onSuccess: function (data) {
                     var modules = new Modules.ChannelInvitationInput();
                     modules.setUsers(_userIdList);
@@ -2720,11 +2721,12 @@
 
         }
     };
+    RongIMClient.version="0.9.7";
     RongIMClient.connect = function (d, a) {
         if (!RongIMClient.getInstance) {
             throw new ReferenceError("please init")
         }
-        if (window.Modules) {
+        if (global.Modules) {
             RongIMClient.getInstance().connect(d, a)
         } else {
             RongIMClient.connect.token = d;
@@ -2760,7 +2762,7 @@
                 RongIMClient.MessageType[regMsg.messageType] = regMsg.messageType;
                 this.setMessageType(regMsg.messageType);
                 this.setObjectName(regMsg.objectName);
-                for(var i=0;i<regMsg.fieldName.length;i++){
+                for(var i= 0;i<regMsg.fieldName.length;i++){
                     var item=regMsg.fieldName[i];
                     this["set" + item] = function (a) {
                         this.setContent(a, item);
@@ -3608,4 +3610,4 @@
             onReceived: a
         }
     }
-})();
+})(window);

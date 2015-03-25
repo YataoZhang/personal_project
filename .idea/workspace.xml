@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e2fcb2a3-7cfd-415b-8a38-f8e4f3a00ba8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online/new_SDK.js" afterPath="$PROJECT_DIR$/online/new_SDK.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node server.js" afterPath="$PROJECT_DIR$/node server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_SDK.html" afterPath="$PROJECT_DIR$/test_SDK.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/junk/视觉滚动差.html" afterPath="$PROJECT_DIR$/junk/视觉滚动差.html" />
     </list>
     <ignored path="personal_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,9 +50,11 @@
       <file leaf-file-name="test_SDK.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test_SDK.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="17.28" vertical-offset="832" max-vertical-offset="1808">
-              <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
-              <folding />
+            <state vertical-scroll-proportion="-14.72" vertical-offset="0" max-vertical-offset="1808">
+              <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+              <folding>
+                <marker date="1427277000000" expanded="true" signature="724:862" placeholder="//..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -92,8 +92,18 @@
       <file leaf-file-name="new_SDK.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/online/new_SDK.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="51.95948" vertical-offset="112" max-vertical-offset="57856">
-              <caret line="2251" column="47" selection-start-line="2251" selection-start-column="47" selection-end-line="2251" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.4" vertical-offset="0" max-vertical-offset="57888">
+              <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="技巧.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/junk/技巧.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="464">
+              <caret line="11" column="20" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -325,7 +335,11 @@
       <created>1426331990670</created>
       <updated>1426331990670</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="backup">
+      <created>1427268721869</created>
+      <updated>1427268721869</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -352,6 +366,7 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -366,7 +381,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -389,7 +403,8 @@
     </option>
     <MESSAGE value="ceshi" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="backup" />
+    <option name="LAST_COMMIT_MESSAGE" value="backup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -416,7 +431,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1808">
           <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1427277000000" expanded="true" signature="724:862" placeholder="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -470,7 +487,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="1840">
           <caret line="42" column="114" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="114" />
-          <folding />
+          <folding>
+            <marker date="1427277000000" expanded="true" signature="724:862" placeholder="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -531,7 +550,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="1840">
           <caret line="42" column="114" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="114" />
-          <folding />
+          <folding>
+            <marker date="1427277000000" expanded="true" signature="724:862" placeholder="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -592,7 +613,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="1840">
           <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="14" selection-end-column="37" />
-          <folding />
+          <folding>
+            <marker date="1427277000000" expanded="true" signature="724:862" placeholder="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -660,7 +683,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1160" max-vertical-offset="1824">
           <caret line="83" column="12" selection-start-line="83" selection-start-column="12" selection-end-line="83" selection-end-column="12" />
-          <folding />
+          <folding>
+            <marker date="1427277000000" expanded="true" signature="724:862" placeholder="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -703,13 +728,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19089574" vertical-offset="62" max-vertical-offset="784">
           <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/技巧.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11363637" vertical-offset="0" max-vertical-offset="704">
-          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -769,18 +787,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/junk/技巧.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="464">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test_SDK.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="17.28" vertical-offset="832" max-vertical-offset="1808">
-          <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
-          <folding />
+        <state vertical-scroll-proportion="-14.72" vertical-offset="0" max-vertical-offset="1808">
+          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+          <folding>
+            <marker date="1427277000000" expanded="true" signature="724:862" placeholder="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/online/new_SDK.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="51.95948" vertical-offset="112" max-vertical-offset="57856">
-          <caret line="2251" column="47" selection-start-line="2251" selection-start-column="47" selection-end-line="2251" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.4" vertical-offset="0" max-vertical-offset="57888">
+          <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
           <folding />
         </state>
       </provider>
