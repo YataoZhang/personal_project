@@ -1165,7 +1165,7 @@
                 }
                 part.push({
                     url: str,
-                    data: x.getData()
+                    data: "getData" in x?x.getData():""
                 });
             });
             return part;
@@ -1874,7 +1874,7 @@
                 }
             };
             this.disconnect = function (x) {
-                this.socket.disconnect(x)
+                this.socket.disconnect(x);
             };
             this.isWritable = function () {
                 return io.getInstance().connected || io.getInstance().connecting
@@ -1883,8 +1883,7 @@
                 if (typeof func == "object" && "onChanged" in func) {
                     this.socket.on("StatusChanged", function (code) {
                         if (code instanceof DisconnectionStatus) {
-                            var temp = _enum.setValue(code.getValue() + 2);
-                            func.onChanged(temp);
+                            func.onChanged(_enum.setValue(code.getValue() + 2));
                             self.pauseTimer();
                             clearTimeout(self.heartbeat);
                             return;
@@ -1897,7 +1896,6 @@
             };
             this.socket.on("message", self.handler.handleMessage);
             this.socket.on("disconnect", function () {
-                clearTimeout(self.heartbeat);
                 self.channel.socket.fire("StatusChanged", 4);
             })
         }
@@ -1987,9 +1985,6 @@
             } else {
                 _callback.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(5));
             }
-        };
-        this.close = function () {
-            this.channel.disconnect(5)
         };
 
         this.keepLive = function () {
@@ -2186,7 +2181,7 @@
                 "navUrl-Release": "http://nav.cn.rong.io/"
             },
             xss = document.createElement("script");
-        xss.src = Url["navUrl-Release"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+        xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
             _onerror(RongIMClient.ConnectCallback.ErrorCode.setValue(5));
@@ -2225,7 +2220,7 @@
             if (bridge._client) {
                 bridge._client.setReceiveMessageListener(_listener)
             } else {
-                throw new ReferenceError("NullPointExpection")
+                throw new ReferenceError("NullPointException")
             }
         };
         this.removeConversationListCache = function () {
@@ -2253,6 +2248,7 @@
             bridge._client.channel.reconnect(callback)
         };
         this.disConnect = function () {
+            clearTimeout(bridge._client.heartbeat);
             bridge._client.channel.disconnect()
         };
         this.queryMsg = function (topic, content, targetId, callback, pbname) {
@@ -2270,7 +2266,6 @@
             var temp = Object.prototype.toString.call(str).toLowerCase();
             return temp.slice(8, temp.length - 1);
         }
-
         var m, l = r,
             self = this,
             k = {
@@ -2466,7 +2461,7 @@
                 d = -1,
                 j;
             if (!f) {
-                throw new ReferenceError("NullPointExpection")
+                throw new ReferenceError("NullPointException")
             }
             i.setConversationType(h);
             i.setMessageDirection(RongIMClient.MessageDirection.SEND);
@@ -2596,6 +2591,7 @@
                     callback.onSuccess();
                     window.RongBrIdge._client.chatroomId = Id;
                     var modules = new Modules.ChrmPullMsg();
+                    defMessageCount==0&&(defMessageCount=-1);
                     modules.setCount(defMessageCount);
                     modules.setSyncTime(0);
                     window.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, {
@@ -2742,7 +2738,9 @@
         xss.onerror = function () {
             callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
         };
-        RongIMClient.hasUnreadMessages.RCcallback = callback.onSuccess;
+        RongIMClient.hasUnreadMessages.RCcallback =function(x){
+            callback.onSuccess(!!+x.status);
+        };
     };
     RongIMClient.init = function (d) {
         var a = new RongIMClient(d);
@@ -2753,7 +2751,7 @@
     };
     RongIMClient.registerMessageType = function (regMsg) {
         if (!RongIMClient.getInstance) {
-            throw new ReferenceError("unInitExpection")
+            throw new ReferenceError("unInitException")
         }
         if ("messageType" in regMsg && "objectName" in regMsg && "fieldName" in regMsg) {
             RongIMClient.registerMessageType.registerMessageTypePool.push(regMsg.messageType);
@@ -2780,7 +2778,7 @@
     RongIMClient.registerMessageType.registerMessageTypePool = [];
     RongIMClient.setConnectionStatusListener = function (a) {
         if (!RongIMClient.getInstance) {
-            throw new ReferenceError("unInitExpection")
+            throw new ReferenceError("unInitException")
         }
         RongIMClient.getInstance().setConnectionStatusListener(a)
     };
