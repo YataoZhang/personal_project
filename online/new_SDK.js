@@ -1,8 +1,8 @@
-(function (global,undefined) {
+(function (global, undefined) {
     if (global.RongIMClient) {
         return;
     }
-    Number.prototype.getValue=function(){
+    Number.prototype.getValue = function () {
         return this.valueOf();
     };
     var io = {}, messageIdHandler, func = function () {
@@ -193,7 +193,7 @@
             }
         };
         this.readUTF = function () {
-            var big=(this.readByte() << 8) | this.readByte();
+            var big = (this.readByte() << 8) | this.readByte();
             return binaryHelper.readUTF(pool.slice(this.position, this.position += big));
         };
         this.write = function (_byte) {
@@ -1141,12 +1141,12 @@
     })();
     (function () {
         var Transport = io.Transport = function (base, options) {
-                this.base = base;
-                this.options = {
-                    timeout: 30000
-                };
-                io.util.merge(this.options, options)
+            this.base = base;
+            this.options = {
+                timeout: 30000
             };
+            io.util.merge(this.options, options)
+        };
         Transport.prototype.send = function () {
             throw new ReferenceError("No rewrite send() method")
         };
@@ -1165,7 +1165,7 @@
                 }
                 part.push({
                     url: str,
-                    data: "getData" in x?x.getData():""
+                    data: "getData" in x ? x.getData() : ""
                 });
             });
             return part;
@@ -1434,7 +1434,7 @@
                 return;
             }
             this._onData(a, b);
-            if(/"headerCode":-32,/.test(a)){
+            if (/"headerCode":-32,/.test(a)) {
                 return;
             }
             this._get(Client.Endpoint.host + "/pullmsg.js?topic=pullMsg&messageid=" + msgId + "&header=82&sessionid=" + io.util.cookieHelper.getCookie(Client.Endpoint.userId + "sId"), "{\"ispolling\":false,\"syncTime\":0}");
@@ -1695,7 +1695,7 @@
                     con;
                 if (msg.constructor._name != "PublishMessage") {
                     entity = msg;
-                    io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()),86400);
+                    io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()), 86400);
                 } else {
                     if (msg.getTopic() == "s_ntf") {
                         entity = Modules.NotifyMsg.decode(msg.getData());
@@ -1703,7 +1703,7 @@
                         return;
                     } else if (msg.getTopic() == "s_msg") {
                         entity = Modules.DownStreamMessage.decode(msg.getData());
-                        io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()),86400);
+                        io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()), 86400);
                     } else {
                         console.log(msg.getTopic());
                         return;
@@ -1734,7 +1734,7 @@
                 message.setTargetId(/^[234]$/.test(entity.type || entity.getType()) ? entity.groupId || entity.getGroupId() : entity.fromUserId || entity.getFromUserId());
                 message.setMessageDirection(RongIMClient.MessageDirection.RECEIVE);
                 message.setReceivedTime((new Date).getTime());
-                message.setMessageId(message.getConversationType() + "_" + ~~(Math.random()*0xffffff));
+                message.setMessageId(message.getConversationType() + "_" + ~~(Math.random() * 0xffffff));
                 message.setReceivedStatus(new RongIMClient.ReceivedStatus());
                 con = io.util.filter(RongIMClient.getInstance().getConversationList(), function (item, i) {
                     if (item.getTargetId() == message.getTargetId()) {
@@ -1928,6 +1928,11 @@
                     disInfo.setName(entity.getChannelName());
                     disInfo.setopen(entity.getOpenStatus());
                     return disInfo;
+                case "GroupHashOutput":
+                    return entity.getResult();
+                    break;
+                case "QueryBlackListOutput":
+                    return entity.getUserIds();
                 default:
                     return {}
             }
@@ -2146,7 +2151,7 @@
                             symbol = self.userId + 'CST';
                             chatroomSyncTime == sync && (chatroomSyncTime += "_");
                         }
-                        io.util.cookieHelper.setCookie(symbol, sync,86400);
+                        io.util.cookieHelper.setCookie(symbol, sync, 86400);
                         var list = collection.getList();
                         if (_listener) {
                             for (var i = 0; i < list.length; i++) {
@@ -2185,7 +2190,7 @@
         xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
-            _onerror(RongIMClient.ConnectCallback.ErrorCode.setValue(5));
+            _onerror(RongIMClient.ConnectCallback.ErrorCode.setValue(4));
         };
         if ("onload" in xss) {
             xss.onload = _onsuccess;
@@ -2206,7 +2211,7 @@
 
     function bridge(_appkey, _token, _callback) {
         bridge._client = Client.connect(_appkey, _token, _callback);
-        var _topic = ["invtDiz", "crDiz", "qnUrl", "userInf", "dizInf", "userInf", "joinGrp", "quitDiz", "exitGrp", "evctDiz", ["ppMsgP", "pdMsgP", "pgMsgP", "pcMsgP", "chatMsg"], "pdOpen", "rename", "uGcmpr", "qnTkn", 'destroyChrm', 'createChrm', 'exitChrm', 'queryChrm', 'joinChrm', "pGrps"];
+        var _topic = ["invtDiz", "crDiz", "qnUrl", "userInf", "dizInf", "userInf", "joinGrp", "quitDiz", "exitGrp", "evctDiz", ["ppMsgP", "pdMsgP", "pgMsgP", "pcMsgP", "chatMsg"], "pdOpen", "rename", "uGcmpr", "qnTkn", 'destroyChrm', 'createChrm', 'exitChrm', 'queryChrm', 'joinChrm', "pGrps", "addBlack", "rmBlack", "getBlack", "blackStat"];
         this.getIO = function () {
             return io
         };
@@ -2259,14 +2264,16 @@
             bridge._client.publishMessage(_topic[10][topic], content, targetId, callback, msg)
         }
     }
+
     global.RongBrIdge = bridge;
 })(window);
-(function (global,undefined) {
+(function (global, undefined) {
     global.RongIMClient = function (r) {
         function getType(str) {
             var temp = Object.prototype.toString.call(str).toLowerCase();
             return temp.slice(8, temp.length - 1);
         }
+
         var m, l = r,
             self = this,
             k = {
@@ -2279,11 +2286,11 @@
             p, a, q = function (f, d) {
                 var c = arguments.callee.caller;
                 if (self.options.isEnableDebug()) {
-                    console.log("Being executed: \n" + c );
+                    console.log("Being executed: \n" + c);
                 }
                 if (c.length == c.arguments.length && (a || d)) {
                     for (var g = 0, e = c.arguments.length; g < e; g++) {
-                        if (getType(c.arguments[g])!==f[g]) {
+                        if (!new RegExp(getType(c.arguments[g])).test(f[g])) {
                             throw new TypeError("The index of " + g + " parameter was wrong type " + getType(c.arguments[g]) + " [" + f[g] + "]")
                         }
                     }
@@ -2387,7 +2394,7 @@
         };
         this.getGroupConversationList = function () {
             return m.util.filter(this.getConversationList(), function (c) {
-                return c.getConversationType()== "3";
+                return c.getConversationType() == "3";
             })
         };
         this.removeConversation = function (c, e) {
@@ -2436,18 +2443,18 @@
         };
         this.getCurrentUserInfo = function (callback) {
             q(["object"]);
-            this.getUserInfo(global.RongBrIdge._client.userId,callback);
+            this.getUserInfo(global.RongBrIdge._client.userId, callback);
         };
         this.getUserInfo = function (c, e) {
             q(["string", "object"]);
             var d = new Modules.GetUserInfoInput();
             d.setNothing(1);
-            a.queryMsg("5", m.util.arrayFrom(d.toArrayBuffer()), c, e, "GetUserInfoOutput")
+            a.queryMsg(5, m.util.arrayFrom(d.toArrayBuffer()), c, e, "GetUserInfoOutput")
         };
         this.sendMessage = function (h, v, e, c, u) {
             q(["number", "string", "object", "object|null|global", "object"]);
             if (!m.getInstance().connected) {
-                u.onError(RongIMClient.callback.ErrorCode.setValue(0));
+                u.onError(RongIMClient.callback.ErrorCode.setValue(1));
                 return;
             }
             if (c) {
@@ -2467,7 +2474,7 @@
             i.setConversationType(h);
             i.setMessageDirection(RongIMClient.MessageDirection.SEND);
             if (!i.getMessageId())
-                i.setMessageId(h + "_" + ~~(Math.random()*0xffffff));
+                i.setMessageId(h + "_" + ~~(Math.random() * 0xffffff));
             i.setSentStatus(RongIMClient.SentStatus.SENDING);
             i.setSenderUserId(global.RongBrIdge._client.userId);
             i.setSentTime((new Date).getTime());
@@ -2513,14 +2520,14 @@
             q(["object"]);
             var d = new Modules.GetQNupTokenInput();
             d.setType(1);
-            a.queryMsg("14", m.util.arrayFrom(d.toArrayBuffer()),global.RongBrIdge._client.userId, c, "GetQNupTokenOutput")
+            a.queryMsg(14, m.util.arrayFrom(d.toArrayBuffer()), global.RongBrIdge._client.userId, c, "GetQNupTokenOutput")
         };
         this.getDownloadUrl = function (d, c) {
             q(["string", "object"]);
             var e = new Modules.GetQNdownloadUrlInput();
             e.setType(1);
             e.setKey(d);
-            a.queryMsg("14", m.util.arrayFrom(e.toArrayBuffer()), global.RongBrIdge._client.userId, c, "GetQNdownloadUrlOutput")
+            a.queryMsg(14, m.util.arrayFrom(e.toArrayBuffer()), global.RongBrIdge._client.userId, c, "GetQNdownloadUrlOutput")
         };
         this.setConnectionStatusListener = function (c) {
             if (!a) {
@@ -2554,11 +2561,11 @@
                 var l = this.getConversationList();
                 for (var i = 0; i < _conversationTypes.length; i++) {
                     m.util.forEach(l, function (x) {
-                        x.getConversationType()== _conversationTypes[i] && (count += x.getUnreadMessageCount());
+                        x.getConversationType() == _conversationTypes[i] && (count += x.getUnreadMessageCount());
                     })
                 }
             } else {
-                if (_conversationTypes== 0) {
+                if (_conversationTypes == 0) {
                     return count;
                 }
                 var end = m.util.filter(this.getConversationList(), function (x) {
@@ -2587,12 +2594,12 @@
             q(["string", "number", "object"]);
             var e = new Modules.ChrmInput();
             e.setNothing(1);
-            a.queryMsg("19", m.util.arrayFrom(e.toArrayBuffer()), Id, {
+            a.queryMsg(19, m.util.arrayFrom(e.toArrayBuffer()), Id, {
                 onSuccess: function () {
                     callback.onSuccess();
                     global.RongBrIdge._client.chatroomId = Id;
                     var modules = new Modules.ChrmPullMsg();
-                    defMessageCount==0&&(defMessageCount=-1);
+                    defMessageCount == 0 && (defMessageCount = -1);
                     modules.setCount(defMessageCount);
                     modules.setSyncTime(0);
                     global.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, {
@@ -2604,7 +2611,7 @@
                             if (status == 0) {
                                 var collection = Modules.DownStreamMessages.decode(data),
                                     sync = m.util.int64ToTimestamp(collection.getSyncTime());
-                                m.util.cookieHelper.setCookie(global.RongBrIdge._client.userId + 'CST', sync,86400);
+                                m.util.cookieHelper.setCookie(global.RongBrIdge._client.userId + 'CST', sync, 86400);
                                 var list = collection.getList();
                                 for (var i = 0; i < list.length; i++) {
                                     RongBrIdge._client.handler.listener.onReceived(list[i])
@@ -2617,7 +2624,7 @@
                     })
                 },
                 onError: function () {
-                    callback.onError(RongIMClient.callback.ErrorCode.setValue(0));
+                    callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
                 }
             }, "ChrmOutput");
         };
@@ -2625,7 +2632,7 @@
             q(["string", "object"]);
             var e = new Modules.ChrmInput();
             e.setNothing(1);
-            a.queryMsg("17", m.util.arrayFrom(e.toArrayBuffer()), Id, callback, "ChrmOutput")
+            a.queryMsg(17, m.util.arrayFrom(e.toArrayBuffer()), Id, callback, "ChrmOutput")
         };
         //通知消息
         this.sendNotification = function (_conversationType, _targetId, _content, _callback) {
@@ -2648,38 +2655,39 @@
             q(["string", "number", "object"]);
             var modules = new Modules.ModifyPermissionInput();
             modules.setOpenStatus(_status);
-            a.queryMsg("11", m.util.arrayFrom(modules.toArrayBuffer()), _targetId, _callback)
+            a.queryMsg(11, m.util.arrayFrom(modules.toArrayBuffer()), _targetId, _callback)
         };
         this.setDiscussionName = function (_discussionId, _name, _callback) {
             q(["string", "string", "object"]);
             var modules = new Modules.RenameChannelInput();
             modules.setName(_name);
-            a.queryMsg("12", m.util.arrayFrom(modules.toArrayBuffer()), _discussionId, _callback)
+            a.queryMsg(12, m.util.arrayFrom(modules.toArrayBuffer()), _discussionId, _callback)
         };
         this.removeMemberFromDiscussion = function (_disussionId, _userId, _callback) {
             q(["string", "string", "object"]);
             var modules = new Modules.ChannelEvictionInput();
             modules.setUser(_userId);
-            a.queryMsg("9", m.util.arrayFrom(modules.toArrayBuffer()), _disussionId, _callback);
+            a.queryMsg(9, m.util.arrayFrom(modules.toArrayBuffer()), _disussionId, _callback);
         };
         this.createDiscussion = function (_name, _userIdList, _callback) {
             q(["string", "array", "object"]);
             var modules = new Modules.CreateDiscussionInput();
             modules.setName(_name);
-            a.queryMsg("1", m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
+            a.queryMsg(1, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
                 onSuccess: function (data) {
                     var modules = new Modules.ChannelInvitationInput();
                     modules.setUsers(_userIdList);
-                    a.queryMsg("0", m.util.arrayFrom(modules.toArrayBuffer()), data, {
+                    a.queryMsg(0, m.util.arrayFrom(modules.toArrayBuffer()), data, {
                         onSuccess: function () {
                         },
                         onError: function () {
+                            _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
                         }
                     });
                     _callback.onSuccess(data);
                 },
                 onError: function () {
-                    _callback.onError(RongIMClient.callback.ErrorCode.setValue(0));
+                    _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
                 }
             }, "CreateDiscussionOutput");
         };
@@ -2687,25 +2695,25 @@
             q(["string", "array", "object"]);
             var modules = new Modules.ChannelInvitationInput();
             modules.setUsers(_userIdList);
-            a.queryMsg("0", m.util.arrayFrom(modules.toArrayBuffer()), _discussionId, _callback);
+            a.queryMsg(0, m.util.arrayFrom(modules.toArrayBuffer()), _discussionId, _callback);
         };
         this.getDiscussion = function (_discussionId, _callback) {
             q(["string", "object"]);
             var modules = new Modules.ChannelInfoInput();
             modules.setNothing(1);
-            a.queryMsg("4", m.util.arrayFrom(modules.toArrayBuffer()), _discussionId, _callback, "ChannelInfoOutput");
+            a.queryMsg(4, m.util.arrayFrom(modules.toArrayBuffer()), _discussionId, _callback, "ChannelInfoOutput");
         };
         this.quitDiscussion = function (_discussionId, _callback) {
             q(["string", "object"]);
             var modules = new Modules.LeaveChannelInput();
             modules.setNothing(1);
-            a.queryMsg("7", m.util.arrayFrom(modules.toArrayBuffer()), _discussionId, _callback);
+            a.queryMsg(7, m.util.arrayFrom(modules.toArrayBuffer()), _discussionId, _callback);
         };
         this.quitGroup = function (_groupId, _callback) {
             q(["string", "object"]);
             var modules = new Modules.LeaveChannelInput();
             modules.setNothing(1);
-            a.queryMsg("8", m.util.arrayFrom(modules.toArrayBuffer()), _groupId, _callback);
+            a.queryMsg(8, m.util.arrayFrom(modules.toArrayBuffer()), _groupId, _callback);
         }; //exitGrp
         this.joinGroup = function (_groupId, _groupName, _callback) {
             q(["string", "string", "object"]);
@@ -2714,14 +2722,101 @@
             modules.setName(_groupName);
             var _mod = new Modules.GroupInput();
             _mod.setGroupInfo(modules);
-            a.queryMsg("6", m.util.arrayFrom(_mod.toArrayBuffer()), _groupId, _callback, "GroupOutput");
-        }; //joinGrp
+            a.queryMsg(6, m.util.arrayFrom(_mod.toArrayBuffer()), _groupId, _callback, "GroupOutput");
+        };
         this.syncGroup = function (_groups, _callback) {
             q(["array", "object"]);
+            for (var i = 0, part = [], info = []; i < _groups.length; i++) {
+                if (part.length === 0 || !new RegExp(_groups[i].getId()).test(part)) {
+                    part.push(_groups[i].getId());
+                    var groupinfo = new Modules.GroupInfo();
+                    groupinfo.setId(_groups[i].getId());
+                    groupinfo.setName(_groups[i].getName());
+                    info.push(groupinfo);
+                }
+            }
+            function nothing() {
+                if (!global.MD5) {
+                    _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                }
+                var modules = new Modules.GroupHashInput();
+                modules.setUserId(global.RongBrIdge._client.userId);
+                modules.setGroupHashCode(global.MD5(part.sort().join("")));
+                a.queryMsg(13, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
+                    onSuccess: function (result) {
+                        if (result === 1) {
+                            var val = new Modules.GroupInput();
+                            val.setGroupInfo(info);
+                            a.queryMsg(20, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
+                                onSuccess: function () {
+                                    _callback.onSuccess();
+                                }, onError: function () {
+                                    _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                                }
+                            }, "GroupOutput");
+                        } else {
+                            _callback.onSuccess();
+                        }
+                    }, onError: function () {
+                        _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                    }
+                }, "GroupHashOutput");
+            }
 
-        }
+            if (typeof global.MD5 === "function") {
+                nothing();
+            } else {
+                var scr = document.createElement("script");
+                scr.src = "http://rongcloud-web-sdk.qiniudn.com/MD5.min.js";
+                if (scr.readyState) {
+                    scr.onreadystatechange = function () {
+                        if (scr.readyState == "loaded") {
+                            nothing();
+                        }
+                    }
+                } else {
+                    scr.onload = function () {
+                        nothing();
+                    };
+                }
+                scr.onerror = function () {
+                    _callback.onError(RongIMClient.callback.ErrorCode.setValue(1))
+                };
+                document.body.appendChild(scr);
+            }
+        };
+        this.addToBlacklist = function (userId, callback) {
+            q(["string", "object"]);
+            var modules = new Modules.Add2BlackListInput();
+            modules.setUserId(userId);
+            a.queryMsg(21, m.util.arrayFrom(modules.toArrayBuffer()), userId, callback);
+        };
+        this.getBlacklist = function (callback) {
+            q(["object"]);
+            var modules = new Modules.QueryBlackListInput();
+            modules.setNothing(1);
+            a.queryMsg(23, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, callback, "QueryBlackListOutput");
+        };
+        this.getBlacklistStatus = function (userId, callback) {
+            q(["string", "object"]);
+            var modules = new Modules.BlackListStatusInput();
+            modules.setUserId(userId);
+            a.queryMsg(24, m.util.arrayFrom(modules.toArrayBuffer()), userId, {
+                onSuccess: function (status) {
+                    callback.onSuccess(RongIMClient.BlacklistStatus.setValue(status))
+                }, onError: function () {
+                    callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                }
+            })
+        };
+        this.removeFromBlacklist = function (userId, callback) {
+            q(["string", "object"]);
+            var modules = new Modules.RemoveFromBlackListInput();
+            modules.setUserId(userId);
+            a.queryMsg(22, m.util.arrayFrom(modules.toArrayBuffer()), userId, callback);
+        };
     };
-    RongIMClient.version="0.9.7";
+    RongIMClient.version = "0.9.7";
     RongIMClient.connect = function (d, a) {
         if (!RongIMClient.getInstance) {
             throw new ReferenceError("please init")
@@ -2740,7 +2835,7 @@
         xss.onerror = function () {
             callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
         };
-        RongIMClient.hasUnreadMessages.RCcallback =function(x){
+        RongIMClient.hasUnreadMessages.RCcallback = function (x) {
             callback.onSuccess(!!+x.status);
         };
     };
@@ -2762,8 +2857,8 @@
                 RongIMClient.MessageType[regMsg.messageType] = regMsg.messageType;
                 this.setMessageType(regMsg.messageType);
                 this.setObjectName(regMsg.objectName);
-                for(var i= 0;i<regMsg.fieldName.length;i++){
-                    var item=regMsg.fieldName[i];
+                for (var i = 0; i < regMsg.fieldName.length; i++) {
+                    var item = regMsg.fieldName[i];
                     this["set" + item] = function (a) {
                         this.setContent(a, item);
                     };
@@ -2919,15 +3014,15 @@
         };
         this.toJSONString = function () {
             var c = {
-                "senderUserName": E ,
+                "senderUserName": E,
                 lastTime: a,
-                "objectName": D ,
-                "senderUserId": v ,
-                "receivedTime": B ,
-                "conversationTitle": G ,
+                "objectName": D,
+                "senderUserId": v,
+                "receivedTime": B,
+                "conversationTitle": G,
                 "conversationType": t,
                 "latestMessageId": C,
-                "sentTime": H ,
+                "sentTime": H,
                 "targetId": x,
                 "notificationStatus": z
             };
@@ -3381,7 +3476,7 @@
     RongIMClient.CommandNotificationMessage.prototype = new RongIMClient.NotificationMessage();
     RongIMClient.CommandNotificationMessage.prototype.constructor = RongIMClient.CommandNotificationMessage;
     RongIMClient.MessageContent = function (f) {
-        if(!(f instanceof RongIMClient.RongIMMessage)){
+        if (!(f instanceof RongIMClient.RongIMMessage)) {
             throw new Error("wrong parameter")
         }
         this.getMessage = function () {
@@ -3392,8 +3487,8 @@
             c.setSessionId(0);
             c.setClassname(f.getObjectName());
             c.setContent(JSON.stringify(f.getDetail()));
-            var val=c.toArrayBuffer();
-            if(Object.prototype.toString.call(val) == "[object ArrayBuffer]"){
+            var val = c.toArrayBuffer();
+            if (Object.prototype.toString.call(val) == "[object ArrayBuffer]") {
                 return [].slice.call(new Int8Array(val))
             }
             return val
@@ -3470,37 +3565,37 @@
     RongIMClient.ConversationNotificationStatus = {
         'DO_NOT_DISTURB': 0,
         'NOTIFY': 1,
-        setValue:function(x){
-            return x*1||0;
+        setValue: function (x) {
+            return x * 1 || 0;
         }
     };
     RongIMClient.ConversationType = {
-        'CHATROOM':0,
-        'CUSTOMER_SERVICE':1,
+        'CHATROOM': 0,
+        'CUSTOMER_SERVICE': 1,
         'DISCUSSION': 2,
         'GROUP': 3,
         'PRIVATE': 4,
         'SYSTEM': 5,
-        setValue:function(x){
-            return x*1||0;
+        setValue: function (x) {
+            return x * 1 || 0;
         }
     };
     RongIMClient.SentStatus = {
         'DESTROYED': 0,
         'FAILED': 1,
-        'READ':2,
+        'READ': 2,
         'RECEIVED': 3,
         'SENDING': 4,
         'SENT': 5,
-        setValue:function(x){
-            return x*1||0;
+        setValue: function (x) {
+            return x * 1 || 0;
         }
     };
     RongIMClient.DiscussionInviteStatus = {
         'CLOSED': 0,
         'OPENED': 1,
-        setValue:function(x){
-            return x*1||0;
+        setValue: function (x) {
+            return x * 1 || 0;
         }
     };
     RongIMClient.MediaType = {
@@ -3508,15 +3603,15 @@
         'FILE': 1,
         'IMAGE': 2,
         'VIDEO': 3,
-        setValue:function(x){
-            return x*1||0;
+        setValue: function (x) {
+            return x * 1 || 0;
         }
     };
     RongIMClient.MessageDirection = {
         'RECEIVE': 0,
         'SEND': 1,
-        setValue:function(x){
-            return x*1||0;
+        setValue: function (x) {
+            return x * 1 || 0;
         }
     };
     RongIMClient.MessageType = {
@@ -3533,6 +3628,13 @@
         ContactNotificationMessage: "contact",
         ProfileNotificationMessage: "profile",
         CommandNotificationMessage: "command"
+    };
+    RongIMClient.BlacklistStatus = {
+        EXIT_BLACK_LIST: 0,
+        NOT_EXIT_BLACK_LIST: 1,
+        setValue: function (x) {
+            return x * 1 || 0;
+        }
     };
     RongIMClient.callback = function (d, a) {
         this.onError = a;
@@ -3558,13 +3660,13 @@
     };
     RongIMClient.ConnectCallback.ErrorCode = function (a) {
         var d = 0,
-            c = navigator.language == "zh-CN" ? ["\u63A5\u53D7", "\u4E0D\u53EF\u7528\u7684\u534F\u8BAE\u7248\u672C", "\u6807\u8BC6\u7B26\u88AB\u62D2\u7EDD", "\u670D\u52A1\u5668\u4E0D\u53EF\u7528", "\u9519\u8BEF\u7684\u8D26\u53F7\u548C\u5BC6\u7801", "\u6CA1\u6709\u9A8C\u8BC1\u7528\u6237", "\u91CD\u5B9A\u5411"] : ["ACCEPTED", "UNACCEPTABLE_PROTOCOL_VERSION", "IDENTIFIER_REJECTED", "SERVER_UNAVAILABLE", "BAD_USERNAME_OR_PASSWORD", "NOT_AUTHORIZED", "REDIRECT"];
+            c = navigator.language == "zh-CN" ? ["\u63A5\u53D7", "\u4E0D\u53EF\u7528\u7684\u534F\u8BAE\u7248\u672C", "\u6807\u8BC6\u7B26\u88AB\u62D2\u7EDD", "\u670D\u52A1\u5668\u4E0D\u53EF\u7528", "TOKEN\u5931\u6548", "\u6CA1\u6709\u9A8C\u8BC1\u7528\u6237", "\u91CD\u5B9A\u5411"] : ["ACCEPTED", "UNACCEPTABLE_PROTOCOL_VERSION", "IDENTIFIER_REJECTED", "SERVER_UNAVAILABLE", "TOKEN_INCORRECT", "NOT_AUTHORIZED", "REDIRECT"];
         d = a;
         this.ACCPTED = 0;
         this.UNACCEPTABLE_PROTOCOL_VERSION = 1;
         this.IDENTIFIER_REJECTED = 2;
         this.SERVER_UNAVAILABLE = 3;
-        this.BAD_USEERNAME_OR_PASSWORD = 4;
+        this.TOKEN_INCORRECT = 4;
         this.NOT_AUTHORIZED = 5;
         this.REDIRECT = 6;
         this.getValue = function () {
