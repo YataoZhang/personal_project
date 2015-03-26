@@ -2801,13 +2801,7 @@
             q(["string", "object"]);
             var modules = new Modules.BlackListStatusInput();
             modules.setUserId(userId);
-            a.queryMsg(24, m.util.arrayFrom(modules.toArrayBuffer()), userId, {
-                onSuccess: function (status) {
-                    callback.onSuccess(RongIMClient.BlacklistStatus.setValue(status))
-                }, onError: function () {
-                    callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
-                }
-            })
+            a.queryMsg(24, m.util.arrayFrom(modules.toArrayBuffer()), userId,callback)
         };
         this.removeFromBlacklist = function (userId, callback) {
             q(["string", "object"]);
