@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2fcb2a3-7cfd-415b-8a38-f8e4f3a00ba8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/online/MD5.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online/new_SDK.js" afterPath="$PROJECT_DIR$/online/new_SDK.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online_protobuf/protobuf.min.js" afterPath="$PROJECT_DIR$/online_protobuf/protobuf.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_SDK.html" afterPath="$PROJECT_DIR$/test_SDK.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -32,10 +30,10 @@
       <file leaf-file-name="test_SDK.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test_SDK.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.08" vertical-offset="0" max-vertical-offset="1808">
-              <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+            <state vertical-scroll-proportion="-13.44" vertical-offset="0" max-vertical-offset="1808">
+              <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
               <folding>
-                <marker date="1427366723000" expanded="true" signature="726:864" placeholder="//..." />
+                <marker date="1427368415000" expanded="true" signature="724:862" placeholder="//..." />
               </folding>
             </state>
           </provider>
@@ -54,8 +52,8 @@
       <file leaf-file-name="new_SDK.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/online/new_SDK.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.5465466" vertical-offset="44630" max-vertical-offset="59520">
-              <caret line="2725" column="10" selection-start-line="2725" selection-start-column="10" selection-end-line="2725" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.4328125" vertical-offset="24699" max-vertical-offset="59312">
+              <caret line="1561" column="23" selection-start-line="1561" selection-start-column="23" selection-end-line="1561" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -389,7 +387,15 @@
       <created>1427277890143</created>
       <updated>1427277890143</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="添加syncGroup和黑名单操作">
+      <created>1427367719898</created>
+      <updated>1427367719898</updated>
+    </task>
+    <task id="LOCAL-00006" summary="添加syncGroup和黑名单操作">
+      <created>1427367954460</created>
+      <updated>1427367954460</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -416,6 +422,7 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -430,7 +437,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -454,7 +460,8 @@
     <MESSAGE value="ceshi" />
     <MESSAGE value="test" />
     <MESSAGE value="backup" />
-    <option name="LAST_COMMIT_MESSAGE" value="backup" />
+    <MESSAGE value="添加syncGroup和黑名单操作" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加syncGroup和黑名单操作" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -490,7 +497,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="1840">
           <caret line="42" column="114" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="114" />
           <folding>
-            <marker date="1427366723000" expanded="true" signature="726:864" placeholder="//..." />
+            <marker date="1427368415000" expanded="true" signature="724:862" placeholder="//..." />
           </folding>
         </state>
       </provider>
@@ -553,7 +560,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="1840">
           <caret line="42" column="114" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="114" />
           <folding>
-            <marker date="1427366723000" expanded="true" signature="726:864" placeholder="//..." />
+            <marker date="1427368415000" expanded="true" signature="724:862" placeholder="//..." />
           </folding>
         </state>
       </provider>
@@ -616,7 +623,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="1840">
           <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="14" selection-end-column="37" />
           <folding>
-            <marker date="1427366723000" expanded="true" signature="726:864" placeholder="//..." />
+            <marker date="1427368415000" expanded="true" signature="724:862" placeholder="//..." />
           </folding>
         </state>
       </provider>
@@ -686,7 +693,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1160" max-vertical-offset="1824">
           <caret line="83" column="12" selection-start-line="83" selection-start-column="12" selection-end-line="83" selection-end-column="12" />
           <folding>
-            <marker date="1427366723000" expanded="true" signature="726:864" placeholder="//..." />
+            <marker date="1427368415000" expanded="true" signature="724:862" placeholder="//..." />
           </folding>
         </state>
       </provider>
@@ -847,18 +854,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_SDK.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.08" vertical-offset="0" max-vertical-offset="1808">
-          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        <state vertical-scroll-proportion="-13.44" vertical-offset="0" max-vertical-offset="1808">
+          <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
           <folding>
-            <marker date="1427366723000" expanded="true" signature="726:864" placeholder="//..." />
+            <marker date="1427368415000" expanded="true" signature="724:862" placeholder="//..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/online/new_SDK.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5465466" vertical-offset="44630" max-vertical-offset="59520">
-          <caret line="2725" column="10" selection-start-line="2725" selection-start-column="10" selection-end-line="2725" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.4328125" vertical-offset="24699" max-vertical-offset="59312">
+          <caret line="1561" column="23" selection-start-line="1561" selection-start-column="23" selection-end-line="1561" selection-end-column="23" />
           <folding />
         </state>
       </provider>

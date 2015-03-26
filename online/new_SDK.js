@@ -1307,6 +1307,7 @@
                 return this;
             }
             this._get(url);
+            this._posting = false;
             return this;
         };
         XHR.prototype._checkSend = function () {
@@ -1340,8 +1341,6 @@
                 this._sendXhr.onerror = function () {
                     this.onerror = empty;
                     self._posting = false;
-                    io.util.cookieHelper.deleteCookie(Client.Endpoint.userId + "sId");
-                    io.getInstance().reconnect();
                 };
             } else {
                 this._sendXhr.onreadystatechange = function () {
@@ -1351,11 +1350,6 @@
                         if (/^(202|200)$/.test(this.status)) {
                             self._onData(this.responseText);
                             self._checkSend();
-                        } else if (this.status == 400) {
-                            io.util.cookieHelper.deleteCookie(Client.Endpoint.userId + "sId");
-                            io.getInstance().reconnect();
-                        } else {
-                            self._onDisconnect();
                         }
                     }
                 };
@@ -1367,7 +1361,7 @@
             this._onDisconnect();
             return this;
         };
-        XHR.prototype._onDisconnect = function () {
+        XHR.prototype._onDisconnect = function (isrecon) {
             if (this._xhr) {
                 this._xhr.onreadystatechange = this._xhr.onload = empty;
                 this._xhr.abort();
@@ -1379,7 +1373,9 @@
                 this._sendXhr = null;
             }
             this._sendBuffer = [];
-            io.Transport.prototype._onDisconnect.call(this);
+            if(isrecon===undefined){
+                io.Transport.prototype._onDisconnect.call(this);
+            }
         };
         XHR.prototype._request = function (url, method, multipart) {
             var req = request();
@@ -1430,7 +1426,10 @@
             }
             if (a == "lost params") {
                 io.util.cookieHelper.deleteCookie(Client.Endpoint.userId + "sId");
-                io.getInstance().reconnect();
+                this._onDisconnect(true);
+                io.getInstance().connecting=false;
+                io.getInstance().connected=false;
+                io.getInstance().connect(null,null);
                 return;
             }
             this._onData(a, b);
@@ -1456,21 +1455,16 @@
                 this._xhr.onreadystatechange = function () {
                     if (this.readyState == 4) {
                         this.onreadystatechange = empty;
-                        if (/^(202|200)$/.test(this.status)) {
+                        if (/^(202|200|400)$/.test(this.status)) {
                             var txt = this.responseText.match(/"sessionid":"\S+?(?=")/);
                             self.onopen(this.responseText, txt ? txt[0].slice(13) : void 0);
                             arg || self._onConnect();
-                        } else if (this.status == 400) {
-                            io.util.cookieHelper.deleteCookie(Client.Endpoint.userId + "sId");
-                            io.getInstance().reconnect();
-                        } else {
+                        }  else {
                             self._onDisconnect();
                         }
                     }
                 };
             }
-
-
             this._xhr.send(arg);
         };
         XHRPolling.check = function () {
@@ -2644,7 +2638,6 @@
         };
         this.sendStatus = function (_conversationType, _targetId, _content, _callback) {
             q(["number", "string", "object", "object"]);
-
             if (_content instanceof RongIMClient.StatusMessage)
                 this.sendMessage(_conversationType, _targetId, new RongIMClient.MessageContent(_content), null, _callback);
             else
