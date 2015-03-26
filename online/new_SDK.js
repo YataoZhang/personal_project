@@ -2761,16 +2761,12 @@
             } else {
                 var scr = document.createElement("script");
                 scr.src = "http://rongcloud-web-sdk.qiniudn.com/MD5.min.js";
-                if (scr.readyState) {
+                if (scr.readyState!==undefined) {
                     scr.onreadystatechange = function () {
-                        if (scr.readyState == "loaded") {
-                            nothing();
-                        }
+                        scr.readyState == "loaded"&&nothing();
                     }
                 } else {
-                    scr.onload = function () {
-                        nothing();
-                    };
+                    scr.onload = nothing();
                 }
                 scr.onerror = function () {
                     _callback.onError(RongIMClient.callback.ErrorCode.setValue(1))
@@ -3553,7 +3549,7 @@
         'DO_NOT_DISTURB': 0,
         'NOTIFY': 1,
         setValue: function (x) {
-            return x * 1 || 0;
+            return x|0;
         }
     };
     RongIMClient.ConversationType = {
@@ -3564,7 +3560,7 @@
         'PRIVATE': 4,
         'SYSTEM': 5,
         setValue: function (x) {
-            return x * 1 || 0;
+            return x|0;
         }
     };
     RongIMClient.SentStatus = {
@@ -3575,14 +3571,14 @@
         'SENDING': 4,
         'SENT': 5,
         setValue: function (x) {
-            return x * 1 || 0;
+            return x|0;
         }
     };
     RongIMClient.DiscussionInviteStatus = {
         'CLOSED': 0,
         'OPENED': 1,
         setValue: function (x) {
-            return x * 1 || 0;
+            return x|0;
         }
     };
     RongIMClient.MediaType = {
@@ -3591,14 +3587,14 @@
         'IMAGE': 2,
         'VIDEO': 3,
         setValue: function (x) {
-            return x * 1 || 0;
+            return x|0;
         }
     };
     RongIMClient.MessageDirection = {
         'RECEIVE': 0,
         'SEND': 1,
         setValue: function (x) {
-            return x * 1 || 0;
+            return x|0;
         }
     };
     RongIMClient.MessageType = {
@@ -3620,7 +3616,7 @@
         EXIT_BLACK_LIST: 0,
         NOT_EXIT_BLACK_LIST: 1,
         setValue: function (x) {
-            return x * 1 || 0;
+            return x|0;
         }
     };
     RongIMClient.callback = function (d, a) {
