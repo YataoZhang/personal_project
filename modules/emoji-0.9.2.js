@@ -26,17 +26,16 @@
             u2615: {en: "coffee", zh: "\u5496\u5561", tag: "\u2615", "bp": "-1107px -27px"}, u2744: {en: "snowflake", zh: "\u96ea\u82b1", tag: "\u2744", "bp": "-1404px -27px"}};
 
         function initCss() {
-            var head = document.getElementsByTagName("head")[0] || document.createElement("head"), _style, tag = "innerHTML";
-            if (document.createStyleSheet) {
-                _style = document.createStyleSheet();
-                tag = "cssText";
+            var head = document.getElementsByTagName("head")[0] || document.createElement("head");
+            if (document.all) {
+                document.createStyleSheet(".RC_Expression","{width:22px;height:22px;background-image:url(http://res.websdk.rongcloud.cn/css-sprite_bg.png);display:inline-block}");
             } else {
-                _style = document.createElement("style");
+                var _style = document.createElement("style");
+                _style.type = "text/css";
+                _style.innerHTML = ".RC_Expression {width:22px;height:22px;background-image:url(http://res.websdk.rongcloud.cn/css-sprite_bg.png);display:inline-block}";
+                head.appendChild(_style);
             }
-            _style[tag] = '.RC_Expression {width:22px;height:22px;background-image:url(http://res.websdk.rongcloud.cn/css-sprite_bg.png);display:inline-block}';
-            head.appendChild(_style);
         }
-
         function initBtag(position) {
             var e = document.createElement("b");
             e.className = "RC_Expression";

@@ -1962,7 +1962,6 @@
         this.connect = function (_token, _callback) {
             this.appToken = _token;
             if (Client.Endpoint.port && Client.Endpoint.host) {
-                clearInterval(global.getEndpoint);
                 if (io._TransportType == "websocket") {
                     if (!global.WebSocket) {
                         _callback.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(1));
@@ -2184,7 +2183,7 @@
         xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
-            _onerror(RongIMClient.ConnectCallback.ErrorCode.setValue(4));
+            _onerror(RongIMClient.ConnectCallback.ErrorCode.setValue(5));
         };
         if ("onload" in xss) {
             xss.onload = _onsuccess;
@@ -2596,11 +2595,7 @@
                     defMessageCount == 0 && (defMessageCount = -1);
                     modules.setCount(defMessageCount);
                     modules.setSyncTime(0);
-                    global.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, {
-                        currentValue: function () {
-                            return 1
-                        }
-                    }, {
+                    global.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, {currentValue: function () {return 1}}, {
                         onSuccess: function (status, data) {
                             if (status == 0) {
                                 var collection = Modules.DownStreamMessages.decode(data),

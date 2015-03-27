@@ -6,6 +6,7 @@
     <title></title>
     <!--<script src="online/rong.min.js"></script>-->
     <script src="online/new_SDK.js"></script>
+    <script src="modules/emoji-0.9.2.js"></script>
     <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient.emoji-0.9.2.min.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.net/RongIMClient.min.js"></script>-->
     <!--<script src="http://res.websdk.rong.io/RongIMClient.min.js?v=2"></script>-->
@@ -19,7 +20,7 @@
             }
         };
 
-       window.WEB_XHR_POLLING=true;
+      // window.WEB_XHR_POLLING=true;
         //"e74d17d7-b087-46cf-b46e-2b9cb120b0cb" release
         //37abe2b1-1d46-490e-8a63-be736f6f2ba8 讨论组id
 
@@ -31,7 +32,7 @@
 
             RongIMClient.setConnectionStatusListener({//焦点判断
                 onChanged: function (status) {
-                    window.console.log(status.getValue(), status.getMessage(), new Date())
+                    alert(status.getValue(), status.getMessage(), new Date())
                 }
             });
             //release
@@ -45,10 +46,10 @@
             var _erwu='ceCwNfOHo1QY0YRBnAiUXG2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlMTBnf8OYqaUNPxcR+fFusEZtMOymgc0EA=='; //25
             RongIMClient.connect(onetowthree, {
                 onSuccess: function (x) {
-                    window.console.log("connected，userid＝" + x)
+                    alert("connected，userid＝" + x)
                 },
                 onError: function (x) {
-                    window.console.log(x.getMessage())
+                    alert(x.getMessage())
                 }
             });
 

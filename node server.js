@@ -9,7 +9,7 @@ http.createServer(function (req, res) {
     var url = urls.pathname;
     urls.query ? console.log(urls.query) : void 0;
     if (url == "/") {
-        readFile("xhr-polling/xhr.html", res);
+        readFile("test_SDK.html", res);
     } else if (url == "/qwer") {
         res.writeHead(200,
             {"Access-Control-Allow-Origin": "*",
