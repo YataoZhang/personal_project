@@ -24,7 +24,6 @@
             u26BD: {en: "soccer", zh: "\u8db3\u7403", tag: "\u26bd", "bp": "-1215px -27px"}, u26C4: {en: "snowman", zh: "\u96ea\u4eba", tag: "\u26c4", "bp": "-1242px -27px"}, u26C5: {en: "partly_sunny", zh: "\u591a\u4e91", tag: "\u26c5", "bp": "-1269px -27px"}, u261D: {en: "point_up", zh: "\u7b2c\u4e00", tag: "\u261d", "bp": "-1134px -27px"}, u263A: {en: "relaxed", zh: "\u8f7b\u677e", tag: "\u263a", "bp": "-1161px -27px"}, u270A: {en: "fist", zh: "\u62f3\u5934", tag: "\u270a",
                 "bp": "-1296px -27px"}, u270B: {en: "hand", zh: "\u624b", tag: "\u270b", "bp": "-1323px -27px"}, u270C: {en: "v", zh: "v ", tag: "\u270c", "bp": "-1350px -27px"}, u270F: {en: "pencil2", zh: "\u7b14", tag: "\u270f", "bp": "-1377px -27px"}, u2600: {en: "sunny", zh: "\u6674\u6717", tag: "\u2600", "bp": "-1026px -27px"}, u2601: {en: "cloud", zh: "\u4e91", tag: "\u2601", "bp": "-1053px -27px"}, u2614: {en: "umbrella", zh: "\u4f1e", tag: "\u2614", "bp": "-1080px -27px"},
             u2615: {en: "coffee", zh: "\u5496\u5561", tag: "\u2615", "bp": "-1107px -27px"}, u2744: {en: "snowflake", zh: "\u96ea\u82b1", tag: "\u2744", "bp": "-1404px -27px"}};
-
         function initCss() {
             var head = document.getElementsByTagName("head")[0] || document.createElement("head");
             if (document.all) {
@@ -59,7 +58,7 @@
                     }
                     return h
                 }
-                throw Error("Wrong paramter");
+                throw Error("Wrong parameter");
             };
             this.getEmojiByContent = function (a) {
                 if (a in c) {

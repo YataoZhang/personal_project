@@ -1,4 +1,4 @@
-(function (global, undefined) {
+;(function (global, undefined) {
     if (global.RongIMClient) {
         return;
     }
@@ -10,7 +10,7 @@
         io._TransportType = "websocket";
         if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
             script.src = "http://res.websdk.rongcloud.cn/protobuf-0.1.min.js";
-        } else if (!global.WEB_XHR_POLLING && (function () {
+        } else if (!/opera/i.test(navigator.userAgent)&&!global.WEB_XHR_POLLING && (function () {
             if ('navigator' in global && 'plugins' in navigator && navigator.plugins['Shockwave Flash']) {
                 return !!navigator.plugins['Shockwave Flash'].description;
             }
@@ -24,6 +24,9 @@
         })()) {
             script.src = "http://res.websdk.rongcloud.cn/swfobject-0.1.min.js?v=3";
         } else {
+            if(navigator.cookieEnabled===false){
+                throw new Error("Cookie is not available, please open the cookie");
+            }
             io._TransportType = "xhr-polling";
             script.src = "http://res.websdk.rongcloud.cn/xhrpolling.min.js";
         }
@@ -1090,7 +1093,6 @@
         };
         io.util.ios = /iphone|ipad/i.test(navigator.userAgent);
         io.util.android = /android/i.test(navigator.userAgent);
-        io.util.opera = /opera/i.test(navigator.userAgent);
         io.util.load(function () {
             _pageLoaded = true;
             if (!global.JSON) {
@@ -1282,7 +1284,7 @@
                 if (!('XMLHttpRequest' in global))
                     return false;
                 var a = new XMLHttpRequest();
-                return a.withCredentials != undefined;
+                return a.withCredentials !== undefined;
             })(),
             request = function () {
                 if ('XDomainRequest' in global)
@@ -3396,9 +3398,9 @@
             extra: ""
         });
     };
-    RongIMClient.ContactNotificationMessage.CONTACT_OPERATION_ACCEPT_RESPONSE = 'CONTACT_OPERATION_ACCEPT_RESPONSE';
-    RongIMClient.ContactNotificationMessage.CONTACT_OPERATION_REJECT_RESPONSE = 'CONTACT_OPERATION_REJECT_RESPONSE';
-    RongIMClient.ContactNotificationMessage.CONTACT_OPERATION_ACCEPT_RESPONSE = 'CONTACT_OPERATION_REQUEST';
+    RongIMClient.ContactNotificationMessage.CONTACT_OPERATION_ACCEPT_RESPONSE = 'ContactOperationAcceptResponse';
+    RongIMClient.ContactNotificationMessage.CONTACT_OPERATION_REJECT_RESPONSE = 'ContactOperationRejectResponse';
+    RongIMClient.ContactNotificationMessage.CONTACT_OPERATION_ACCEPT_RESPONSE = 'ContactOperationRequest';
     RongIMClient.ContactNotificationMessage.prototype = new RongIMClient.NotificationMessage();
     RongIMClient.ContactNotificationMessage.prototype.constructor = RongIMClient.ContactNotificationMessage;
     RongIMClient.ProfileNotificationMessage = function (c) {
@@ -3432,10 +3434,10 @@
         this.setMessageType(RongIMClient.MessageType.CommandNotificationMessage);
         this.setObjectName("RC:CmdNtf");
         this.getData = function () {
-            return this.getDetail();
+            return this.getDetail().data;
         };
         this.setData = function (o) {
-            this.setContent(o);
+            this.setContent(o,"data");
         };
         this.getName = function () {
             return this.getDetail().name;

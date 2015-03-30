@@ -32,7 +32,7 @@
 
             RongIMClient.setConnectionStatusListener({//焦点判断
                 onChanged: function (status) {
-                    alert(status.getValue(), status.getMessage(), new Date())
+                    console.log(status.getValue(), status.getMessage(), new Date())
                 }
             });
             //release
@@ -44,12 +44,12 @@
             //
             var _erqi='iLgZ5FcvdMIKasmZ6p5oDW2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlJayyApFvl2MeIpTh0vT3g0ZtMOymgc0EA=='; //27
             var _erwu='ceCwNfOHo1QY0YRBnAiUXG2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlMTBnf8OYqaUNPxcR+fFusEZtMOymgc0EA=='; //25
-            RongIMClient.connect(onetowthree, {
+            RongIMClient.connect(lipo, {
                 onSuccess: function (x) {
-                    alert("connected，userid＝" + x)
+                    console.log("connected，userid＝" + x)
                 },
                 onError: function (x) {
-                    alert(x.getMessage())
+                    console.log(x.getMessage())
                 }
             });
 
