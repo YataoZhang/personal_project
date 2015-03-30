@@ -471,6 +471,24 @@
             this.toArrayBuffer = function () {
                 return a
             }
+        },
+        RelationsInput:function(){
+            var a={};
+            this.setNothing=function(b){
+                a.nothing = b;
+            };
+            this.toArrayBuffer = function() {
+                return a;
+            }
+        },
+        RelationsOutput:function(){
+            var a={};
+            this.setUserIds = function(b) {
+                a.userIds = b;
+            };
+            this.toArrayBuffer = function() {
+                return a;
+            }
         }
     };
 

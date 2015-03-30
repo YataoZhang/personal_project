@@ -9,8 +9,8 @@
         var script = document.createElement("script");
         io._TransportType = "websocket";
         if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
-            script.src = "http://res.websdk.rongcloud.cn/protobuf-0.1.min.js";
-        } else if (!/opera/i.test(navigator.userAgent)&&!global.WEB_XHR_POLLING && (function () {
+            script.src = "http://res.websdk.rongcloud.net/protobuf.min.js";
+        } else if (!/opera/i.test(navigator.userAgent) && !global.WEB_XHR_POLLING && (function () {
             if ('navigator' in global && 'plugins' in navigator && navigator.plugins['Shockwave Flash']) {
                 return !!navigator.plugins['Shockwave Flash'].description;
             }
@@ -22,13 +22,13 @@
             }
             return false;
         })()) {
-            script.src = "http://res.websdk.rongcloud.cn/swfobject-0.1.min.js?v=3";
+            script.src = "http://res.websdk.rongcloud.net/swfobject.min.js";
         } else {
-            if(navigator.cookieEnabled===false){
+            if (navigator.cookieEnabled === false) {
                 throw new Error("Cookie is not available, please open the cookie");
             }
             io._TransportType = "xhr-polling";
-            script.src = "http://res.websdk.rongcloud.cn/xhrpolling.min.js";
+            script.src = "http://res.websdk.rongcloud.net/xhrpolling.js";
         }
         document.getElementsByTagName("head")[0].appendChild(script);
         messageIdHandler = new function () {
@@ -216,7 +216,7 @@
         };
         this.writeChar = function (v) {
             if (+v != v) {
-                throw new TypeError("writeChar:arguments type is error")
+                throw new Error("writeChar:arguments type is error")
             }
             this.write((v >> 8) & 255);
             this.write(v & 255);
@@ -403,7 +403,7 @@
             case 3:
                 Message.call(this, new type(1));
                 if (!arguments[0] || arguments.length > 64) {
-                    throw new TypeError("ConnectMessage:Client Id cannot be null and must be at most 64 characters long: " + arguments[0])
+                    throw new Error("ConnectMessage:Client Id cannot be null and must be at most 64 characters long: " + arguments[0])
                 }
                 clientId = arguments[0];
                 cleanSession = arguments[1];
@@ -494,7 +494,7 @@
                     if (arguments[0] instanceof ConnectionState) {
                         Message.call(this, new type(2));
                         if (arguments[0] == null) {
-                            throw new TypeError("ConnAckMessage:The status of ConnAskMessage can't be null")
+                            throw new Error("ConnAckMessage:The status of ConnAskMessage can't be null")
                         }
                         status = arguments[0]
                     }
@@ -514,7 +514,7 @@
             if (result >= 0 && result <= 9) {
                 this.setStatus(result);
             } else {
-                throw new RangeError("Unsupported CONNACK code:" + result)
+                throw new Error("Unsupported CONNACK code:" + result)
             }
             if (msglength > MESSAGE_LENGTH) {
                 this.setUserId(stream.readUTF())
@@ -536,7 +536,7 @@
                     stream.write(3);
                     break;
                 default:
-                    throw new RangeError("Unsupported CONNACK code:" + status.valueOf());
+                    throw new Error("Unsupported CONNACK code:" + status.valueOf());
             }
             if (userId) {
                 stream.writeUTF(userId)
@@ -586,7 +586,7 @@
             if (result >= 0 && result <= 5) {
                 this.setStatus(result);
             } else {
-                throw new RangeError("Unsupported CONNACK code:" + result)
+                throw new Error("Unsupported CONNACK code:" + result)
             }
         };
         this.writeMessage = function (Out) {
@@ -595,7 +595,7 @@
             if (+status.getValue() >= 1 && +status.getValue() <= 3) {
                 out.write((+status.getValue()) - 1);
             } else {
-                throw new RangeError("Unsupported CONNACK code:" + status)
+                throw new Error("Unsupported CONNACK code:" + status)
             }
         };
         this.setStatus = function (x) {
@@ -948,7 +948,7 @@
                     msg = new DisconnectMessage(header);
                     break;
                 default:
-                    throw new RangeError("No support for deserializing " + header.getType().currentValue() + " messages")
+                    throw new Error("No support for deserializing " + header.getType().currentValue() + " messages")
             }
             if (isPolling) {
                 msg.init(In);
@@ -1150,13 +1150,13 @@
             io.util.merge(this.options, options)
         };
         Transport.prototype.send = function () {
-            throw new ReferenceError("No rewrite send() method")
+            throw new Error("No rewrite send() method")
         };
         Transport.prototype.connect = function () {
-            throw new ReferenceError("No rewrite connect() method")
+            throw new Error("No rewrite connect() method")
         };
         Transport.prototype.disconnect = function () {
-            throw new ReferenceError("No rewrite disconnect() method")
+            throw new Error("No rewrite disconnect() method")
         };
         Transport.prototype._encode = function (msg) {
             var part = [];
@@ -1241,7 +1241,7 @@
                     bridge._client.reconnectObj.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(2));
                     delete bridge._client.reconnectObj.onError;
                 } else {
-                    throw new ReferenceError("network is unavailable or unknown error");
+                    throw new Error("network is unavailable or unknown error");
                 }
             };
             return this
@@ -1375,7 +1375,7 @@
                 this._sendXhr = null;
             }
             this._sendBuffer = [];
-            if(isrecon===undefined){
+            if (isrecon === undefined) {
                 io.Transport.prototype._onDisconnect.call(this);
             }
         };
@@ -1429,9 +1429,9 @@
             if (a == "lost params") {
                 io.util.cookieHelper.deleteCookie(Client.Endpoint.userId + "sId");
                 this._onDisconnect(true);
-                io.getInstance().connecting=false;
-                io.getInstance().connected=false;
-                io.getInstance().connect(null,null);
+                io.getInstance().connecting = false;
+                io.getInstance().connected = false;
+                io.getInstance().connect(null, null);
                 return;
             }
             this._onData(a, b);
@@ -1461,7 +1461,7 @@
                             var txt = this.responseText.match(/"sessionid":"\S+?(?=")/);
                             self.onopen(this.responseText, txt ? txt[0].slice(13) : void 0);
                             arg || self._onConnect();
-                        }  else {
+                        } else {
                             self._onDisconnect();
                         }
                     }
@@ -1535,7 +1535,7 @@
             if (this.currentURL) {
                 return this.connect(null, null);
             } else {
-                throw new ReferenceError("reconnect:no have URL");
+                throw new Error("reconnect:no have URL");
             }
         };
         Socket.prototype.fire = function (name, args) {
@@ -1683,7 +1683,7 @@
         };
         this.setReceiveMessageListener = function (_listener) {
             if (!(_listener && "onReceived" in _listener)) {
-                throw new SyntaxError("please use setOnReceiveMessageListener")
+                throw new Error("please use setOnReceiveMessageListener")
             }
             onReceived = _listener.onReceived;
             self.listener.onReceived = function (msg) {
@@ -1812,7 +1812,18 @@
 
         var timeoutMillis = 100000,
             lastReadTimer, task, self = this,
-            _enum, _obj;
+            _enum, _obj, func = function () {
+                this.add = function (x) {
+                    for (var i = 0; i < this.length; i++) {
+                        if (this[i].getTargetId() === x.getTargetId() && i != 0 && this[i].getConversationType() == x.getConversationType()) {
+                            this.unshift(this.splice(i, 1)[0])
+                            return;
+                        }
+                    }
+                    this.push(x);
+                }
+            };
+        func.prototype = new Array;
         this.timeout_ = null;
         this.appId = "";
         this.sdkVer = "1.0.1";
@@ -1822,7 +1833,7 @@
         this.group = null;
         this.handler = null;
         this.userId = "";
-        this.ConversationList = [];
+        this.ConversationList = new func();
         this.oldestConversation = [];
         this.ReceiveMessageListener = null;
         this.reconnectObj = {};
@@ -1888,7 +1899,7 @@
                         func.onChanged(_enum.setValue(code))
                     })
                 } else {
-                    throw new TypeError("setConnectStatusListener:Parameter format is incorrect")
+                    throw new Error("setConnectStatusListener:Parameter format is incorrect")
                 }
             };
             this.socket.on("message", self.handler.handleMessage);
@@ -1928,6 +1939,7 @@
                     return entity.getResult();
                     break;
                 case "QueryBlackListOutput":
+                case "RelationsOutput":
                     return entity.getUserIds();
                 default:
                     return {}
@@ -2128,7 +2140,7 @@
                 modules.setCount(0);
                 str = 'chrmPull';
                 if (self.chatroomId === 0) {
-                    throw new TypeError("syncTime:Received messages of chatroom but was not init");
+                    throw new Error("syncTime:Received messages of chatroom but was not init");
                 }
                 target = self.chatroomId;
             }
@@ -2206,7 +2218,7 @@
 
     function bridge(_appkey, _token, _callback) {
         bridge._client = Client.connect(_appkey, _token, _callback);
-        var _topic = ["invtDiz", "crDiz", "qnUrl", "userInf", "dizInf", "userInf", "joinGrp", "quitDiz", "exitGrp", "evctDiz", ["ppMsgP", "pdMsgP", "pgMsgP", "pcMsgP", "chatMsg"], "pdOpen", "rename", "uGcmpr", "qnTkn", 'destroyChrm', 'createChrm', 'exitChrm', 'queryChrm', 'joinChrm', "pGrps", "addBlack", "rmBlack", "getBlack", "blackStat"];
+        var _topic = ["invtDiz", "crDiz", "qnUrl", "userInf", "dizInf", "userInf", "joinGrp", "quitDiz", "exitGrp", "evctDiz", ["ppMsgP", "pdMsgP", "pgMsgP", "pcMsgP", "chatMsg"], "pdOpen", "rename", "uGcmpr", "qnTkn", 'destroyChrm', 'createChrm', 'exitChrm', 'queryChrm', 'joinChrm', "pGrps", "addBlack", "rmBlack", "getBlack", "blackStat", "relations"];
         this.getIO = function () {
             return io
         };
@@ -2221,7 +2233,7 @@
             if (bridge._client) {
                 bridge._client.setReceiveMessageListener(_listener)
             } else {
-                throw new ReferenceError("NullPointException")
+                throw new Error("NullPointException")
             }
         };
         this.removeConversationListCache = function () {
@@ -2286,11 +2298,11 @@
                 if (c.length == c.arguments.length && (a || d)) {
                     for (var g = 0, e = c.arguments.length; g < e; g++) {
                         if (!new RegExp(getType(c.arguments[g])).test(f[g])) {
-                            throw new TypeError("The index of " + g + " parameter was wrong type " + getType(c.arguments[g]) + " [" + f[g] + "]")
+                            throw new Error("The index of " + g + " parameter was wrong type " + getType(c.arguments[g]) + " [" + f[g] + "]")
                         }
                     }
                 } else {
-                    throw new SyntaxError("The parameter is incorrect or was not yet instantiated RongIMClient")
+                    throw new Error("The parameter is incorrect or was not yet instantiated RongIMClient")
                 }
             },
             o = [],
@@ -2361,6 +2373,31 @@
             if (a) {
                 a.reConnect(callback);
             }
+        };
+        this.checkoutOfflineConversationList = function () {
+            q(["object"])
+            var modules = new Modules.RelationsInput();
+            modules.setNothing(1);
+            a.queryMsg(25, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
+                onSuccess: function (list) {
+                    m.util.forEach(list.slice(0, 30), function (x) {
+                        self.getUserInfo(x, {
+                            onSuccess: function (info) {
+                                var con = new RongIMClient.Conversation;
+                                con.setConversationTitle(info.getUserName());
+                                con.setSenderUserId(info.getUserId());
+                                con.setConversationType(RongIMClient.ConversationType.PRIVATE);
+                                con.setTargetId(global.RongBrIdge._client.userId);
+                                con.setTop();
+                            }, onError: function () {
+                            }
+                        })
+                    });
+                }, onError: function () {
+                    callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                }
+            }, "RelationsOutput");
+            this.checkoutOfflineConversationList = undefined;
         };
         this.getConversation = function (c, e) {
             q(["number", "string"]);
@@ -2464,7 +2501,7 @@
                 d = -1,
                 j;
             if (!f) {
-                throw new ReferenceError("NullPointException")
+                throw new Error("NullPointException")
             }
             i.setConversationType(h);
             i.setMessageDirection(RongIMClient.MessageDirection.SEND);
@@ -2597,7 +2634,9 @@
                     defMessageCount == 0 && (defMessageCount = -1);
                     modules.setCount(defMessageCount);
                     modules.setSyncTime(0);
-                    global.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, {currentValue: function () {return 1}}, {
+                    global.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, {currentValue: function () {
+                        return 1
+                    }}, {
                         onSuccess: function (status, data) {
                             if (status == 0) {
                                 var collection = Modules.DownStreamMessages.decode(data),
@@ -2631,14 +2670,14 @@
             if (_content instanceof RongIMClient.NotificationMessage)
                 this.sendMessage(_conversationType, _targetId, new RongIMClient.MessageContent(_content), null, _callback);
             else
-                throw new ReferenceError("Wrong Parameters");
+                throw new Error("Wrong Parameters");
         };
         this.sendStatus = function (_conversationType, _targetId, _content, _callback) {
             q(["number", "string", "object", "object"]);
             if (_content instanceof RongIMClient.StatusMessage)
                 this.sendMessage(_conversationType, _targetId, new RongIMClient.MessageContent(_content), null, _callback);
             else
-                throw new ReferenceError("Wrong Parameters");
+                throw new Error("Wrong Parameters");
         };
         //讨论组 群 聊天室
         this.setDiscussionInviteStatus = function (_targetId, _status, _callback) {
@@ -2758,9 +2797,9 @@
             } else {
                 var scr = document.createElement("script");
                 scr.src = "http://rongcloud-web-sdk.qiniudn.com/MD5.min.js";
-                if (scr.readyState!==undefined) {
+                if (scr.readyState !== undefined) {
                     scr.onreadystatechange = function () {
-                        scr.readyState == "loaded"&&nothing();
+                        scr.readyState == "loaded" && nothing();
                     }
                 } else {
                     scr.onload = nothing();
@@ -2787,7 +2826,7 @@
             q(["string", "object"]);
             var modules = new Modules.BlackListStatusInput();
             modules.setUserId(userId);
-            a.queryMsg(24, m.util.arrayFrom(modules.toArrayBuffer()), userId,callback)
+            a.queryMsg(24, m.util.arrayFrom(modules.toArrayBuffer()), userId, callback)
         };
         this.removeFromBlacklist = function (userId, callback) {
             q(["string", "object"]);
@@ -2799,7 +2838,7 @@
     RongIMClient.version = "0.9.7";
     RongIMClient.connect = function (d, a) {
         if (!RongIMClient.getInstance) {
-            throw new ReferenceError("please init")
+            throw new Error("please init")
         }
         if (global.Modules) {
             RongIMClient.getInstance().connect(d, a)
@@ -2828,7 +2867,7 @@
     };
     RongIMClient.registerMessageType = function (regMsg) {
         if (!RongIMClient.getInstance) {
-            throw new ReferenceError("unInitException")
+            throw new Error("unInitException")
         }
         if ("messageType" in regMsg && "objectName" in regMsg && "fieldName" in regMsg) {
             RongIMClient.registerMessageType.registerMessageTypePool.push(regMsg.messageType);
@@ -2850,12 +2889,12 @@
             temp.prototype = new RongIMClient.RongIMMessage();
             temp.prototype.constructor = temp;
         } else
-            throw new TypeError("registerMessageType:arguments type is error");
+            throw new Error("registerMessageType:arguments type is error");
     };
     RongIMClient.registerMessageType.registerMessageTypePool = [];
     RongIMClient.setConnectionStatusListener = function (a) {
         if (!RongIMClient.getInstance) {
-            throw new ReferenceError("unInitException")
+            throw new Error("unInitException")
         }
         RongIMClient.getInstance().setConnectionStatusListener(a)
     };
@@ -3100,18 +3139,9 @@
             if (!s.getTargetId()) {
                 return
             }
-            var e = RongIMClient.getInstance().getConversationList(),
-                c = -1,
-                d = RongIMClient.getInstance().getIO().util.filter(e, function (f, g) {
-                    if (f.getTargetId() == s.getTargetId()) {
-                        c = g;
-                        return true
-                    }
-                    return false
-                })[0] || this;
-            if (c != 0) {
-                c > 0 ? d = e.splice(c, 1)[0] : undefined;
-                e.unshift(d)
+            var e = RongIMClient.getInstance().getConversationList();
+            if (e[0]===undefined||e[0].getTargetId() != s.getTargetId()) {
+                e.add(s);
             }
             RongIMClient.getInstance().removeConversationListCache()
         };
@@ -3437,7 +3467,7 @@
             return this.getDetail().data;
         };
         this.setData = function (o) {
-            this.setContent(o,"data");
+            this.setContent(o, "data");
         };
         this.getName = function () {
             return this.getDetail().name;
@@ -3478,7 +3508,7 @@
         if (typeof a == "function") {
             this.process = a;
         } else {
-            throw new TypeError("MessageHandler:arguments type is error")
+            throw new Error("MessageHandler:arguments type is error")
         }
     };
     RongIMClient.Options = function () {
@@ -3546,7 +3576,7 @@
         'DO_NOT_DISTURB': 0,
         'NOTIFY': 1,
         setValue: function (x) {
-            return x|0;
+            return x | 0;
         }
     };
     RongIMClient.ConversationType = {
@@ -3557,7 +3587,7 @@
         'PRIVATE': 4,
         'SYSTEM': 5,
         setValue: function (x) {
-            return x|0;
+            return x | 0;
         }
     };
     RongIMClient.SentStatus = {
@@ -3568,14 +3598,14 @@
         'SENDING': 4,
         'SENT': 5,
         setValue: function (x) {
-            return x|0;
+            return x | 0;
         }
     };
     RongIMClient.DiscussionInviteStatus = {
         'CLOSED': 0,
         'OPENED': 1,
         setValue: function (x) {
-            return x|0;
+            return x | 0;
         }
     };
     RongIMClient.MediaType = {
@@ -3584,14 +3614,14 @@
         'IMAGE': 2,
         'VIDEO': 3,
         setValue: function (x) {
-            return x|0;
+            return x | 0;
         }
     };
     RongIMClient.MessageDirection = {
         'RECEIVE': 0,
         'SEND': 1,
         setValue: function (x) {
-            return x|0;
+            return x | 0;
         }
     };
     RongIMClient.MessageType = {
@@ -3613,7 +3643,7 @@
         EXIT_BLACK_LIST: 0,
         NOT_EXIT_BLACK_LIST: 1,
         setValue: function (x) {
-            return x|0;
+            return x | 0;
         }
     };
     RongIMClient.callback = function (d, a) {
