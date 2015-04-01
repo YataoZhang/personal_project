@@ -9,7 +9,7 @@
         var script = document.createElement("script");
         io._TransportType = "websocket";
         if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
-            script.src = "http://res.websdk.rongcloud.net/protobuf.min.js";
+            script.src = "http://res.websdk.rongcloud.cn/protobuf-0.1.min.js";
         } else if (!/opera/i.test(navigator.userAgent) && !global.WEB_XHR_POLLING && (function () {
             if ('navigator' in global && 'plugins' in navigator && navigator.plugins['Shockwave Flash']) {
                 return !!navigator.plugins['Shockwave Flash'].description;
@@ -22,13 +22,13 @@
             }
             return false;
         })()) {
-            script.src = "http://res.websdk.rongcloud.net/swfobject.min.js";
+            script.src = "http://res.websdk.rongcloud.cn/swfobject-0.1.min.js";
         } else {
             if (navigator.cookieEnabled === false) {
                 throw new Error("Cookie is not available, please open the cookie");
             }
             io._TransportType = "xhr-polling";
-            script.src = "http://res.websdk.rongcloud.net/xhrpolling.js";
+            script.src = "http://res.websdk.rongcloud.cn/xhrpolling.min.js";
         }
         document.getElementsByTagName("head")[0].appendChild(script);
         messageIdHandler = new function () {
@@ -1827,7 +1827,7 @@
         this.timeout_ = null;
         this.appId = "";
         this.sdkVer = "1.0.1";
-        this.apiVer = "1.0.0";
+        this.apiVer = "1.0.1";
         this.channel = null;
         this.appToken = "";
         this.group = null;
@@ -1933,7 +1933,7 @@
                     disInfo.setId(entity.getChannelId());
                     disInfo.setMemberIdList(entity.getFirstTenUserIds());
                     disInfo.setName(entity.getChannelName());
-                    disInfo.setopen(entity.getOpenStatus());
+                    disInfo.setOpen(entity.getOpenStatus());
                     return disInfo;
                 case "GroupHashOutput":
                     return entity.getResult();

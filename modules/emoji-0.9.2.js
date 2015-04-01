@@ -52,26 +52,26 @@
                         if (d >= b + a)break;
                         if (d >= b) {
                             var e = initBtag(c[f]["bp"]);
-                            h.push({englishName: c[f].en, chineseName: c[f].zh, img: e, tag: c[f].tag})
+                            h.push({englishName: c[f].en, chineseName: c[f].zh, img: e, tag: c[f].tag});
                         }
-                        d++
+                        d++;
                     }
-                    return h
+                    return h;
                 }
                 throw Error("Wrong parameter");
             };
             this.getEmojiByContent = function (a) {
                 if (a in c) {
                     var b = initBtag(c[a]["bp"]);
-                    return{englishName: c[a].en, chineseName: c[a].zh, img: b, tag: c[a].tag}
+                    return{englishName: c[a].en, chineseName: c[a].zh, img: b, tag: c[a].tag};
                 }
             };
             this.calcUTF = function (d) {
                 if (61440 < d.charCodeAt(0)) {
                     var b = c[escape(d).replace("%u", "u1")];
-                    if (b)return b.tag
+                    if (b)return b.tag;
                 }
-                return d
+                return d;
             };
             this.getEmojiObjByEnglishNameOrChineseName = function (a) {
                 for (var b in c) {
@@ -80,7 +80,7 @@
                         return {img: e, englishName: c[b].en, chineseName: c[b].zh, tag: c[b].tag};
                     }
                 }
-                return{}
+                return{};
             };
             var k = /(\ud83d\ude00|\ud83d\ude01|\ud83d\ude02|\ud83d\ude03|\ud83d\ude05|\ud83d\ude06|\ud83d\ude07|\ud83d\ude08|\ud83d\ude09|\ud83d\ude11|\ud83d\ude12|\ud83d\ude13|\ud83d\ude14|\ud83d\ude15|\ud83d\ude16|\ud83d\ude18|\ud83d\ude21|\ud83d\ude22|\ud83d\ude23|\ud83d\ude24|\ud83d\ude28|\ud83d\ude29|\ud83d\ude30|\ud83d\ude31|\ud83d\ude32|\ud83d\ude33|\ud83d\ude34|\ud83d\ude35|\ud83d\ude36|\ud83d\ude37|\ud83c\udfa4|\ud83c\udfb2|\ud83c\udfb5|\ud83c\udfc0|\ud83c\udfc2|\ud83c\udfe1|\ud83c\udc04|\ud83d\udca1|\ud83d\udca2|\ud83d\udca3|\ud83d\udca4|\ud83d\udca9|\ud83d\udcaa|\ud83d\udcb0|\ud83d\udcda|\ud83d\udcde|\ud83d\udce2|\ud83d\udeab|\ud83d\udebf|\ud83c\udf0f|\ud83c\udf3b|\ud83c\udf5a|\ud83c\udf6b|\ud83c\udf7b|\ud83d\udc4a|\ud83d\udc4c|\ud83d\udc4d|\ud83d\udc4e|\ud83d\udc4f|\ud83d\udc6a|\ud83d\udc6b|\ud83d\udc7b|\ud83d\udc7c|\ud83d\udc7d|\ud83d\udc7f|\ud83d\udc8a|\ud83d\udc8b|\ud83d\udc8d|\ud83d\udd2b|\ud83d\ude0a|\ud83d\ude0b|\ud83d\ude0c|\ud83d\ude0d|\ud83d\ude0e|\ud83d\ude0f|\ud83d\ude1a|\ud83d\ude1c|\ud83d\ude1d|\ud83d\ude1e|\ud83d\ude1f|\ud83d\ude2a|\ud83d\ude2b|\ud83d\ude2c|\ud83d\ude2d|\ud83d\ude2f|\ud83d\ude4a|\ud83d\ude4f|\ud83c\udf19|\ud83c\udf32|\ud83c\udf39|\ud83c\udf49|\ud83c\udf56|\ud83c\udf66|\ud83c\udf77|\ud83c\udf81|\ud83c\udf82|\ud83c\udf84|\ud83c\udf89|\ud83c\udf93|\ud83d\udc34|\ud83d\udc36|\ud83d\udc37|\ud83d\udc51|\ud83d\udc84|\ud83d\udc94|\ud83d\udd25|\ud83d\udd56|\ud83d\ude48|\ud83d\ude49|\ud83d\ude80|\u2b50|\u23f0|\u23f3|\u26a1|\u26bd|\u26c4|\u26c5|\u261d|\u263a|\u270a|\u270b|\u270c|\u270f|\u2600|\u2601|\u2614|\u2615|\u2744)/g;
             this.retrievalEmoji = function (a, b) {
@@ -90,7 +90,7 @@
                         for (d in c)if (c[d].tag == a)break a;
                         d = a
                     }
-                    return d != a ? b(e.getEmojiByContent(d)) : a
+                    return d != a ? b(e.getEmojiByContent(d)) : a;
                 })
             }
         };
