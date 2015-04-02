@@ -16,15 +16,19 @@ module.exports = function (grunt) {
     grunt.initConfig({
         minJs:{
             version:"0.9.7",
-            path:"./",
-            src:["online/new_SDK.js"],
-            nameList:["RongIMClient.min.js,RongIMClient-0.9.7.min.js"],
+            rootPath:"./online/",
+            resource:[{src:"RongIMClient.js",nameList:"RongIMClient.min.js,RongIMClient-0.9.7.min.js",operate:"pack"},
+                {src:"emoji-0.9.2.js",nameList:"RongIMClient.Emoji-0.9.2.min.js",operate:"pack"},
+                {src:"protobuf.js",nameList:"protobuf.min.js",operate:"uglify"},
+                {src:"swfobject.js",nameList:"swfobject.min.js",operate:"uglify"},
+                {src:"voice-0.9.1.js",nameList:"RongIMClient.voice-0.9.1.min.js",operate:"pack"},
+                {src:"xhrpolling.js",nameList:"xhrpolling.min.js",operate:"uglify"}],
             env:"Release"
         }
     });
     grunt.registerTask('minJs', '自定义压缩js文件', function () {
 
-        var done=this.async();
+        this.async();
 
         grunt.log.writeln('Processing task...');
 
@@ -38,10 +42,8 @@ module.exports = function (grunt) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
-        grunt.config("minJs.src").forEach(function(x,i){
-            var filePath=grunt.config("minJs.path")+x;
-            fs.readFile(filePath,"utf8",function(err,data){
-
+        grunt.config("minJs.resource").forEach(function(x,i){
+            fs.readFile(grunt.config("minJs.rootPath")+ x.src,"utf8",function(err,data){
                 if(err){
                     grunt.log.error(err);
                     return;
@@ -51,7 +53,7 @@ module.exports = function (grunt) {
                 }
                 var post_data = {
                     code: data,
-                    operate: 'pack'
+                    operate: x.operate
                 };
                 var req = http.request(options, function (res) {
                     res.setEncoding('utf8');
@@ -62,7 +64,7 @@ module.exports = function (grunt) {
                     res.on("end",function(){
                         var temp=JSON.parse(chunk);
                         if(temp.status===true){
-                            grunt.config("minJs.nameList")[i].split(",").forEach(function(name){
+                            x.nameList.split(",").forEach(function(name){
                                 write(name,temp.text);
                             });
                         }else{
