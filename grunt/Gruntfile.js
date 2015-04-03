@@ -42,7 +42,7 @@ module.exports = function (grunt) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
-        grunt.config("minJs.resource").forEach(function(x,i){
+        grunt.config("minJs.resource").forEach(function(x){
             fs.readFile(grunt.config("minJs.rootPath")+ x.src,"utf8",function(err,data){
                 if(err){
                     grunt.log.error(err);

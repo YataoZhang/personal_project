@@ -1,10 +1,67 @@
-;(function (global, undefined) {
+;
+(function (global, undefined) {
     if (global.RongIMClient) {
         return;
     }
-    Number.prototype.getValue = function () {
-        return this.valueOf();
+    global.Enum = function (namesToValues) {
+        var enumeration = function () {
+            throw "can't Instantiate Enumerations";
+        };
+        enumeration.setValue = function (x) {
+            var val = null;
+            enumeration.foreach(function (i) {
+                if (i.value == x) {
+                    val = enumeration[i.name];
+                }
+            }, null);
+            return val;
+        };
+
+        function inherit(superCtor) {
+            var f = function () {
+            };
+            f.prototype = superCtor;
+            var ctor = function () {
+            };
+            ctor.prototype = new f();
+            ctor.prototype.constructor = superCtor.constructor;
+            return new ctor;
+        }
+
+        var proto = enumeration.prototype = {
+            constructor: enumeration,
+            toString: function () {
+                return this.name;
+            },
+            valueOf: function () {
+                return this.value;
+            },
+            toJSON: function () {
+                return this.name;
+            }
+        };
+
+        enumeration.values = [];
+
+        for (name in namesToValues) {
+            var e = inherit(proto);
+            e.name = name;
+            e.value = namesToValues[name];
+            enumeration[name] = e;
+            enumeration.values.push(e);
+
+        }
+
+        enumeration.foreach = function (f, c) {
+            for (var i = 0; i < this.values.length; i++) {
+                f.call(c, this.values[i]);
+            }
+        };
+
+        return enumeration;
+
     };
+
     var io = {}, messageIdHandler, func = function () {
         var script = document.createElement("script");
         io._TransportType = "websocket";
@@ -243,50 +300,48 @@
             return pool
         }
     };
-    var Qos = function (i) {
-            var val = 0;
-            if (i) {
-                val = i
+    var Qos = global.Enum({
+            AT_MOST_ONCE: 0,
+            AT_LEAST_ONCE: 1,
+            EXACTLY_ONCE: 2,
+            DEFAULT: 3
+        }), Type = global.Enum({
+            CONNECT: 1,
+            CONNACK: 2,
+            PUBLISH: 3,
+            PUBACK: 4,
+            QUERY: 5,
+            QUERYACK: 6,
+            QUERYCON: 7,
+            SUBSCRIBE: 8,
+            SUBACK: 9,
+            UNSUBSCRIBE: 10,
+            UNSUBACK: 11,
+            PINGREQ: 12,
+            PINGRESP: 13,
+            DISCONNECT: 14
+        }),
+        ConnectionState = global.Enum({
+                ACCEPTED: 0,
+                UNACCEPTABLE_PROTOCOL_VERSION: 1,
+                IDENTIFIER_REJECTED: 2,
+                SERVER_UNAVAILABLE: 3,
+                BAD_USERNAME_OR_PASSWORD: 4,
+                NOT_AUTHORIZED: 5,
+                REDIRECT: 6
             }
-            this.currentValue = function () {
-                return val
-            }
-        },
-        type = function (i) {
-            var val = 0;
-            if (i) {
-                val = i
-            }
-            this.currentValue = function () {
-                return val
-            }
-        },
-        ConnectionState = function (i) {
-            var val = 0;
-            val = i;
-            this.getValue = function () {
-                return val
-            }
-        },
-        DisconnectionStatus = function (i) {
-            var val = i || 0;
-            this.getValue = function () {
-                return val
-            }
-        };
-    Qos.valueOf = function (i) {
-        return new Qos(i)
-    };
-    type.valueOf = function (i) {
-        return new type(i)
-    };
+        ), DisconnectionStatus = global.Enum({
+            RECONNECT: 0,
+            OTHER_DEVICE_LOGIN: 1,
+            CLOSURE: 2
+        });
 
-    function Message(type) {
+    function Message(argu) {
         var _header, _headerCode, lengthSize = 0;
-        if (type instanceof Header) {
-            _header = type
+        if (argu instanceof Header) {
+            _header = argu
         } else {
-            _header = new Header(type, false, new Qos(0), false)
+            _header = new Header(argu, false, Qos.AT_MOST_ONCE, false)
         }
         this.read = function (In, length) {
             this.readMessage(In, length)
@@ -296,7 +351,6 @@
             _headerCode = this.getHeaderFlag();
             out.write(_headerCode);
             this.writeMessage(out);
-            this.addEmpty(out);
             return out
         };
         this.getHeaderFlag = function () {
@@ -315,7 +369,7 @@
             return _header.retain
         };
         this.setQos = function (qos) {
-            _header.qos = qos
+            _header.qos = qos instanceof  Qos ? qos : Qos.setValue(qos);
         };
         this.getQos = function () {
             return _header.qos
@@ -335,8 +389,6 @@
         this.writeMessage = function (out) {
         };
         this.readMessage = function (In) {
-        };
-        this.addEmpty = function (out) {
         };
         this.init = function (args) {
             var temp, nana;
@@ -360,31 +412,31 @@
     function Header(_type, _retain, _qos, _dup) {
         this.type = null;
         this.retain = false;
-        this.qos = new Qos(1);
+        this.qos = Qos.AT_LEAST_ONCE;
         this.dup = false;
         if (_type && +_type == _type && arguments.length == 1) {
             this.retain = (_type & 1) > 0;
-            this.qos = Qos.valueOf((_type & 6) >> 1);
+            this.qos = Qos.setValue((_type & 6) >> 1);
             this.dup = (_type & 8) > 0;
-            this.type = type.valueOf((_type >> 4) & 15);
+            this.type = Type.setValue((_type >> 4) & 15);
         } else {
-            this.type = _type;
+            this.type = Type.setValue(_type);
             this.retain = _retain;
-            this.qos = _qos;
+            this.qos = Qos.setValue(_qos);
             this.dup = _dup;
         }
         this.getType = function () {
             return this.type
         };
         this.encode = function () {
-            var _byte = (this.type.currentValue() << 4);
+            var _byte = (this.type << 4);
             _byte |= this.retain ? 1 : 0;
-            _byte |= this.qos.currentValue() << 1;
+            _byte |= this.qos << 1;
             _byte |= this.dup ? 8 : 0;
             return _byte
         };
         this.toString = function () {
-            return "Header [type=" + this.type.currentValue() + ",retain=" + this.retain + ",qos=" + this.qos.currentValue() + ",dup=" + this.dup + "]"
+            return "Header [type=" + this.type + ",retain=" + this.retain + ",qos=" + this.qos + ",dup=" + this.dup + "]"
         }
     }
 
@@ -395,14 +447,14 @@
             clientId, keepAlive, appId, token, cleanSession, willTopic, will, willQos, retainWill, hasAppId, hasToken, hasWill;
         switch (arguments.length) {
             case 0:
-                Message.call(this, new type(1));
+                Message.call(this, Type.CONNECT);
                 break;
             case 1:
                 Message.call(this, arguments[0]);
                 break;
             case 3:
-                Message.call(this, new type(1));
-                if (!arguments[0] || arguments.length > 64) {
+                Message.call(this, Type.CONNECT);
+                if (!arguments[0] || arguments[0].length > 64) {
                     throw new Error("ConnectMessage:Client Id cannot be null and must be at most 64 characters long: " + arguments[0])
                 }
                 clientId = arguments[0];
@@ -426,7 +478,7 @@
             hasAppId = (cFlags & 128) > 0;
             hasToken = (cFlags & 64) > 0;
             retainWill = (cFlags & 32) > 0;
-            willQos = Qos.valueOf(cFlags >> 3 & 3).currentValue();
+            willQos = cFlags >> 3 & 3;
             hasWill = (cFlags & 4) > 0;
             cleanSession = (cFlags & 32) > 0;
             keepAlive = stream.read() * 256 + stream.read();
@@ -485,14 +537,14 @@
         var status, userId, MESSAGE_LENGTH = 2;
         switch (arguments.length) {
             case 0:
-                Message.call(this, new type(2));
+                Message.call(this, Type.CONNACK);
                 break;
             case 1:
                 if (arguments[0] instanceof Header) {
                     Message.call(this, arguments[0])
                 } else {
                     if (arguments[0] instanceof ConnectionState) {
-                        Message.call(this, new type(2));
+                        Message.call(this, Type.CONNACK);
                         if (arguments[0] == null) {
                             throw new Error("ConnAckMessage:The status of ConnAskMessage can't be null")
                         }
@@ -523,20 +575,20 @@
         this.writeMessage = function (out) {
             var stream = binaryHelper.convertStream(out);
             stream.write(128);
-            switch (+status.getValue()) {
+            switch (+status) {
                 case 0:
                 case 1:
                 case 2:
                 case 5:
                 case 6:
-                    stream.write(+status.getValue());
+                    stream.write(+status);
                     break;
                 case 3:
                 case 4:
                     stream.write(3);
                     break;
                 default:
-                    throw new Error("Unsupported CONNACK code:" + status.valueOf());
+                    throw new Error("Unsupported CONNACK code:" + status);
             }
             if (userId) {
                 stream.writeUTF(userId)
@@ -544,14 +596,10 @@
             return stream
         };
         this.getStatus = function () {
-            return status.valueOf()
+            return status
         };
         this.setStatus = function (x) {
-            if (+x == x) {
-                status = new ConnectionState(x);
-            } else {
-                status = x;
-            }
+            status = x instanceof ConnectionState ? x : ConnectionState.setValue(x);
         };
         this.setUserId = function (_userId) {
             userId = _userId
@@ -571,7 +619,7 @@
         if (one instanceof Header) {
             Message.call(this, one)
         } else {
-            Message.call(this, new type(14));
+            Message.call(this, Type.DISCONNECT);
             if (one instanceof DisconnectionStatus) {
                 status = one
             }
@@ -592,18 +640,14 @@
         this.writeMessage = function (Out) {
             var out = binaryHelper.convertStream(Out);
             out.write(0);
-            if (+status.getValue() >= 1 && +status.getValue() <= 3) {
-                out.write((+status.getValue()) - 1);
+            if (+status >= 1 && +status <= 3) {
+                out.write((+status) - 1);
             } else {
                 throw new Error("Unsupported CONNACK code:" + status)
             }
         };
         this.setStatus = function (x) {
-            if (+x == x) {
-                status = new DisconnectionStatus(x);
-            } else {
-                status = x;
-            }
+            status = x instanceof DisconnectionStatus ? x : DisconnectionStatus.setValue(x);
         };
         this.getStatus = function () {
             return status
@@ -618,11 +662,7 @@
         if (header && header instanceof Header) {
             Message.call(this, header)
         } else {
-            Message.call(this, new type(12))
-        }
-        this.addEmpty = function (out) {
-            var _out = binaryHelper.convertStream(out);
-            _out.write(0)
+            Message.call(this, Type.PINGREQ)
         }
     }
 
@@ -634,7 +674,7 @@
         if (header && header instanceof Header) {
             Message.call(this, header)
         } else {
-            Message.call(this, new type(13))
+            Message.call(this, Type.PINGRESP)
         }
     }
 
@@ -680,7 +720,7 @@
         if (args instanceof Header) {
             RetryableMessage.call(this, args)
         } else {
-            RetryableMessage.call(this, new type(4));
+            RetryableMessage.call(this, Type.PUBACK);
             this.setMessageId(args)
         }
         this.messageLength = function () {
@@ -717,7 +757,7 @@
             RetryableMessage.call(this, one)
         } else {
             if (arguments.length == 3) {
-                RetryableMessage.call(this, new type(3));
+                RetryableMessage.call(this, Type.PUBLISH);
                 topic = one;
                 targetId = three;
                 data = typeof two == "string" ? binaryHelper.toMQttString(two) : two;
@@ -734,7 +774,7 @@
             var out = binaryHelper.convertStream(Out);
             out.writeUTF(topic);
             out.writeUTF(targetId);
-            PublishMessage.prototype.writeMessage.call(this, out);
+            PublishMessage.prototype.writeMessage.apply(this, arguments);
             out.write(data)
         };
         this.readMessage = function (In, msgLength) {
@@ -743,7 +783,7 @@
             date = _in.readInt();
             topic = _in.readUTF();
             pos += binaryHelper.toMQttString(topic).length;
-            PublishMessage.prototype.readMessage.call(this, _in, msgLength);
+            PublishMessage.prototype.readMessage.apply(this, arguments);
             data = new Array(msgLength - pos);
             _in.read(data)
         };
@@ -786,7 +826,7 @@
             RetryableMessage.call(this, one)
         } else {
             if (arguments.length == 3) {
-                RetryableMessage.call(this, new type(5));
+                RetryableMessage.call(this, Type.QUERY);
                 data = typeof two == "string" ? binaryHelper.toMQttString(two) : two;
                 topic = one;
                 targetId = three;
@@ -804,7 +844,7 @@
             var out = binaryHelper.convertStream(Out);
             out.writeUTF(topic);
             out.writeUTF(targetId);
-            QueryMessage.prototype.writeMessage.call(this, out);
+            this.constructor.prototype.writeMessage.call(this, out);
             out.write(data)
         };
         this.readMessage = function (In, msgLength) {
@@ -814,7 +854,7 @@
             targetId = _in.readUTF();
             pos += binaryHelper.toMQttString(topic).length;
             pos += binaryHelper.toMQttString(targetId).length;
-            QueryMessage.prototype.readMessage.call(this, _in, msgLength);
+            this.constructor.prototype.readMessage.apply(this, arguments);
             pos += 2;
             data = new Array(msgLength - pos);
             _in.read(data)
@@ -847,7 +887,7 @@
         if (messageId instanceof Header) {
             RetryableMessage.call(this, messageId)
         } else {
-            RetryableMessage.call(this, new type(7));
+            RetryableMessage.call(this, Type.QUERYCON);
             this.setMessageId(messageId)
         }
     }
@@ -908,11 +948,11 @@
             var _in = binaryHelper.convertStream(In);
             flags = _in.readByte();
         } else {
-            flags = In.headerCode;
+            flags = In["headerCode"];
         }
         header = new Header(flags);
         this.readMessage = function () {
-            switch (+header.getType().currentValue()) {
+            switch (+header.getType()) {
                 case 2:
                     msg = new ConnAckMessage(header);
                     break;
@@ -948,7 +988,7 @@
                     msg = new DisconnectMessage(header);
                     break;
                 default:
-                    throw new Error("No support for deserializing " + header.getType().currentValue() + " messages")
+                    throw new Error("No support for deserializing " + header.getType() + " messages")
             }
             if (isPolling) {
                 msg.init(In);
@@ -998,7 +1038,7 @@
                 return -1
             },
             isArray: function (obj) {
-                return Object.prototype.toString.call(obj) == "[object Array]"
+                return Object.prototype.toString.call(obj) == "[object Array]";
             },
             forEach: function (arr, func) {
                 if ([].forEach) {
@@ -1022,19 +1062,6 @@
                     return [].slice.call(arr)
                 }
                 return typedarray;
-            },
-            filter: function (array, func) {
-                if ([].filter) {
-                    return array.filter(func)
-                } else {
-                    var temp = [];
-                    for (var i = 0; i < array.length; i++) {
-                        if (func(array[i], i, array)) {
-                            temp.push(array[i])
-                        }
-                    }
-                    return temp
-                }
             },
             remove: function (array, func) {
                 for (var i = 0; i < array.length; i++) {
@@ -1288,7 +1315,7 @@
             })(),
             request = function () {
                 if ('XDomainRequest' in global)
-                    return new XDomainRequest();
+                    return new window["XDomainRequest"]();
                 if ('XMLHttpRequest' in global && XMLHttpRequestCORS)
                     return new XMLHttpRequest();
                 return false;
@@ -1687,8 +1714,7 @@
             }
             onReceived = _listener.onReceived;
             self.listener.onReceived = function (msg) {
-                var entity, message, content, _index = -1,
-                    con;
+                var entity, message, content, con;
                 if (msg.constructor._name != "PublishMessage") {
                     entity = msg;
                     io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()), 86400);
@@ -1732,14 +1758,7 @@
                 message.setReceivedTime((new Date).getTime());
                 message.setMessageId(message.getConversationType() + "_" + ~~(Math.random() * 0xffffff));
                 message.setReceivedStatus(new RongIMClient.ReceivedStatus());
-                con = io.util.filter(RongIMClient.getInstance().getConversationList(), function (item, i) {
-                    if (item.getTargetId() == message.getTargetId()) {
-                        _index = i;
-                        return true
-                    } else {
-                        return false
-                    }
-                })[0] || io.util.remove(RongIMClient.getInstance().getOldestConversationTypeList(), function (item) {
+                con = RongIMClient.getInstance().getConversationList().get(message.getConversationType(), message.getTargetId()) || io.util.remove(RongIMClient.getInstance().getOldestConversationTypeList(), function (item) {
                     return item.getTargetId() == message.getTargetId()
                 });
                 if (!con) {
@@ -1758,9 +1777,7 @@
                 con.setNotificationStatus(RongIMClient.ConversationNotificationStatus.DO_NOT_DISTURB);
                 con.setLatestMessageId(message.getMessageId());
                 con.setLatestMessage(message);
-                if (_index != 0) {
-                    con.setTop()
-                }
+                con.setTop()
                 onReceived(message)
             }
         };
@@ -1773,7 +1790,7 @@
                     connectCallback.process(msg.getStatus(), msg.getUserId());
                     break;
                 case "PublishMessage":
-                    if (msg.getQos().currentValue() != 0) {
+                    if (msg.getQos() != 0) {
                         client.channel.writeAndFlush(new PubAckMessage(msg.getMessageId()));
                     }
                     if (onReceived) {
@@ -1781,7 +1798,7 @@
                     }
                     break;
                 case "QueryAckMessage":
-                    if (msg.getQos().currentValue() != 0) {
+                    if (msg.getQos() != 0) {
                         client.channel.writeAndFlush(new QueryConMessage(msg.getMessageId()))
                     }
                     var temp = Map[msg.getMessageId()];
@@ -1821,6 +1838,14 @@
                         }
                     }
                     this.push(x);
+                };
+                this.get = function (conver, tarid) {
+                    for (var i = 0; i < this.length; i++) {
+                        if (this[i].getTargetId() == tarid && this[i].getConversationType() == conver) {
+                            return this[i]
+                        }
+                    }
+                    return null;
                 }
             };
         func.prototype = new Array;
@@ -1891,7 +1916,7 @@
                 if (typeof func == "object" && "onChanged" in func) {
                     this.socket.on("StatusChanged", function (code) {
                         if (code instanceof DisconnectionStatus) {
-                            func.onChanged(_enum.setValue(code.getValue() + 2));
+                            func.onChanged(_enum.setValue(code + 2));
                             self.pauseTimer();
                             clearTimeout(self.heartbeat);
                             return;
@@ -2015,10 +2040,10 @@
             var msg = new PublishMessage(_topic, _data, _targetId);
             msg.setMessageId(msgId);
             if (_callback) {
-                msg.setQos(new Qos(1));
+                msg.setQos(Qos.AT_LEAST_ONCE);
                 this.handler.putCallback("PublishCallback", _callback, msg.getMessageId(), _msg)
             } else {
-                msg.setQos(new Qos(0));
+                msg.setQos(Qos.AT_MOST_ONCE);
             }
             this.channel.writeAndFlush(msg);
         };
@@ -2089,7 +2114,7 @@
             MessageCallback.call(this, _timeout);
             this.process = function (status, userId) {
                 this.readTimeOut();
-                if (status.getValue() == 0) {
+                if (status == 0) {
                     self.userId = userId;
                     self.syncTime(self.handler.listener);
                     if (self.reconnectObj.onSuccess) {
@@ -2102,10 +2127,10 @@
                     io.getInstance()._doQueue()
                 } else {
                     if (self.reconnectObj.onError) {
-                        self.reconnectObj.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(status.getValue()));
+                        self.reconnectObj.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(status));
                         delete self.reconnectObj.onError;
                     } else {
-                        _timeout(RongIMClient.ConnectCallback.ErrorCode.setValue(status.getValue()))
+                        _timeout(RongIMClient.ConnectCallback.ErrorCode.setValue(status))
                     }
                 }
             };
@@ -2145,7 +2170,7 @@
                 target = self.chatroomId;
             }
             modules.setSyncTime(time);
-            self.queryMessage(str, io.util.arrayFrom(modules.toArrayBuffer()), target, Qos.valueOf(1), {
+            self.queryMessage(str, io.util.arrayFrom(modules.toArrayBuffer()), target, Qos.AT_LEAST_ONCE, {
                 onSuccess: function (status, data) {
                     if (status == 0) {
                         var collection = Modules.DownStreamMessages.decode(data),
@@ -2211,7 +2236,7 @@
     };
     Client.Endpoint = {};
     global.getServerEndpoint = function (x) {
-        Client.Endpoint.host = x.server;
+        Client.Endpoint.host = x["server"];
         Client.Endpoint.port = "/websocket";
         Client.Endpoint.userId = x.userId;
     };
@@ -2265,7 +2290,7 @@
             bridge._client.channel.disconnect()
         };
         this.queryMsg = function (topic, content, targetId, callback, pbname) {
-            bridge._client.queryMessage(_topic[topic], content, targetId, Qos.valueOf(0), callback, pbname)
+            bridge._client.queryMessage(_topic[topic], content, targetId, Qos.AT_MOST_ONCE, callback, pbname)
         };
         this.pubMsg = function (topic, content, targetId, callback, msg) {
             bridge._client.publishMessage(_topic[10][topic], content, targetId, callback, msg)
@@ -2332,15 +2357,15 @@
             };
         this.options = new RongIMClient.Options();
         this.clearTextMessageDraft = function (c, e) {
-            q(["number", "string"]);
+            q(["object", "string"]);
             return n.removeItem(c + "_" + e)
         };
         this.getTextMessageDraft = function (c, d) {
-            q(["number", "string"]);
+            q(["object", "string"]);
             return n.getItem(c + "_" + d)
         };
         this.saveTextMessageDraft = function (d, e, c) {
-            q(["number", "string", "string"]);
+            q(["object", "string", "string"]);
             return n.setItem(d + "_" + e, c)
         };
         this.init = function (c) {
@@ -2374,8 +2399,7 @@
                 a.reConnect(callback);
             }
         };
-        this.checkoutOfflineConversationList = function () {
-            q(["object"])
+        this.syncConversationList = function () {
             var modules = new Modules.RelationsInput();
             modules.setNothing(1);
             a.queryMsg(25, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
@@ -2400,10 +2424,8 @@
             this.checkoutOfflineConversationList = undefined;
         };
         this.getConversation = function (c, e) {
-            q(["number", "string"]);
-            return  m.util.filter(this.getConversationList(), function (f) {
-                return f.getTargetId() == e && f.getConversationType() == c
-            })[0] || null;
+            q(["object", "string"]);
+            return  this.getConversationList().get(c, e);
         };
         this.getConversationList = function () {
             return a.getCurrentConversationList();
@@ -2412,7 +2434,7 @@
             return a.getCurrentOldestConversationList()
         };
         this.getConversationNotificationStatus = function (f, d, e) {
-            q(["number", "string", "object"]);
+            q(["object", "string", "object"]);
             var c = this.getConversation(f, d);
             if (c) {
                 e.onSuccess(c.getNotificationStatus())
@@ -2425,12 +2447,16 @@
             return a.clearConversations(_conversationTypes);
         };
         this.getGroupConversationList = function () {
-            return m.util.filter(this.getConversationList(), function (c) {
-                return c.getConversationType() == "3";
-            })
+            var arr = [];
+            for (var i = 0, item; item = this.getConversationList()[i++];) {
+                if (item.getConversationType() == 3) {
+                    arr.push(item);
+                }
+            }
+            return arr;
         };
         this.removeConversation = function (c, e) {
-            q(["number", "string"]);
+            q(["object", "string"]);
             var d = m.util.remove(this.getConversationList(), function (f) {
                 return f.getTargetId() == e && f.getConversationType() == c
             });
@@ -2441,7 +2467,7 @@
             a.removeConversationListCache()
         };
         this.setConversationNotificationStatus = function (f, d, g, e) {
-            q(["number", "string", "number", "object"]);
+            q(["object", "string", "object", "object"]);
             var c = this.getConversation(f, d);
             if (c) {
                 c.setNotificationStatus(g);
@@ -2451,20 +2477,18 @@
             }
         };
         this.setConversationToTop = function (c, e) {
-            q(["number", "string"]);
+            q(["object", "string"]);
             this.getConversation(c, e).setTop()
         };
         this.setConversationName = function (f, e, d) {
-            q(["number", "string", "string"]);
+            q(["object", "string", "string"]);
             this.getConversation(f, e).setConversationTitle(d)
         };
         this.createConversation = function (f, d, e) {
-            q(["number", "string", "string"]);
-            var g = m.util.filter(this.getConversationList(), function (h) {
-                return h.getTargetId() == d
-            });
-            if (g.length > 0) {
-                return g[0]
+            q(["object", "string", "string"]);
+            var g = this.getConversationList().get(f, d);
+            if (g) {
+                return g
             }
             var c = new RongIMClient.Conversation();
             c.setTargetId(d);
@@ -2484,7 +2508,7 @@
             a.queryMsg(5, m.util.arrayFrom(d.toArrayBuffer()), c, e, "GetUserInfoOutput")
         };
         this.sendMessage = function (h, v, e, c, u) {
-            q(["number", "string", "object", "object|null|global", "object"]);
+            q(["object", "string", "object", "object|null|global", "object"]);
             if (!m.getInstance().connected) {
                 u.onError(RongIMClient.callback.ErrorCode.setValue(1));
                 return;
@@ -2495,10 +2519,9 @@
             if (!(e instanceof RongIMClient.MessageContent)) {
                 e = new RongIMClient.MessageContent(e);
             }
-            var f = k[h],
+            var f = k[h.valueOf()],
                 g = e.encode(),
                 i = e.getMessage(),
-                d = -1,
                 j;
             if (!f) {
                 throw new Error("NullPointException")
@@ -2511,14 +2534,8 @@
             i.setSenderUserId(global.RongBrIdge._client.userId);
             i.setSentTime((new Date).getTime());
             i.setTargetId(v);
-            if (/ISCOUNTED/.test(i.getMessageTag().toString())) {
-                j = m.util.filter(this.getConversationList(), function (s, t) {
-                    if (s.getTargetId() == v) {
-                        d = t;
-                        return true
-                    }
-                    return false
-                })[0] || m.util.remove(this.getOldestConversationTypeList(), function (s) {
+            if (/ISCOUNTED/.test(i.getMessageTag())) {
+                j = this.getConversationList().get(h, v) || m.util.remove(this.getOldestConversationTypeList(), function (s) {
                     return s.getTargetId() == v
                 });
                 if (!j) {
@@ -2536,9 +2553,7 @@
                 j.setLatestMessageId(i.getMessageId());
                 j.setLatestMessage(e);
                 j.setUnreadMessageCount(0);
-                if (d != 0) {
-                    j.setTop()
-                }
+                j.setTop();
             }
             a.pubMsg(f, g, v, u, i)
         };
@@ -2546,7 +2561,7 @@
             this.options.setEnableDebug(c)
         };
         this.uploadMedia = function (f, c, d, e) {
-            q(["number", "string", "string", "object"])
+            q(["object", "string", "string", "object"])
         };
         this.getUploadToken = function (c) {
             q(["object"]);
@@ -2600,21 +2615,17 @@
                 if (_conversationTypes == 0) {
                     return count;
                 }
-                var end = m.util.filter(this.getConversationList(), function (x) {
-                    return x.getConversationType() == _conversationTypes && x.getTargetId() == targetId;
-                })[0];
+                var end = this.getConversationList().get(_conversationTypes, targetId);
                 end && (count = end.getUnreadMessageCount());
             }
             return count;
         };
         this.clearMessagesUnreadStatus = function (conversationType, targetId) {
-            q(["number", "string"]);
+            q(["object", "string"]);
             if (conversationType == 0) {
                 return false;
             }
-            var end = m.util.filter(this.getConversationList(), function (x) {
-                return x.getConversationType() == conversationType && x.getTargetId() == targetId;
-            })[0];
+            var end = this.getConversationList().get(conversationType, targetId);
             return !!(end ? end.setUnreadMessageCount(0) || 1 : 0);
         };
         //聊天室
@@ -2634,9 +2645,7 @@
                     defMessageCount == 0 && (defMessageCount = -1);
                     modules.setCount(defMessageCount);
                     modules.setSyncTime(0);
-                    global.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, {currentValue: function () {
-                        return 1
-                    }}, {
+                    global.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, 1, {
                         onSuccess: function (status, data) {
                             if (status == 0) {
                                 var collection = Modules.DownStreamMessages.decode(data),
@@ -2666,14 +2675,14 @@
         };
         //通知消息
         this.sendNotification = function (_conversationType, _targetId, _content, _callback) {
-            q(["number", "string", "object", "object"]);
+            q(["object", "string", "object", "object"]);
             if (_content instanceof RongIMClient.NotificationMessage)
                 this.sendMessage(_conversationType, _targetId, new RongIMClient.MessageContent(_content), null, _callback);
             else
                 throw new Error("Wrong Parameters");
         };
         this.sendStatus = function (_conversationType, _targetId, _content, _callback) {
-            q(["number", "string", "object", "object"]);
+            q(["object", "string", "object", "object"]);
             if (_content instanceof RongIMClient.StatusMessage)
                 this.sendMessage(_conversationType, _targetId, new RongIMClient.MessageContent(_content), null, _callback);
             else
@@ -2681,7 +2690,7 @@
         };
         //讨论组 群 聊天室
         this.setDiscussionInviteStatus = function (_targetId, _status, _callback) {
-            q(["string", "number", "object"]);
+            q(["string", "object", "object"]);
             var modules = new Modules.ModifyPermissionInput();
             modules.setOpenStatus(_status);
             a.queryMsg(11, m.util.arrayFrom(modules.toArrayBuffer()), _targetId, _callback)
@@ -2792,7 +2801,7 @@
                 }, "GroupHashOutput");
             }
 
-            if (typeof global.MD5 === "function") {
+            if (typeof global["MD5"] === "function") {
                 nothing();
             } else {
                 var scr = document.createElement("script");
@@ -2911,7 +2920,7 @@
             return z;
         };
         this.getMessageTag = function () {
-            return ['ISPERSISTED', 'ISCOUNTED', 'ISDISPLAYED'];
+            return [RongIMClient.MessageTag.ISPERSISTED, RongIMClient.MessageTag.ISCOUNTED, RongIMClient.MessageTag.ISDISPLAYED];
         };
         this.getContent = function () {
             return z.content
@@ -2974,7 +2983,7 @@
             return !!(s = c)
         };
         this.setSentTime = function (c) {
-            v = c
+            v = RongIMClient.getInstance().getIO().util.int64ToTimestamp(c);
         };
         this.getSentTime = function () {
             return v;
@@ -3010,7 +3019,7 @@
     RongIMClient.NotificationMessage = function (c) {
         RongIMClient.RongIMMessage.call(this, c);
         this.getMessageTag = function () {
-            return ['ISPERSISTED', "ISDISPLAYED"];
+            return [RongIMClient.MessageTag.ISPERSISTED, RongIMClient.MessageTag.ISDISPLAYED];
         };
     };
     RongIMClient.NotificationMessage.prototype = new RongIMClient.RongIMMessage();
@@ -3112,7 +3121,7 @@
             C = c
         };
         this.setNotificationStatus = function (c) {
-            z = c
+            z = c instanceof RongIMClient.ConversationNotificationStatus ? c : RongIMClient.ConversationNotificationStatus.setValue(c);
         };
         this.setObjectName = function (c) {
             D = c
@@ -3140,7 +3149,7 @@
                 return
             }
             var e = RongIMClient.getInstance().getConversationList();
-            if (e[0]===undefined||e[0].getTargetId() != s.getTargetId()) {
+            if (e[0] === undefined || e[0].getTargetId() != s.getTargetId()) {
                 e.add(s);
             }
             RongIMClient.getInstance().removeConversationListCache()
@@ -3430,7 +3439,7 @@
     };
     RongIMClient.ContactNotificationMessage.CONTACT_OPERATION_ACCEPT_RESPONSE = 'ContactOperationAcceptResponse';
     RongIMClient.ContactNotificationMessage.CONTACT_OPERATION_REJECT_RESPONSE = 'ContactOperationRejectResponse';
-    RongIMClient.ContactNotificationMessage.CONTACT_OPERATION_ACCEPT_RESPONSE = 'ContactOperationRequest';
+    RongIMClient.ContactNotificationMessage.CONTACT_OPERATION_REQUEST = 'ContactOperationRequest';
     RongIMClient.ContactNotificationMessage.prototype = new RongIMClient.NotificationMessage();
     RongIMClient.ContactNotificationMessage.prototype.constructor = RongIMClient.ContactNotificationMessage;
     RongIMClient.ProfileNotificationMessage = function (c) {
@@ -3567,64 +3576,46 @@
             k = c
         }
     };
-    RongIMClient.MessageTag = {
+    RongIMClient.MessageTag = global.Enum({
         'ISPERSISTED': 'ISPERSISTED',
         'ISCOUNTED': 'ISCOUNTED',
-        'NONE': 'NONE'
-    };
-    RongIMClient.ConversationNotificationStatus = {
+        'NONE': 'NONE',
+        ISDISPLAYED: "ISDISPLAYED"
+    });
+    RongIMClient.ConversationNotificationStatus = global.Enum({
         'DO_NOT_DISTURB': 0,
-        'NOTIFY': 1,
-        setValue: function (x) {
-            return x | 0;
-        }
-    };
-    RongIMClient.ConversationType = {
+        'NOTIFY': 1
+    });
+    RongIMClient.ConversationType = global.Enum({
         'CHATROOM': 0,
         'CUSTOMER_SERVICE': 1,
         'DISCUSSION': 2,
         'GROUP': 3,
-        'PRIVATE': 4,
-        'SYSTEM': 5,
-        setValue: function (x) {
-            return x | 0;
-        }
-    };
-    RongIMClient.SentStatus = {
+        'PRIVATE': 4
+    });
+    RongIMClient.SentStatus = global.Enum({
         'DESTROYED': 0,
         'FAILED': 1,
         'READ': 2,
         'RECEIVED': 3,
         'SENDING': 4,
-        'SENT': 5,
-        setValue: function (x) {
-            return x | 0;
-        }
-    };
-    RongIMClient.DiscussionInviteStatus = {
+        'SENT': 5
+    });
+    RongIMClient.DiscussionInviteStatus = global.Enum({
         'CLOSED': 0,
-        'OPENED': 1,
-        setValue: function (x) {
-            return x | 0;
-        }
-    };
-    RongIMClient.MediaType = {
+        'OPENED': 1
+    });
+    RongIMClient.MediaType = global.Enum({
         'AUDIO': 0,
         'FILE': 1,
         'IMAGE': 2,
-        'VIDEO': 3,
-        setValue: function (x) {
-            return x | 0;
-        }
-    };
-    RongIMClient.MessageDirection = {
+        'VIDEO': 3
+    });
+    RongIMClient.MessageDirection = global.Enum({
         'RECEIVE': 0,
-        'SEND': 1,
-        setValue: function (x) {
-            return x | 0;
-        }
-    };
-    RongIMClient.MessageType = {
+        'SEND': 1
+    });
+    RongIMClient.MessageType = global.Enum({
         DiscussionNotificationMessage: "dizntf",
         TextMessage: "txt",
         ImageMessage: "img",
@@ -3638,14 +3629,11 @@
         ContactNotificationMessage: "contact",
         ProfileNotificationMessage: "profile",
         CommandNotificationMessage: "command"
-    };
-    RongIMClient.BlacklistStatus = {
+    });
+    RongIMClient.BlacklistStatus = global.Enum({
         EXIT_BLACK_LIST: 0,
-        NOT_EXIT_BLACK_LIST: 1,
-        setValue: function (x) {
-            return x | 0;
-        }
-    };
+        NOT_EXIT_BLACK_LIST: 1
+    });
     RongIMClient.callback = function (d, a) {
         this.onError = a;
         this.onSuccess = d
@@ -3717,9 +3705,4 @@
     RongIMClient.ConnectionStatusListener.ConnectionStatus.setValue = function (a) {
         return new RongIMClient.ConnectionStatusListener.ConnectionStatus(a)
     };
-    RongIMClient.OnReceiveMessageListener = function (a) {
-        return {
-            onReceived: a
-        }
-    }
 })(window);
