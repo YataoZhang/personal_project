@@ -5,8 +5,18 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="grunt/online/RongIMClient.js"></script>
+    <script src="Junit.js"></script>
     <script>
+        /**
+         * 单元测试如何使用:
+         * 1、引用Junit.JS
+         * 2、调用Junit.init方法
+         * 3、调用Junit.baseFuncTest方法
+         * 可根据控制台输出的内容检查bug
+         */
 //       window.WEB_SOCKET_FORCE_FLASH=true;
+//       window.WEB_XHR_POLLING=true;
+
         window.callback = {
             onSuccess: function (x) {
                 console.log(1, x)
@@ -15,13 +25,12 @@
             }
         };
 
-//        window.WEB_XHR_POLLING=true;
+
         //"e74d17d7-b087-46cf-b46e-2b9cb120b0cb" release
         //37abe2b1-1d46-490e-8a63-be736f6f2ba8 讨论组id
-
         //be6a5792-2841-4cd7-8794-6a51fd692fa0
-
         //d8378329-ea5f-45e8-acb9-26edf0485013
+
         function load() {
             RongIMClient.init("e0x9wycfx7flq");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
 

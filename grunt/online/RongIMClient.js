@@ -1978,7 +1978,7 @@
                     disInfo.setId(entity.getChannelId());
                     disInfo.setMemberIdList(entity.getFirstTenUserIds());
                     disInfo.setName(entity.getChannelName());
-                    disInfo.setOpen(entity.getOpenStatus());
+                    disInfo.setOpen(RongIMClient.DiscussionInviteStatus.setValue(entity.getOpenStatus()));
                     return disInfo;
                 case "GroupHashOutput":
                     return entity.getResult();
@@ -2309,13 +2309,14 @@
             return bridge._client.ConversationList
         };
         this.clearConversations = function (list) {
+            var arr = [];
             for (var i = 0; i < list.length; i++) {
                 for (var j = 0; j < bridge._client.ConversationList.length; j++) {
-                    var end = bridge._client.ConversationList[j].getConversationType() == list[i] && bridge._client.ConversationList.splice(j, 1);
-                    if (end !== false) {
-                        [].unshift.apply(bridge._client.oldestConversation, end);
-                    }
+                    bridge._client.ConversationList[j].getConversationType() == list[i] && arr.push(j);
                 }
+            }
+            for (i = 0; i < arr.length; i++) {
+                [].unshift.apply(bridge._client.oldestConversation, bridge._client.ConversationList.splice(arr[i]-i, 1));
             }
             bridge._client.oldestConversation.splice(10);
             return true;
@@ -2554,11 +2555,11 @@
                 u.onError(RongIMClient.callback.ErrorCode.setValue(1));
                 return;
             }
-            if (c) {
-                c.process(e.getMessage())
-            }
             if (!(e instanceof RongIMClient.MessageContent)) {
                 e = new RongIMClient.MessageContent(e);
+            }
+            if (c) {
+                c.process(e.getMessage())
             }
             var f = k[h.valueOf()],
                 g = e.encode(),
@@ -2733,7 +2734,7 @@
         this.setDiscussionInviteStatus = function (_targetId, _status, _callback) {
             q(["string", "object", "object"]);
             var modules = new Modules.ModifyPermissionInput();
-            modules.setOpenStatus(_status);
+            modules.setOpenStatus(_status.valueOf());
             a.queryMsg(11, m.util.arrayFrom(modules.toArrayBuffer()), _targetId, _callback)
         };
         this.setDiscussionName = function (_discussionId, _name, _callback) {
@@ -2858,7 +2859,11 @@
             q(["string", "object"]);
             var modules = new Modules.BlackListStatusInput();
             modules.setUserId(userId);
-            a.queryMsg(24, m.util.arrayFrom(modules.toArrayBuffer()), userId, callback)
+            a.queryMsg(24, m.util.arrayFrom(modules.toArrayBuffer()), userId, {
+                onSuccess:function(x){
+                    callback.onSuccess(RongIMClient.BlacklistStatus.setValue(x));
+                },onError:callback.onError
+            })
         };
         this.removeFromBlacklist = function (userId, callback) {
             q(["string", "object"]);
