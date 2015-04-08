@@ -9,7 +9,8 @@ http.createServer(function (req, res) {
     var url = urls.pathname;
     urls.query ? console.log(urls.query) : void 0;
     if (url == "/") {
-        readFile("test_SDK.html", res);
+        readFile("junk/xhr-polling.html", res);
+//        readFile("test_SDK.html", res);
     } else if (url == "/qwer") {
         res.writeHead(200,
             {"Access-Control-Allow-Origin": "*",
@@ -26,6 +27,11 @@ http.createServer(function (req, res) {
                 "Access-Control-Allow-Headers": "cookie",
                 "Access-Control-Allow-Credentials": true});
         res.end();
+    }else if(url=="/xhr"){
+        res.writeHead(200);
+        setInterval(function(){
+            res.end("send")
+        },5000);
     } else {
         readFile(url.slice(1), res);
     }

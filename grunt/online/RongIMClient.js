@@ -62,57 +62,63 @@
 
     };
 
-    var io = {}, messageIdHandler, func = function () {
-        var script = document.createElement("script");
-        io._TransportType = "websocket";
-        if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
-            script.src = "http://res.websdk.rongcloud.cn/protobuf-0.1.min.js";
-        } else if (!/opera/i.test(navigator.userAgent) && !global.WEB_XHR_POLLING && (function () {
-            if ('navigator' in global && 'plugins' in navigator && navigator.plugins['Shockwave Flash']) {
-                return !!navigator.plugins['Shockwave Flash'].description;
-            }
-            if ('ActiveXObject' in global) {
-                try {
-                    return !!new ActiveXObject('ShockwaveFlash.ShockwaveFlash').GetVariable('$version');
-                } catch (e) {
+    var io = {},
+        messageIdHandler, func = function () {
+            var script = document.createElement("script");
+            io._TransportType = "websocket";
+            if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
+                script.src = "http://res.websdk.rongcloud.cn/protobuf-0.2.min.js?v=1";
+            } else if (!/opera/i.test(navigator.userAgent) && !global.WEB_XHR_POLLING && (function () {
+                if ('navigator' in global && 'plugins' in navigator && navigator.plugins['Shockwave Flash']) {
+                    return !!navigator.plugins['Shockwave Flash'].description;
                 }
-            }
-            return false;
-        })()) {
-            script.src = "http://res.websdk.rongcloud.cn/swfobject-0.1.min.js";
-        } else {
-            if (navigator.cookieEnabled === false) {
-                throw new Error("Cookie is not available, please open the cookie");
-            }
-            io._TransportType = "xhr-polling";
-            script.src = "http://res.websdk.rongcloud.cn/xhrpolling.min.js";
-        }
-        document.getElementsByTagName("head")[0].appendChild(script);
-        messageIdHandler = new function () {
-            var messageId = 0, isXHR = io._TransportType === "xhr-polling", init = function () {
-                messageId = +(io.util.cookieHelper.getCookie("msgId") || io.util.cookieHelper.setCookie("msgId", 0) || 0);
-            };
-            isXHR && init();
-            this.messageIdPlus = function (x) {
-                isXHR && init();
-                if (messageId >= 65535) {
-                    x.reconnect();
-                    return false;
+                if ('ActiveXObject' in global) {
+                    try {
+                        return !!new ActiveXObject('ShockwaveFlash.ShockwaveFlash').GetVariable('$version');
+                    } catch (e) {
+                    }
                 }
-                messageId++;
-                isXHR && io.util.cookieHelper.setCookie("msgId", messageId);
-                return messageId;
-            };
-            this.clearMessageId = function () {
-                messageId = 0;
-                isXHR && io.util.cookieHelper.setCookie("msgId", messageId);
-            };
-            this.getMessageId = function () {
-                isXHR && init();
-                return messageId;
+                return false;
+            })()) {
+                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=3";
+            } else {
+                if (navigator.cookieEnabled === false) {
+                    throw new Error("Cookie is not available, please open the cookie");
+                }
+                io._TransportType = "xhr-polling";
+                script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=1";
             }
+            document.getElementsByTagName("head")[0].appendChild(script);
+            var ele = document.createElement("script");
+            ele.src = "http://res.websdk.rongcloud.cn/MD5.min.js";
+            document.body.appendChild(ele);
+            messageIdHandler = new function () {
+                var messageId = 0,
+                    isXHR = io._TransportType === "xhr-polling",
+                    init = function () {
+                        messageId = +(io.util.cookieHelper.getCookie("msgId") || io.util.cookieHelper.setCookie("msgId", 0) || 0);
+                    };
+                isXHR && init();
+                this.messageIdPlus = function (x) {
+                    isXHR && init();
+                    if (messageId >= 65535) {
+                        x.reconnect();
+                        return false;
+                    }
+                    messageId++;
+                    isXHR && io.util.cookieHelper.setCookie("msgId", messageId);
+                    return messageId;
+                };
+                this.clearMessageId = function () {
+                    messageId = 0;
+                    isXHR && io.util.cookieHelper.setCookie("msgId", messageId);
+                };
+                this.getMessageId = function () {
+                    isXHR && init();
+                    return messageId;
+                }
+            };
         };
-    };
     if (document.readyState == "interactive" || document.readyState == "complete") {
         func();
     } else if (document.addEventListener) {
@@ -305,7 +311,8 @@
             AT_LEAST_ONCE: 1,
             EXACTLY_ONCE: 2,
             DEFAULT: 3
-        }), Type = global.Enum({
+        }),
+        Type = global.Enum({
             CONNECT: 1,
             CONNACK: 2,
             PUBLISH: 3,
@@ -322,15 +329,15 @@
             DISCONNECT: 14
         }),
         ConnectionState = global.Enum({
-                ACCEPTED: 0,
-                UNACCEPTABLE_PROTOCOL_VERSION: 1,
-                IDENTIFIER_REJECTED: 2,
-                SERVER_UNAVAILABLE: 3,
-                BAD_USERNAME_OR_PASSWORD: 4,
-                NOT_AUTHORIZED: 5,
-                REDIRECT: 6
-            }
-        ), DisconnectionStatus = global.Enum({
+            ACCEPTED: 0,
+            UNACCEPTABLE_PROTOCOL_VERSION: 1,
+            IDENTIFIER_REJECTED: 2,
+            SERVER_UNAVAILABLE: 3,
+            BAD_USERNAME_OR_PASSWORD: 4,
+            NOT_AUTHORIZED: 5,
+            REDIRECT: 6
+        }),
+        DisconnectionStatus = global.Enum({
             RECONNECT: 0,
             OTHER_DEVICE_LOGIN: 1,
             CLOSURE: 2
@@ -369,7 +376,7 @@
             return _header.retain
         };
         this.setQos = function (qos) {
-            _header.qos = qos instanceof  Qos ? qos : Qos.setValue(qos);
+            _header.qos = qos instanceof Qos ? qos : Qos.setValue(qos);
         };
         this.getQos = function () {
             return _header.qos
@@ -1000,16 +1007,12 @@
     }
 
     io.connect = function (token, args) {
-        if (this.getInstance) {
-            return this
-        } else {
-            var instance = new this.createServer();
-            this.getInstance = function () {
-                return instance
-            };
-            instance.connect(token, args);
+        var instance = new this.createServer();
+        this.getInstance = function () {
             return instance
-        }
+        };
+        instance.connect(token, args);
+        return instance;
     };
     (function () {
         var _pageLoaded = false;
@@ -1132,7 +1135,15 @@
                         var isArray = Array.isArray || function (a) {
                             return toString.call(a) === '[object Array]';
                         };
-                        var escMap = {'"': '\\"', '\\': '\\\\', '\b': '\\b', '\f': '\\f', '\n': '\\n', '\r': '\\r', '\t': '\\t'};
+                        var escMap = {
+                            '"': '\\"',
+                            '\\': '\\\\',
+                            '\b': '\\b',
+                            '\f': '\\f',
+                            '\n': '\\n',
+                            '\r': '\\r',
+                            '\t': '\\t'
+                        };
                         var escFunc = function (m) {
                             return escMap[m] || '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).substr(1);
                         };
@@ -1326,7 +1337,8 @@
             };
         io.util.inherit(XHR, io.Transport);
         XHR.prototype.connect = function (url) {
-            var sid = io.util.cookieHelper.getCookie(Client.Endpoint.userId + "sId"), _that = this;
+            var sid = io.util.cookieHelper.getCookie(Client.Endpoint.userId + "sId"),
+                _that = this;
             if (sid) {
                 io.getInstance().currentURL = url;
                 setTimeout(function () {
@@ -1522,7 +1534,8 @@
             }
         };
         Socket.prototype.getTransport = function (override) {
-            var i = 0, transport = override || this.options.transports[i];
+            var i = 0,
+                transport = override || this.options.transports[i];
             if (io.Transport[transport] && io.Transport[transport].check() && io.Transport[transport].XDomainCheck()) {
                 return new io.Transport[transport](this, {})
             }
@@ -1603,6 +1616,7 @@
         Socket.prototype._onConnect = function () {
             this.connected = true;
             this.connecting = false;
+            io.util.cookieHelper.setCookie("rongSDK", io._TransportType);
             this.fire("connect");
         };
         Socket.prototype._onMessage = function (data) {
@@ -1698,7 +1712,10 @@
         this.listener = {};
 
         this.putCallback = function (name, _publishCallback, _publishMessageId, _msg) {
-            var item = {Callback: new client[name](_publishCallback.onSuccess, _publishCallback.onError), Message: _msg};
+            var item = {
+                Callback: new client[name](_publishCallback.onSuccess, _publishCallback.onError),
+                Message: _msg
+            };
             item.Callback.resumeTimer();
             Map[_publishMessageId] = item;
         };
@@ -1825,7 +1842,7 @@
         }
     }
 
-    function Client() {
+    function Client(_to, _ap) {
 
         var timeoutMillis = 100000,
             lastReadTimer, task, self = this,
@@ -1850,11 +1867,11 @@
             };
         func.prototype = new Array;
         this.timeout_ = null;
-        this.appId = "";
+        this.appId = _ap;
+        this.token = _to;
         this.sdkVer = "1.0.1";
         this.apiVer = "1.0.1";
         this.channel = null;
-        this.appToken = "";
         this.group = null;
         this.handler = null;
         this.userId = "";
@@ -1887,16 +1904,19 @@
         }
 
         function Channel(address, cb) {
-            this.socket = io.connect(address.host + address.port + "?appId=" + self.appId + "&token=" + encodeURIComponent(self.appToken) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer, cb);
+            this.socket = io.connect(address.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer, cb);
             this.writeAndFlush = function (val) {
                 if (this.isWritable()) {
                     this.socket.send(val);
                 } else {
-                    this.reconnect({onSuccess: function () {
-                        io.getInstance().send(val);
-                    }, onError: function () {
-                        throw new Error("reconnect fail")
-                    }})
+                    this.reconnect({
+                        onSuccess: function () {
+                            io.getInstance().send(val);
+                        },
+                        onError: function () {
+                            throw new Error("reconnect fail")
+                        }
+                    })
                 }
             };
             this.reconnect = function (callback) {
@@ -1998,9 +2018,8 @@
             _enum = enums;
             _obj = obj
         };
-        this.connect = function (_token, _callback) {
-            this.appToken = _token;
-            if (Client.Endpoint.port && Client.Endpoint.host) {
+        this.connect = function (_callback) {
+            if (Client.Endpoint.host) {
                 if (io._TransportType == "websocket") {
                     if (!global.WebSocket) {
                         _callback.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(1));
@@ -2125,6 +2144,14 @@
                     }
                     io.getInstance().fire("StatusChanged", 0);
                     io.getInstance()._doQueue()
+                } else if (status == 6) {
+                    //重定向
+                    Client.getServerEndpoint(self.appId, self.token, function () {
+                        clearInterval(self.heartbeat);
+                        this.channel.socket = io.connect(Client.Endpoint.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer, function () {
+                            io._TransportType == "websocket" && self.keepLive();
+                        });
+                    }, _timeout, false);
                 } else {
                     if (self.reconnectObj.onError) {
                         self.reconnectObj.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(status));
@@ -2206,14 +2233,27 @@
             io.util.cookieHelper.removeAllCookie();
             io.util.cookieHelper.setCookie("appId", appId);
         }
-        var client = new Client();
-        client.appId = appId;
+        var client = new Client(token, appId);
         Client.getServerEndpoint(token, appId, function () {
-            client.connect(token, callback);
-        }, callback.onError);
+            client.connect(callback);
+        }, callback.onError, true);
         return client;
     };
-    Client.getServerEndpoint = function (_token, _appId, _onsuccess, _onerror) {
+    Client.getServerEndpoint = function (_token, _appId, _onsuccess, _onerror, unignore) {
+        if (unignore) {
+            var naviStr = global.MD5(_token).slice(8, 16),
+                _old = io.util.cookieHelper.getCookie("navi\\w+?"),
+                _new = io.util.cookieHelper.getCookie("navi" + naviStr);
+            if (_old == _new && _new !== null && io.util.cookieHelper.getCookie("rongSDK") == io._TransportType) {
+                var obj = unescape(_old).split(",");
+                setTimeout(function () {
+                    Client.Endpoint.host = obj[0];
+                    Client.Endpoint.userId = obj[1];
+                    _onsuccess();
+                }, 500)
+                return;
+            }
+        }
         var Url = {
                 "navUrl-Debug": "http://nav.sunquan.rongcloud.net:9001/",
                 "navUrl-Release": "http://nav.cn.rong.io/"
@@ -2228,20 +2268,21 @@
             xss.onload = _onsuccess;
         } else {
             xss.onreadystatechange = function () {
-                if (xss.readyState == "loaded") {
-                    _onsuccess();
-                }
+                xss.readyState == "loaded" && _onsuccess();
             }
         }
     };
     Client.Endpoint = {};
     global.getServerEndpoint = function (x) {
         Client.Endpoint.host = x["server"];
-        Client.Endpoint.port = "/websocket";
         Client.Endpoint.userId = x.userId;
+        var temp = document.cookie.match(new RegExp("(^| )navi\\w+?=([^;]*)(;|$)"));
+        temp !== null && RongIMClient.getInstance().getIO().util.cookieHelper.deleteCookie(temp[0].split("=")[0].replace(/^\s/, ""));
+        RongIMClient.getInstance().getIO().util.cookieHelper.setCookie("navi" + global.MD5(window.RongBrIdge._client.token).slice(8, 16), x["server"] + "," + (x.userId || ""));
+
     };
 
-    function bridge(_appkey, _token, _callback) {
+    global.RongBrIdge = bridge = function (_appkey, _token, _callback) {
         bridge._client = Client.connect(_appkey, _token, _callback);
         var _topic = ["invtDiz", "crDiz", "qnUrl", "userInf", "dizInf", "userInf", "joinGrp", "quitDiz", "exitGrp", "evctDiz", ["ppMsgP", "pdMsgP", "pgMsgP", "pcMsgP", "chatMsg"], "pdOpen", "rename", "uGcmpr", "qnTkn", 'destroyChrm', 'createChrm', 'exitChrm', 'queryChrm', 'joinChrm', "pGrps", "addBlack", "rmBlack", "getBlack", "blackStat", "relations"];
         this.getIO = function () {
@@ -2295,9 +2336,7 @@
         this.pubMsg = function (topic, content, targetId, callback, msg) {
             bridge._client.publishMessage(_topic[10][topic], content, targetId, callback, msg)
         }
-    }
-
-    global.RongBrIdge = bridge;
+    };
 })(window);
 (function (global, undefined) {
     global.RongIMClient = function (r) {
@@ -2413,11 +2452,13 @@
                                 con.setConversationType(RongIMClient.ConversationType.PRIVATE);
                                 con.setTargetId(global.RongBrIdge._client.userId);
                                 con.setTop();
-                            }, onError: function () {
+                            },
+                            onError: function () {
                             }
                         })
                     });
-                }, onError: function () {
+                },
+                onError: function () {
                     callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
                 }
             }, "RelationsOutput");
@@ -2425,7 +2466,7 @@
         };
         this.getConversation = function (c, e) {
             q(["object", "string"]);
-            return  this.getConversationList().get(c, e);
+            return this.getConversationList().get(c, e);
         };
         this.getConversationList = function () {
             return a.getCurrentConversationList();
@@ -2773,51 +2814,33 @@
                     info.push(groupinfo);
                 }
             }
-            function nothing() {
-                if (!global.MD5) {
+
+            var modules = new Modules.GroupHashInput();
+            modules.setUserId(global.RongBrIdge._client.userId);
+            modules.setGroupHashCode(global.MD5(part.sort().join("")));
+            a.queryMsg(13, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
+                onSuccess: function (result) {
+                    if (result === 1) {
+                        var val = new Modules.GroupInput();
+                        val.setGroupInfo(info);
+                        a.queryMsg(20, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
+                            onSuccess: function () {
+                                _callback.onSuccess();
+                            },
+                            onError: function () {
+                                _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                            }
+                        }, "GroupOutput");
+                    } else {
+                        _callback.onSuccess();
+                    }
+                },
+                onError: function () {
                     _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
                 }
-                var modules = new Modules.GroupHashInput();
-                modules.setUserId(global.RongBrIdge._client.userId);
-                modules.setGroupHashCode(global.MD5(part.sort().join("")));
-                a.queryMsg(13, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
-                    onSuccess: function (result) {
-                        if (result === 1) {
-                            var val = new Modules.GroupInput();
-                            val.setGroupInfo(info);
-                            a.queryMsg(20, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
-                                onSuccess: function () {
-                                    _callback.onSuccess();
-                                }, onError: function () {
-                                    _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
-                                }
-                            }, "GroupOutput");
-                        } else {
-                            _callback.onSuccess();
-                        }
-                    }, onError: function () {
-                        _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
-                    }
-                }, "GroupHashOutput");
-            }
+            }, "GroupHashOutput");
 
-            if (typeof global["MD5"] === "function") {
-                nothing();
-            } else {
-                var scr = document.createElement("script");
-                scr.src = "http://rongcloud-web-sdk.qiniudn.com/MD5.min.js";
-                if (scr.readyState !== undefined) {
-                    scr.onreadystatechange = function () {
-                        scr.readyState == "loaded" && nothing();
-                    }
-                } else {
-                    scr.onload = nothing();
-                }
-                scr.onerror = function () {
-                    _callback.onError(RongIMClient.callback.ErrorCode.setValue(1))
-                };
-                document.body.appendChild(scr);
-            }
+
         };
         this.addToBlacklist = function (userId, callback) {
             q(["string", "object"]);
@@ -2850,7 +2873,7 @@
             throw new Error("please init")
         }
         if (global.Modules) {
-            RongIMClient.getInstance().connect(d, a)
+            RongIMClient.getInstance().connect(d, a);
         } else {
             RongIMClient.connect.token = d;
             RongIMClient.connect.callback = a
@@ -3686,7 +3709,7 @@
     };
     RongIMClient.ConnectionStatusListener.ConnectionStatus = function (a) {
         var e = a || 0,
-            f = navigator.language == "zh-CN" ? ["\u8FDE\u63A5\u6210\u529F", "\u8FDE\u63A5\u4E2D", "\u91CD\u8FDE", "\u5F53\u524D\u5E10\u53F7\u5DF2\u5728\u5176\u4ED6\u5730\u65B9\u767B\u5F55", "\u5DF2\u5173\u95ED" , "\u672A\u77E5\u9519\u8BEF", "\u767B\u51FA", "\u9501\u5B9A"] : ["CONNECTED", "CONNECTING", "RECONNECT", "OTHER_DEVICE_LOGIN", "CLOSED", "UNKNOWN ERROR", "LOGOUT", "BLOCK"];
+            f = navigator.language == "zh-CN" ? ["\u8FDE\u63A5\u6210\u529F", "\u8FDE\u63A5\u4E2D", "\u91CD\u8FDE", "\u5F53\u524D\u5E10\u53F7\u5DF2\u5728\u5176\u4ED6\u5730\u65B9\u767B\u5F55", "\u5DF2\u5173\u95ED", "\u672A\u77E5\u9519\u8BEF", "\u767B\u51FA", "\u9501\u5B9A"] : ["CONNECTED", "CONNECTING", "RECONNECT", "OTHER_DEVICE_LOGIN", "CLOSED", "UNKNOWN ERROR", "LOGOUT", "BLOCK"];
         this.CONNECTED = 0;
         this.CONNECTING = 1;
         this.RECONNECT = 2;

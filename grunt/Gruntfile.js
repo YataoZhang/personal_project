@@ -18,11 +18,11 @@ module.exports = function (grunt) {
             version:"0.9.7",
             rootPath:"./online/",
             resource:[{src:"RongIMClient.js",nameList:"RongIMClient.min.js,RongIMClient-0.9.7.min.js",operate:"pack"},
-                {src:"emoji-0.9.2.js",nameList:"RongIMClient.Emoji-0.9.2.min.js",operate:"pack"},
-                {src:"protobuf.js",nameList:"protobuf.min.js",operate:"uglify"},
-                {src:"swfobject.js",nameList:"swfobject.min.js",operate:"uglify"},
+                {src:"emoji-0.9.2.js",nameList:"RongIMClient.emoji-0.9.2.min.js",operate:"pack"},
+                {src:"protobuf.js",nameList:"protobuf-0.2.min.js",operate:"uglify"},
+                {src:"swfobject.js",nameList:"swfobject-0.2.min.js",operate:"uglify"},
                 {src:"voice-0.9.1.js",nameList:"RongIMClient.voice-0.9.1.min.js",operate:"pack"},
-                {src:"xhrpolling.js",nameList:"xhrpolling.min.js",operate:"uglify"}],
+                {src:"xhrpolling.js",nameList:"xhrpolling-0.2.min.js",operate:"uglify"}],
             env:"Release"
         }
     });

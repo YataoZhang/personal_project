@@ -824,8 +824,8 @@ var swfobject = function () {
     WebSocket.__tasks = [];
     WebSocket.__nextId = 0;
 
-    WebSocket.loadFlashPolicyFile = function(){
-        WebSocket.__addTask(function() {
+    WebSocket.loadFlashPolicyFile = function () {
+        WebSocket.__addTask(function () {
             WebSocket.__flash.loadManualPolicyFile("xmlsocket://119.254.110.241:8300");
         });
     };
@@ -838,7 +838,7 @@ var swfobject = function () {
     };
     WebSocket.__initialize = function () {
         if (typeof window != 'undefined') {
-            window.WEB_SOCKET_SWF_LOCATION = 'http://res.websdk.rongcloud.net/WebSocketMain.swf';
+            window.WEB_SOCKET_SWF_LOCATION = 'http://res.websdk.rongcloud.cn/WebSocketMainInsecure-0.2.swf';
             window.WEB_SOCKET_DEBUG = true;
             try {
                 WebSocket.loadFlashPolicyFile("xmlsocket://119.254.110.241:8300");
@@ -857,7 +857,7 @@ var swfobject = function () {
             logger.error("[WebSocket] set WEB_SOCKET_SWF_LOCATION to location of WebSocketMain.swf");
             return
         }
-        if (!window.WEB_SOCKET_SUPPRESS_CROSS_DOMAIN_SWF_ERROR && !WEB_SOCKET_SWF_LOCATION.match(/(^|\/)WebSocketMainInsecure\.swf(\?.*)?$/) && WEB_SOCKET_SWF_LOCATION.match(/^\w+:\/\/([^\/]+)/)) {
+        if (!window.WEB_SOCKET_SUPPRESS_CROSS_DOMAIN_SWF_ERROR && !WEB_SOCKET_SWF_LOCATION.match(/(^|\/)WebSocketMainInsecure-0\.2\.swf(\?.*)?$/) && WEB_SOCKET_SWF_LOCATION.match(/^\w+:\/\/([^\/]+)/)) {
             var swfHost = RegExp.$1;
             if (location.host != swfHost) {
                 logger.error("[WebSocket] You must host HTML and WebSocketMain.swf in the same host " + "('" + location.host + "' != '" + swfHost + "'). " + "See also 'How to host HTML file and SWF file in different domains' section " + "in README.md. If you use WebSocketMainInsecure.swf, you can suppress this message " + "by WEB_SOCKET_SUPPRESS_CROSS_DOMAIN_SWF_ERROR = true;")
@@ -897,10 +897,10 @@ var swfobject = function () {
     WebSocket.__onFlashEvent = function () {
         setTimeout(function () {
             try {
-                var events = WebSocket.__flash.receiveEvents();
-                for (var i = 0; i < events.length; ++i) {
-                    WebSocket.__instances[events[i].webSocketId].__handleEvent(events[i])
-                }
+            var events = WebSocket.__flash.receiveEvents();
+            for (var i = 0; i < events.length; ++i) {
+                WebSocket.__instances[events[i].webSocketId].__handleEvent(events[i])
+            }
             } catch (e) {
                 logger.error(e)
             }
@@ -953,7 +953,7 @@ var swfobject = function () {
         this.setSyncTime = function (e) {
             d.syncTime = e || Date.now()
         };
-        this.SetIspolling = function (e) {
+        this.setIspolling = function (e) {
             d.ispolling = !!e
         };
         this.toArrayBuffer = function () {
@@ -968,7 +968,7 @@ var swfobject = function () {
             d.classname = e
         };
         this.setContent = function (e) {
-            d.content = binaryHelper.writeUTF(e, true)
+            e && (d.content = window.RongBinaryHelper ? window.RongBinaryHelper.writeUTF(e, !0).toString() : "");
         };
         this.setPushText = function (e) {
             d.pushText = e
@@ -1002,7 +1002,7 @@ var swfobject = function () {
             d.classname = e
         };
         this.setContent = function (e) {
-            d.content = binaryHelper.writeUTF(e, true)
+            e && (d.content = window.RongBinaryHelper ? window.RongBinaryHelper.writeUTF(e, !0).toString() : "");
         };
         this.setDataTime = function (e) {
             d.dataTime = e
@@ -1192,12 +1192,19 @@ var swfobject = function () {
             return WebSocket.Serialize("GetSessionIdOutput", d)
         }
     }};
-    for (var c in a) {
-        a[c].decode = (function (d) {
-            return function (e) {
-                return WebSocket.deSerialize(d, e)
+    for (var c in a)
+        a[c].decode = (function (y) {
+            return function (b) {
+                b = WebSocket.deSerialize(y, b);
+                var c = {},
+                    d;
+                for (d in b) c["get" + d.charAt(0).toUpperCase() + d.slice(1)] = function (y) {
+                    return function () {
+                        return y
+                    }
+                }(b[d]);
+                return c;
             }
-        })(c)
-    }
+        })(c);
     b.Modules = a;
 })(window);
