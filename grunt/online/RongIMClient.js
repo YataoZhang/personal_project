@@ -2826,7 +2826,7 @@
                     if (result === 1) {
                         var val = new Modules.GroupInput();
                         val.setGroupInfo(info);
-                        a.queryMsg(20, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
+                        a.queryMsg(20, m.util.arrayFrom(val.toArrayBuffer()), global.RongBrIdge._client.userId, {
                             onSuccess: function () {
                                 _callback.onSuccess();
                             },
