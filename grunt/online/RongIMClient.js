@@ -80,13 +80,15 @@
                 }
                 return false;
             })()) {
-                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=3";
+                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=4";
+//                script.src = "grunt/online/swfobject.js";
             } else {
                 if (navigator.cookieEnabled === false) {
                     throw new Error("Cookie is not available, please open the cookie");
                 }
                 io._TransportType = "xhr-polling";
-                script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=1";
+                script.src = "http://res.websdk/.rongcloud.cn/xhrpolling-0.2.min.js?v=4";
+//                script.src = "grunt/online/xhrpolling.js";
             }
             document.getElementsByTagName("head")[0].appendChild(script);
             var ele = document.createElement("script");
@@ -1221,7 +1223,7 @@
             }
         };
         Transport.prototype._onData = function (data, header) {
-            if (!data) {
+            if (!data||data=="lost params") {
                 return;
             }
             if (header) {
@@ -1339,6 +1341,7 @@
         XHR.prototype.connect = function (url) {
             var sid = io.util.cookieHelper.getCookie(Client.Endpoint.userId + "sId"),
                 _that = this;
+            this._posting = false;
             if (sid) {
                 io.getInstance().currentURL = url;
                 setTimeout(function () {
@@ -1348,7 +1351,6 @@
                 return this;
             }
             this._get(url);
-            this._posting = false;
             return this;
         };
         XHR.prototype._checkSend = function () {
@@ -2801,7 +2803,7 @@
             modules.setId(_groupId);
             modules.setName(_groupName);
             var _mod = new Modules.GroupInput();
-            _mod.setGroupInfo(modules);
+            _mod.setGroupInfo([modules]);
             a.queryMsg(6, m.util.arrayFrom(_mod.toArrayBuffer()), _groupId, _callback, "GroupOutput");
         };
         this.syncGroup = function (_groups, _callback) {

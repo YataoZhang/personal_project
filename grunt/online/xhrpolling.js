@@ -394,7 +394,10 @@
         GroupInput: function () {
             var a = {};
             this.setGroupInfo = function (b) {
-                a.groupInfo = b;
+                for(var i= 0,arr=[];i< b.length;i++){
+                    arr.push({id: b[i].getContent().id,name:b[i].getContent().name})
+                }
+                a.groupInfo = arr;
             };
             this.toArrayBuffer = function () {
                 return a
@@ -416,6 +419,9 @@
             };
             this.setName = function (b) {
                 a.name = b;
+            };
+            this.getContent=function(){
+                return a;
             };
             this.toArrayBuffer = function () {
                 return a

@@ -897,10 +897,10 @@ var swfobject = function () {
     WebSocket.__onFlashEvent = function () {
         setTimeout(function () {
             try {
-            var events = WebSocket.__flash.receiveEvents();
-            for (var i = 0; i < events.length; ++i) {
-                WebSocket.__instances[events[i].webSocketId].__handleEvent(events[i])
-            }
+                var events = WebSocket.__flash.receiveEvents();
+                for (var i = 0; i < events.length; ++i) {
+                    WebSocket.__instances[events[i].webSocketId].__handleEvent(events[i])
+                }
             } catch (e) {
                 logger.error(e)
             }
@@ -937,13 +937,19 @@ var swfobject = function () {
     }
 })();
 (function (b) {
+    function parseNum(a) {
+        a = parseInt(a).toString(16);
+        if (11 != a.length) return "0";
+        var b = a.slice(a.length - 8);
+        return a.slice(0, 3) + "" + b
+    }
     var a = {NotifyMsg: function () {
         var d = {};
         this.setType = function (e) {
             d.type = e
         };
         this.setTime = function (e) {
-            d.time = e
+            d.time = parseNum(e)
         };
         this.toArrayBuffer = function () {
             return WebSocket.Serialize("NotifyMsg", d)
@@ -951,7 +957,7 @@ var swfobject = function () {
     }, SyncRequestMsg: function () {
         var d = {};
         this.setSyncTime = function (e) {
-            d.syncTime = e || Date.now()
+            d.syncTime = parseNum(e)
         };
         this.setIspolling = function (e) {
             d.ispolling = !!e
@@ -982,7 +988,7 @@ var swfobject = function () {
             d.list = e
         };
         this.setSyncTime = function (e) {
-            d.syncTime = e
+            d.syncTime = parseNum(e)
         };
         this.toArrayBuffer = function () {
             return WebSocket.Serialize("DownStreamMessages", d)
@@ -1005,10 +1011,10 @@ var swfobject = function () {
             e && (d.content = window.RongBinaryHelper ? window.RongBinaryHelper.writeUTF(e, !0).toString() : "");
         };
         this.setDataTime = function (e) {
-            d.dataTime = e
+            d.dataTime = parseNum(e)
         };
         this.setStatus = function (e) {
-            d.status = e
+            d.status = parseNum(e)
         };
         this.toArrayBuffer = function () {
             return WebSocket.Serialize("DownStreamMessage", d)
@@ -1092,7 +1098,7 @@ var swfobject = function () {
         this.toArrayBuffer = function () {
             return WebSocket.Serialize("ChannelInfoOutput", d)
         }
-    }, ChannelInfoOutput: function () {
+    }, ChannelInfosInput: function () {
         var d = {};
         this.setPage = function (e) {
             d.page = e
@@ -1101,7 +1107,7 @@ var swfobject = function () {
             d.number = e
         };
         this.toArrayBuffer = function () {
-            return WebSocket.Serialize("ChannelInfoOutput", d)
+            return WebSocket.Serialize("ChannelInfosOutput", d)
         }
     }, ChannelInfosOutput: function () {
         var d = {};
@@ -1191,7 +1197,215 @@ var swfobject = function () {
         this.toArrayBuffer = function () {
             return WebSocket.Serialize("GetSessionIdOutput", d)
         }
-    }};
+    },
+        GetQNupTokenInput: function () {
+            var a = {};
+            this.setType = function (b) {
+                a.type = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("GetQNupTokenInput", a)
+            }
+        },
+        GetQNupTokenOutput: function () {
+            var a = {};
+            this.setDeadline = function (b) {
+                a.deadline = parseNum(b)
+            };
+            this.setToken = function (b) {
+                a.token = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("GetQNupTokenOutput", a)
+            }
+        },
+        GetQNdownloadUrlInput: function () {
+            var a = {};
+            this.setType = function (b) {
+                a.type = b
+            };
+            this.setKey = function (b) {
+                a.key = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("GetQNdownloadUrlInput", a)
+            }
+        },
+        GetQNdownloadUrlOutput: function () {
+            var a = {};
+            this.setDownloadUrl = function (b) {
+                a.downloadUrl = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("GetQNdownloadUrlOutput", a)
+            }
+        },
+        Add2BlackListInput: function () {
+            var a = {};
+            this.setUserId = function (b) {
+                a.userId = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("Add2BlackListInput", a)
+            }
+        },
+        RemoveFromBlackListInput: function () {
+            var a = {};
+            this.setUserId = function (b) {
+                a.userId = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("RemoveFromBlackListInput", a)
+            }
+        },
+        QueryBlackListInput: function () {
+            var a = {};
+            this.setNothing = function (b) {
+                a.nothing = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("QueryBlackListInput", a)
+            }
+        },
+        QueryBlackListOutput: function () {
+            var a = {};
+            this.setUserIds = function (b) {
+                a.userIds = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("QueryBlackListOutput", a)
+            }
+        },
+        BlackListStatusInput: function () {
+            var a = {};
+            this.setUserId = function (b) {
+                a.userId = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("BlackListStatusInput", a)
+            }
+        },
+        BlockPushInput: function () {
+            var a = {};
+            this.setBlockeeId = function (b) {
+                a.blockeeId = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("BlockPushInput", a)
+            }
+        },
+        ModifyPermissionInput: function () {
+            var a = {};
+            this.setOpenStatus = function (b) {
+                a.openStatus = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("ModifyPermissionInput", a)
+            }
+        },
+        GroupInput: function () {
+            var a = {};
+            this.setGroupInfo = function (b) {
+                for(var i= 0,arr=[];i< b.length;i++){
+                    arr.push({id: b[i].getContent().id,name:b[i].getContent().name})
+                }
+                a.groupInfo = arr;
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("GroupInput", a)
+            }
+        },
+        GroupOutput: function () {
+            var a = {};
+            this.setNothing = function (b) {
+                a.nothing = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("GroupOutput", a)
+            }
+        },
+        GroupInfo: function () {
+            var a = {};
+            this.setId = function (b) {
+                a.id = b
+            };
+            this.setName = function (b) {
+                a.name = b
+            };
+            this.getContent=function(){
+                return a;
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("GroupInfo", a)
+            }
+        },
+        GroupHashInput: function () {
+            var a = {};
+            this.setUserId = function (b) {
+                a.userId = b
+            };
+            this.setGroupHashCode = function (b) {
+                a.groupHashCode = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("GroupHashInput", a)
+            }
+        },
+        GroupHashOutput: function () {
+            var a = {};
+            this.setResult = function (b) {
+                a.result = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("GroupHashOutput", a)
+            }
+        },
+        ChrmInput: function () {
+            var a = {};
+            this.setNothing = function (b) {
+                a.nothing = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("ChrmInput", a)
+            }
+        },
+        ChrmOutput: function () {
+            var a = {};
+            this.setNothing = function (b) {
+                a.nothing = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("ChrmOutput", a)
+            }
+        },
+        ChrmPullMsg: function () {
+            var a = {};
+            this.setSyncTime = function (b) {
+                a.syncTime = parseNum(b)
+            };
+            this.setCount = function (b) {
+                a.count = b
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("ChrmPullMsg", a)
+            }
+        },RelationsInput:function(){
+            var a = {};
+            this.setNothing = function (b) {
+                a.nothing = b;
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("RelationsInput", a)
+            }
+        },RelationsOutput:function(){
+            var a = {};
+            this.setUserIds = function (b) {
+                a.userIds = b;
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("RelationsOutput", a)
+            }
+        }};
     for (var c in a)
         a[c].decode = (function (y) {
             return function (b) {

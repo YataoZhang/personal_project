@@ -15,12 +15,13 @@
          * 可根据控制台输出的内容检查bug
          */
 //       window.WEB_SOCKET_FORCE_FLASH=true;
-//       window.WEB_XHR_POLLING=true;
+       window.WEB_XHR_POLLING=true;
 
         window.callback = {
             onSuccess: function (x) {
                 console.log(1, x)
             }, onError: function (x) {
+                console.log(arguments.callee.caller);
                 console.log(2, x)
             }
         };
