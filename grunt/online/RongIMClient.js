@@ -64,7 +64,7 @@
 
     var io = {},
         messageIdHandler, func = function () {
-            var script = document.createElement("script");
+            var script = document.createElement("script"),head= document.getElementsByTagName("head")[0];
             io._TransportType = "websocket";
             if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
                 script.src = "http://res.websdk.rongcloud.cn/protobuf-0.2.min.js?v=1";
@@ -80,20 +80,20 @@
                 }
                 return false;
             })()) {
-                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=4";
-//                script.src = "grunt/online/swfobject.js";
+//                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=7";
+                script.src = "grunt/online/swfobject.js";
             } else {
                 if (navigator.cookieEnabled === false) {
                     throw new Error("Cookie is not available, please open the cookie");
                 }
                 io._TransportType = "xhr-polling";
-                script.src = "http://res.websdk/.rongcloud.cn/xhrpolling-0.2.min.js?v=4";
+                script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=4";
 //                script.src = "grunt/online/xhrpolling.js";
             }
-            document.getElementsByTagName("head")[0].appendChild(script);
+            head.appendChild(script);
             var ele = document.createElement("script");
             ele.src = "http://res.websdk.rongcloud.cn/MD5.min.js";
-            document.body.appendChild(ele);
+            head.appendChild(ele);
             messageIdHandler = new function () {
                 var messageId = 0,
                     isXHR = io._TransportType === "xhr-polling",
@@ -2442,6 +2442,9 @@
             }
         };
         this.syncConversationList = function () {
+            if(m._TransportType=="xhr-polling"){
+                return;
+            }
             var modules = new Modules.RelationsInput();
             modules.setNothing(1);
             a.queryMsg(25, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
