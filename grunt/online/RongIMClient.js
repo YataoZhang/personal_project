@@ -2817,7 +2817,6 @@
                     info.push(groupinfo);
                 }
             }
-
             var modules = new Modules.GroupHashInput();
             modules.setUserId(global.RongBrIdge._client.userId);
             modules.setGroupHashCode(global.MD5(part.sort().join("")));

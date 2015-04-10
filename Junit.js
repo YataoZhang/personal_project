@@ -49,7 +49,7 @@
     };
     _promise.prototype._fire = function (nextPromise, nextAffair) {
         if (this.result == false) {
-            console.warn("终止操作")
+            console.warn("终止操作");
             return;
         }
 
