@@ -3027,6 +3027,9 @@
             u = c
         };
         this.toJSONString = function () {
+            if(!t){
+                throw new Error("lost the messageid")
+            }
             var c = {
                 "receivedTime": u,
                 "messageType": x,
