@@ -80,15 +80,13 @@
                 }
                 return false;
             })()) {
-//                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=7";
-                script.src = "grunt/online/swfobject.js";
+                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=6";
             } else {
                 if (navigator.cookieEnabled === false) {
                     throw new Error("Cookie is not available, please open the cookie");
                 }
                 io._TransportType = "xhr-polling";
                 script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=4";
-//                script.src = "grunt/online/xhrpolling.js";
             }
             head.appendChild(script);
             var ele = document.createElement("script");
@@ -1117,7 +1115,7 @@
                     var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
                     if (keys) {
                         for (var i = keys.length; i--;)
-                            document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+                            document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString();
                     }
 
                 }
@@ -1149,7 +1147,7 @@
                         var escFunc = function (m) {
                             return escMap[m] || '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).substr(1);
                         };
-                        var escRE = /[\\"\u0000-\u001F\u2028\u2029]/g;
+                        var escRE = new RegExp('[\\"\u0000-\u001F\u2028\u2029]','g');
                         return function stringify(value) {
                             if (value == null) {
                                 return 'null';
@@ -1796,8 +1794,8 @@
                 con.setNotificationStatus(RongIMClient.ConversationNotificationStatus.DO_NOT_DISTURB);
                 con.setLatestMessageId(message.getMessageId());
                 con.setLatestMessage(message);
-                con.setTop()
-                onReceived(message)
+                con.setTop();
+                onReceived(message);
             }
         };
         this.handleMessage = function (msg) {
@@ -1852,7 +1850,7 @@
                 this.add = function (x) {
                     for (var i = 0; i < this.length; i++) {
                         if (this[i].getTargetId() === x.getTargetId() && i != 0 && this[i].getConversationType() == x.getConversationType()) {
-                            this.unshift(this.splice(i, 1)[0])
+                            this.unshift(this.splice(i, 1)[0]);
                             return;
                         }
                     }
@@ -2252,7 +2250,7 @@
                     Client.Endpoint.host = obj[0];
                     Client.Endpoint.userId = obj[1];
                     _onsuccess();
-                }, 500)
+                }, 500);
                 return;
             }
         }
@@ -2261,7 +2259,7 @@
                 "navUrl-Release": "http://nav.cn.rong.io/"
             },
             xss = document.createElement("script");
-        xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+        xss.src = Url["navUrl-Release"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
             _onerror(RongIMClient.ConnectCallback.ErrorCode.setValue(5));
