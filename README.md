@@ -493,10 +493,10 @@ function fetchStatus(address) {
 </div>
 
 #### 使用ActiveXObject时需要注意的地方
-使用ActiveXObject与XMLHttpRequest对象大体相同。不过还是有些许不同的地方。
+使用ActiveXObject与XMLHttpRequest对象大体相同。不过还是有些不同的地方。
 >不同点：
 >+   ActiveXObject对象中没有timeout属性，没有ontimeout方法。
->+   ActiveXObject对象中不支持statusText熟悉。
+>+   ActiveXObject对象中不支持statustext属性。
 >+   ActiveXObject对象中没有DONE、OPEN、UNSENT、HEADERS_RECEIVED、DONE
 >+   ActiveXObject对象中没有onload方法
 >+   ActiveXObject对象中send()不支持重载
