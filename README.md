@@ -243,9 +243,9 @@ interface XMLHttpRequest : XMLHttpRequestEventTarget {
   readonly attribute DOMString responseText;
   readonly attribute Document? responseXML;
 };
-
-
 ```
+从这个c++的接口中我们可以清楚的了解到XMLHttpRequest对象中有哪些属性和方法；
+
 在浏览器中创建并使用一个 XMLHttpRequest 实例, 可以使用如下语句:
 ```js
 var req = new XMLHttpRequest();
@@ -275,7 +275,7 @@ XMLHttpRequest对象属性概述：
 -   `readyState` 	`unsigned short	` 请求的五种状态: 0	UNSENT (未打开)	open()方法还未被调用、 1	OPENED  (未发送)	send()方法还未被调用、2	HEADERS_RECEIVED (已获取响应头)	send()方法已经被调用, 响应头和响应状态已经返回、 3	LOADING (正在下载响应体)	响应体下载中; responseText中已经获取了部分数据、 4	DONE (请求完成)	整个请求过程已经完毕.
 -   `response` 	`varies`	响应实体的类型由 responseType 来指定， 可以是 ArrayBuffer， Blob， Document， JavaScript 对象 (即 "json")， 或者是字符串。如果请求未完成或失败，则该值为 null。
 -   `responseText`	 `DOMString`	此次请求的响应为文本，或是当请求未成功或还未发送时为 null。只读。
--   `responseType` 	`XMLHttpRequestResponseType` 设置该值能够改变响应类型。就是告诉服务器你期望的响应格式： `"" (空字符串)`	 字符串(默认值)、 `"arraybuffer"` 	ArrayBuffer、 `"blob"`	 Blob、 `"document"` 	Document、 `"json"`	 JavaScript、 `"text"` 	字符串。
+-   `responseType` 	`XMLHttpRequestResponseType` 设置该值能够改变响应类型。就是告诉服务器你期望的响应格式： `"" (空字符串)`	 字符串(默认值)、 `"ArrayBufferView"` 	ArrayBufferView、 `"blob"`	 Blob、 `"document"` 	Document、 `"json"`	 JavaScript Object、 `"text"` 	字符串。
 -   `responseXML` 	`Document?	` 本次请求的响应是一个 Document 对象，如果是以下情况则值为 null：请求未成功，请求未发送，或响应无法被解析成 XML 或 HTML。当响应为text/xml 流时会被解析。当 responseType 设置为"document"，并且请求为异步的，则响应会被当做 text/html 流来解析。只读.(`注意: 如果服务器不支持 text/xml Content-Type 头，你可以使用 overrideMimeType() 强制 XMLHttpRequest 将响应解析为 XML。`)
 -   `status` 	`unsigned short`	该请求的响应状态码 (例如, 状态码200 表示一个成功的请求).只读.
 -   `statusText` 	`DOMString`	该请求的响应状态信息,包含一个状态码和原因短语 (例如 "200 OK"). 只读.
@@ -321,10 +321,32 @@ req.overrideMimeType("text/html");
 ```
 重写由服务器返回的MIME类型。这可以用于一下情况。例如，强制服务器返回的数据流流被处理和解析为`text/ xml`，即使服务器不报告它作为这个MIME类型.这个方法必须send()之前调用。
 
+###### onload
+```js
+req.onload=function(){
+ console.log(this.responseText,this.responseType,this.response);
+}
+```
+当XMLHttpRequest对象加载完成时(readyState为4)触发。且只与readyState有关，与status和statustext无关。所以当注册onload的方法执行时不一定为成功的状态。只是也仅仅是这个条http事务完成而已。不注册此方法则onload默认为null。
+###### onreadystatechange
+```js
+req.onreadystatechange=function(){
+//判断ajax成功,此写法有兼容性。
+ if(this.readyState==this.DONE&&this.statusText=="OK"){
+  console.log(this.response,'成功');
+ }
+//判断ajax成功还有另外一种写法
+ if(this.readyState==4&&this.status==200){
+  console.log(this.responseText,'成功');
+ }
+}
+```
+每当readyState的值改变时就会出发该方法。不注册此方法则onreadystatechange默认为null。
+
 ###### send()
 *注意: 所有相关的事件绑定必须在调用send()方法之前进行.*
 ```js
-req.send(undefined||null||ArrayBuffer||Blob||XML||String||FormData);
+req.send(undefined||null||ArrayBufferView||Blob||XML||String||FormData);
 //此方法有7种参数重载
 ```
 发送请求. 如果该请求是异步模式(默认),该方法会立刻返回. 相反,如果请求是同步模式,则直到请求的响应完全接受以后,该方法才会返回.<br/>
@@ -497,10 +519,10 @@ function fetchStatus(address) {
 >不同点：
 >+   ActiveXObject对象中没有timeout属性，没有ontimeout方法。
 >+   ActiveXObject对象中不支持statustext属性。
->+   ActiveXObject对象中没有DONE、OPEN、UNSENT、HEADERS_RECEIVED、DONE
->+   ActiveXObject对象中没有onload方法
->+   ActiveXObject对象中send()不支持重载
->+   ActiveXObject对象中没有withCredentials属性<br/>
+>+   ActiveXObject对象中没有DONE、OPEN、UNSENT、HEADERS_RECEIVED、DONE 这些属性。
+>+   ActiveXObject对象中没有onload方法。
+>+   ActiveXObject对象中send()不支持ArrayBuffer||Blob||Formdata 等类型重载。
+>+   ActiveXObject对象中没有withCredentials属性。<br/>
 >由于ActiveXObject对象只在IE5、IE6中使用，所以很多功能都没有。所以使用时需注意。<br/>
 
 ActiveXObject对象用法：
