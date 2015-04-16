@@ -113,7 +113,73 @@ URI包括两种形式，一种是URL一种是URN。目前大部分会不加区�
 >-   telnet 用于交互式访问业务
 
 ### 浏览器兼容性
+在IE8以下版本的IE系列浏览器中，要应用AJAX必须使用`ActiveXObject(这个对象是一个微软推广和支持在Internet Explorer中，不在Windows应用商店的应用程序。)` 方法。在标准浏览器(chrome、firefox、opera、safari、ie7+)当中则使用`XMLHttpRequest`对象。
 ### 如何发起AJAX?
+在低版本IE(8-)中使用`ActiveXObject`构造AJAX对象时需要传入一个String类型的参数`Microsoft.XMLHTTP`，也可以使用`Msxml3.XMLHTTP`和`Msxml2.XMLHTTP`。因为一开始是`Microsoft.XMLHTTP` 之后变成`Msxml2.XMLHTTP`及更新版的`Msxml3.XMLHTTP`
+```js
+// code for IE6, IE5
+ var xmlhttp1 = new ActiveXObject("Microsoft.XMLHTTP");
+ var xmlhttp2 = new ActiveXObject("Msxml2.XMLHTTP");
+ var xmlhttp3 = new ActiveXObject("Msxml3.XMLHTTP");
+```
+在标准浏览器中则使用`XMLHttpRequest`对象
+```js
+// code for IE7+, Firefox, Chrome, Opera, Safari
+var xmlhttp = new XMLHttpRequest();
+```
+为了在项目中可以在任何浏览器中使用AJAX所以我们必须做一个判断，如果浏览器为低版本ie就是用`ActiveXObject`对象否则使用`XMLHttpRequest`对象。代码如下：
+```js
+var XHR = function () {
+    var xmlhttp;
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    }
+    else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    return xmlhttp;
+  };
+var xmlObj=XHR();
+console.log(xmlObj);
+```
+这样的话，我们就可以得到一个在任何浏览器都能发起AJAX的方法。但是这样左右一个坏处，就是每次获取AJAX对象时都会判断一次，这样做很费时费力。所以，我们利用`惰性函数`的概念来实现一个只需要第一次判断，后面都不需要判断的方法。
+```js
+ var XHR = function () {
+ //将浏览器支持的AJAX对象放入一个function中，并且根据固定的顺序放到一个队列里。
+        for (var AJAXObj = [function () {
+            return new XMLHttpRequest
+        }, function () {
+            return new ActiveXObject("Msxml2.XMLHTTP")
+        }, function () {
+            return new ActiveXObject("Msxml3.XMLHTTP")
+        }, function () {
+            return new ActiveXObject("Microsoft.XMLHTTP")
+        }], val = null, index = 0; index < AJAXObj.length; index++) {
+        //此方法的核心，如果当前浏览器支持此对象就用val保存起来，用保存当前最适合ajax对象的function替换XHR方法，并且结束该循环。这样第二次执行XHR方法时就不需要循环，直接就能得到当前浏览器最适ajax对象。如果都不支持就抛出自定义引用错误。
+            try {
+                val = AJAXObj[index]()
+            } catch (b) {
+                continue
+            }
+            //假设当前浏览器为标准浏览器，此处执行完毕之后console.log(XHR);
+            //结果为：function () {
+            //  return new XMLHttpRequest
+            //};XHR成功替换。
+            XHR=AJAXObj[index];
+            break
+        }
+        if (!val) {
+            throw new ReferenceError("XMLHttpRequest is not supported")
+        }
+        return val;
+    };
+  var xmlObj=XHR();
+  console.log(xmlObj);
+```
+本方法的核心就是利用 `惰性函数` 。这才是正点。第一次计算得到的值，供内部函数调用，然后用这个内部函数重置外部函数（因为同名），以后就不用计算了，也不用判断分支条件。这时函数就相当于一个被赋值的变量
+
 #### 使用XMLHttpRequest
 #### 使用ActiveXObject
 ### AJAX 示例
