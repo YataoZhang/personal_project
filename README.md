@@ -182,11 +182,77 @@ console.log(xmlObj);
 
 #### 使用XMLHttpRequest
 XMLHttpRequest 是一个 JavaScript 对象,它最初由微软设计,随后被 Mozilla,Apple, 和 Google采纳. 如今,该对象已经被 W3C组织标准化. 通过它,你可以很容易的取回一个URL上的资源数据. 尽管名字里有XML, 但XMLHttpRequest 可以取回所有类型的数据资源,并不局限于XML. 而且除了HTTP ,它还支持file 和 ftp 协议.<br/>
-创建一个 XMLHttpRequest 实例, 可以使用如下语句:
+ECMA定义XMLHttpRequest `C++` 接口：
+```C
+[NoInterfaceObject]
+interface XMLHttpRequestEventTarget : EventTarget {
+  // event handlers
+  attribute EventHandler onloadstart;
+  attribute EventHandler onprogress;
+  attribute EventHandler onabort;
+  attribute EventHandler onerror;
+  attribute EventHandler onload;
+  attribute EventHandler ontimeout;
+  attribute EventHandler onloadend;
+};
+
+interface XMLHttpRequestUpload : XMLHttpRequestEventTarget {
+
+};
+
+enum XMLHttpRequestResponseType {
+  "",
+  "arraybuffer",
+  "blob",
+  "document",
+  "json",
+  "text"
+};
+
+[Constructor]
+interface XMLHttpRequest : XMLHttpRequestEventTarget {
+  // event handler
+  attribute EventHandler onreadystatechange;
+
+  // states
+  const unsigned short UNSENT = 0;
+  const unsigned short OPENED = 1;
+  const unsigned short HEADERS_RECEIVED = 2;
+  const unsigned short LOADING = 3;
+  const unsigned short DONE = 4;
+  readonly attribute unsigned short readyState;
+
+  // request
+  void open(ByteString method, [EnsureUTF16] DOMString url);
+  void open(ByteString method, [EnsureUTF16] DOMString url, boolean async, optional [EnsureUTF16] DOMString? username = null, optional [EnsureUTF16] DOMString? password = null);
+  void setRequestHeader(ByteString header, ByteString value);
+           attribute unsigned long timeout;
+           attribute boolean withCredentials;
+  readonly attribute XMLHttpRequestUpload upload;
+  void send(optional (ArrayBufferView or Blob or Document or [EnsureUTF16] DOMString or FormData)? data = null);
+  void abort();
+
+  // response
+  readonly attribute unsigned short status;
+  readonly attribute ByteString statusText;
+  ByteString? getResponseHeader(ByteString header);
+  ByteString getAllResponseHeaders();
+  void overrideMimeType(DOMString mime);
+           attribute XMLHttpRequestResponseType responseType;
+  readonly attribute any response;
+  readonly attribute DOMString responseText;
+  readonly attribute Document? responseXML;
+};
+
+
+```
+在浏览器中创建并使用一个 XMLHttpRequest 实例, 可以使用如下语句:
 ```js
 var req = new XMLHttpRequest();
+//do something...
 ```
 XMLHttpRequest 让发送一个HTTP请求变得非常容易。你只需要简单的创建一个请求对象实例，打开一个URL，然后发送这个请求。当传输完毕后，结果的HTTP状态以及返回的响应内容也可以从请求对象中获取。本页把这个强大的JavaScript对象的一些常用的甚至略有晦涩的使用案例进行了一下概述。<br/>
+
 XMLHttpRequest对象方法概述：
 +   **返回值**   **方法(参数)**
 +   void `abort`();
@@ -243,7 +309,10 @@ req.open(http Method,URL,isAsync,userName,password);
 //userName 可选的用户名，以用于身份验证的目的;默认情况下，这是一个空字符串。
 //password 可选的密码用于认证的目的;默认情况下，这是一个空字符串。
 ```
-初始化一个请求. 该方法用于JavaScript代码中;如果是本地代码, 使用 openRequest()方法代替.
+初始化一个请求. 该方法用于JavaScript代码中;如果是本地代码, 使用 openRequest()方法代替.<br/>
+*如果传入的http method不区分大小写与 CONNECT, DELETE, GET, HEAD, OPTIONS, POST, PUT, TRACE, 或者 TRACK匹配上, 从范围0x61（ASCII a）每个字节0x7A（ASCII a）减去0x20。把小写转换成大写(`如果它不匹配任何上述情况，它是通过传递字面上，包括在最后的请求。`)*
+
+*如果http method 不区分大小写匹配到 CONNECT, TRACE, 或者 TRACK 这三个方法, 抛出 "SecurityError" 异常*
 
 ###### overrideMimeType()
 ```js
