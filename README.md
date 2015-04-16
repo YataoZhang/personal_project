@@ -178,9 +178,45 @@ console.log(xmlObj);
   var xmlObj=XHR();
   console.log(xmlObj);
 ```
-本方法的核心就是利用 `惰性函数` 。这才是正点。第一次计算得到的值，供内部函数调用，然后用这个内部函数重置外部函数（因为同名），以后就不用计算了，也不用判断分支条件。这时函数就相当于一个被赋值的变量
+本方法的核心就是利用 `惰性函数` 。这才是正点。第一次计算得到的值，供内部函数调用，然后用这个内部函数重置外部函数（因为同名），以后就不用计算了，也不用判断分支条件。这时函数就相当于一个被赋值的变量。接下来我们以此介绍`XMLHttpRequest`和`ActiveXObject`如何使用。
 
 #### 使用XMLHttpRequest
+XMLHttpRequest 是一个 JavaScript 对象,它最初由微软设计,随后被 Mozilla,Apple, 和 Google采纳. 如今,该对象已经被 W3C组织标准化. 通过它,你可以很容易的取回一个URL上的资源数据. 尽管名字里有XML, 但XMLHttpRequest 可以取回所有类型的数据资源,并不局限于XML. 而且除了HTTP ,它还支持file 和 ftp 协议.<br/>
+创建一个 XMLHttpRequest 实例, 可以使用如下语句:
+```js
+var req = new XMLHttpRequest();
+```
+XMLHttpRequest 让发送一个HTTP请求变得非常容易。你只需要简单的创建一个请求对象实例，打开一个URL，然后发送这个请求。当传输完毕后，结果的HTTP状态以及返回的响应内容也可以从请求对象中获取。本页把这个强大的JavaScript对象的一些常用的甚至略有晦涩的使用案例进行了一下概述。<br/>
+XMLHttpRequest对象中包含一下方法：
++   **返回值**   **方法(参数)**
++   void `abort`();
++   DOMString `getAllResponseHeaders`();
++   DOMString? `getResponseHeader`(DOMString header);
++   void `open`(DOMString method, DOMString url, optional boolean async, optional DOMString? user, optional DOMString? +   password);
++   void `overrideMimeType`(DOMString mime);
++   void `send`();
++   void `send`(ArrayBuffer data);
++   void `send`(Blob data);
++   void `send`(Document data);
++   void `send`(DOMString? data);
++   void `send`(FormData data);
++   void `setRequestHeader`(DOMString header, DOMString value);
+
+属性：
+
+-   **属性名**  **格式类型**  **说明**
+-   `onreadystatechange`  `Function?`	 一个JavaScript函数对象，当readyState属性改变时会调用它。回调函数会在user interface线程中调用。(`警告: 不能在本地代码中使用. 也不应该在同步模式的请求中使用.`)
+-   `readyState` 	`unsigned short	` 请求的五种状态: 0	UNSENT (未打开)	open()方法还未被调用、 1	OPENED  (未发送)	send()方法还未被调用、2	HEADERS_RECEIVED (已获取响应头)	send()方法已经被调用, 响应头和响应状态已经返回、 3	LOADING (正在下载响应体)	响应体下载中; responseText中已经获取了部分数据、 4	DONE (请求完成)	整个请求过程已经完毕.
+-   `response` 	`varies`	响应实体的类型由 responseType 来指定， 可以是 ArrayBuffer， Blob， Document， JavaScript 对象 (即 "json")， 或者是字符串。如果请求未完成或失败，则该值为 null。
+-   `responseText`	 `DOMString`	此次请求的响应为文本，或是当请求未成功或还未发送时为 null。只读。
+-   `responseType` 	`XMLHttpRequestResponseType` 设置该值能够改变响应类型。就是告诉服务器你期望的响应格式： `"" (空字符串)`	 字符串(默认值)、 `"arraybuffer"` 	ArrayBuffer、 `"blob"`	 Blob、 `"document"` 	Document、 `"json"`	 JavaScript、 `"text"` 	字符串。
+-   `responseXML` 	`Document?	` 本次请求的响应是一个 Document 对象，如果是以下情况则值为 null：请求未成功，请求未发送，或响应无法被解析成 XML 或 HTML。当响应为text/xml 流时会被解析。当 responseType 设置为"document"，并且请求为异步的，则响应会被当做 text/html 流来解析。只读.(`注意: 如果服务器不支持 text/xml Content-Type 头，你可以使用 overrideMimeType() 强制 XMLHttpRequest 将响应解析为 XML。`)
+-   `status` 	`unsigned short`	该请求的响应状态码 (例如, 状态码200 表示一个成功的请求).只读.
+-   `statusText` 	`DOMString`	该请求的响应状态信息,包含一个状态码和原因短语 (例如 "200 OK"). 只读.
+-   `upload` 	`XMLHttpRequestUpload`	可以在 upload 上添加一个事件监听来跟踪上传过程。
+-   `withCredentials` 	`boolean` 表明在进行跨站(cross-site)的访问控制(Access-Control)请求时，是否使用认证信息(例如cookie或授权的header)。 默认为 false。*注意: 这不会影响同站(same-site)请求.*
+
 #### 使用ActiveXObject
+
 ### AJAX 示例
 
