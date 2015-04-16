@@ -492,7 +492,42 @@ function fetchStatus(address) {
 </table>
 </div>
 
-#### 使用ActiveXObject
+#### 使用ActiveXObject时需要注意的地方
+使用ActiveXObject与XMLHttpRequest对象大体相同。不过还是有些许不同的地方。
+>不同点：
+>+   ActiveXObject对象中没有timeout属性，没有ontimeout方法。
+>+   ActiveXObject对象中不支持statusText熟悉。
+>+   ActiveXObject对象中没有DONE、OPEN、UNSENT、HEADERS_RECEIVED、DONE
+>+   ActiveXObject对象中没有onload方法
+>+   ActiveXObject对象中send()不支持重载
+>+   ActiveXObject对象中没有withCredentials属性<br/>
+>由于ActiveXObject对象只在IE5、IE6中使用，所以很多功能都没有。所以使用时需注意。<br/>
+
+ActiveXObject对象用法：
+```js
+var http;
+  if(window.XMLHttpRequest){
+   http = new XMLHttpRequest();
+  } else if (window.ActiveXObject){
+   http = new ActiveXObject("Microsoft.XMLHTTP");
+   if (!http){
+    http = new ActiveXObject("Msxml2.XMLHTTP");
+   }
+  }
+ function handleStateResponse() {
+  if (this.readyState == 4) {
+   if(this.status == 200) {
+    var results = this.responseText;
+    console.log(results);
+   } else {
+    alert ( "Not able to retrieve description" );
+   }
+  }
+ }
+ http.open();
+ http.onreadystatechange=handleStateResponse;
+ http.send();
+```
 
 ### AJAX 示例
 
