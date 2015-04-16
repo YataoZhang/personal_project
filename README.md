@@ -187,7 +187,7 @@ XMLHttpRequest 是一个 JavaScript 对象,它最初由微软设计,随后被 Mo
 var req = new XMLHttpRequest();
 ```
 XMLHttpRequest 让发送一个HTTP请求变得非常容易。你只需要简单的创建一个请求对象实例，打开一个URL，然后发送这个请求。当传输完毕后，结果的HTTP状态以及返回的响应内容也可以从请求对象中获取。本页把这个强大的JavaScript对象的一些常用的甚至略有晦涩的使用案例进行了一下概述。<br/>
-XMLHttpRequest对象中包含一下方法：
+XMLHttpRequest对象方法概述：
 +   **返回值**   **方法(参数)**
 +   void `abort`();
 +   DOMString `getAllResponseHeaders`();
@@ -202,7 +202,7 @@ XMLHttpRequest对象中包含一下方法：
 +   void `send`(FormData data);
 +   void `setRequestHeader`(DOMString header, DOMString value);
 
-属性：
+XMLHttpRequest对象属性概述：
 
 -   **属性名**  **格式类型**  **说明**
 -   `onreadystatechange`  `Function?`	 一个JavaScript函数对象，当readyState属性改变时会调用它。回调函数会在user interface线程中调用。(`警告: 不能在本地代码中使用. 也不应该在同步模式的请求中使用.`)
@@ -215,6 +215,166 @@ XMLHttpRequest对象中包含一下方法：
 -   `statusText` 	`DOMString`	该请求的响应状态信息,包含一个状态码和原因短语 (例如 "200 OK"). 只读.
 -   `upload` 	`XMLHttpRequestUpload`	可以在 upload 上添加一个事件监听来跟踪上传过程。
 -   `withCredentials` 	`boolean` 表明在进行跨站(cross-site)的访问控制(Access-Control)请求时，是否使用认证信息(例如cookie或授权的header)。 默认为 false。*注意: 这不会影响同站(same-site)请求.*
+
+##### 方法
+###### abort()
+```js
+req.abort();
+```
+如果请求已经被发送,则立刻中止请求(canceled).
+###### getAllResponseHeaders()
+```js
+var allHeaders = req.getAllResponseHeaders();
+```
+返回所有响应头信息(响应头名和值), 如果响应头还没接受,则返回null. (`注意: For multipart requests, this returns the headers from the current part of the request, not from the original channel.`)
+###### getResponseHeader()
+```js
+var dateHeader = req.getAllResponseHeaders("Date");
+```
+返回指定的响应头的值, 如果响应头还没被接受,或该响应头不存在,则返回null.
+###### open()
+*注意: Calling this method an already active request (one for which open()or openRequest()has already been called) is the equivalent of calling abort().*
+```js
+req.open(http Method,URL,isAsync,userName,password);
+//参数
+//http Method 请求所使用的HTTP方法; "POST" 或者 "GET". 如果下个参数是非HTTP(S)的URL,则忽略该参数.
+//URL 该请求所要访问的URL
+//isAsync An optional boolean parameter, defaulting to true, indicating whether or not to perform the operation asynchronously. If this value is false, the send()method does not return until the response is received. If true, notification of a completed transaction is provided using event listeners. This must be true if the multipart attribute is true, or an exception will be thrown.
+//userName The optional user name to use for authentication purposes; by default, this is an empty string.
+//password The optional password to use for authentication purposes; by default, this is an empty string.
+```
+初始化一个请求. 该方法用于JavaScript代码中;如果是本地代码, 使用 openRequest()方法代替.
+
+###### overrideMimeType()
+```js
+req.overrideMimeType("text/html");
+//参数必须为MIME Type格式
+```
+Overrides the MIME type returned by the server. This may be used, for example, to force a stream to be treated and parsed as text/xml, even if the server does not report it as such.This method must be called before send().
+
+###### send()
+*注意: 所有相关的事件绑定必须在调用send()方法之前进行.*
+```js
+req.send(undefined||null||ArrayBuffer||Blob||XML||String||FormData);
+//此方法有7种参数重载
+```
+发送请求. 如果该请求是异步模式(默认),该方法会立刻返回. 相反,如果请求是同步模式,则直到请求的响应完全接受以后,该方法才会返回.<br/>
+*If the data is a Document, it is serialized before being sent. When sending a Document, versions of Firefox prior to version 3 always send the request using UTF-8 encoding; Firefox 3 properly sends the document using the encoding specified by body.xmlEncoding, or UTF-8 if no encoding is specified.*<br/>
+*If it's an nsIInputStream, it must be compatible with nsIUploadChannel's setUploadStream()method. In that case, a Content-Length header is added to the request, with its value obtained using nsIInputStream's available()method. Any headers included at the top of the stream are treated as part of the message body. The stream's MIMEtype should be specified by setting the Content-Type header using the setRequestHeader()method prior to calling send().*
+
+###### setRequestHeader()
+```js
+req.setRequestHeader("header","value");
+//设置制定的请求头，此方法必须在send()执行之前执行。
+//header 将要被赋值的请求头名称.
+//value 给指定的请求头赋的值.
+```
+给指定的HTTP请求头赋值.在这之前,你必须确认已经调用 open() 方法打开了一个url.
+
+#### 浏览器兼容性
+<div id="compat-desktop" style="display: block;">
+<table class="compat-table">
+ <tbody>
+  <tr>
+   <th>Feature</th>
+   <th>Chrome</th>
+   <th>Firefox (Gecko)</th>
+   <th>Internet Explorer</th>
+   <th>Opera</th>
+   <th>Safari (WebKit)</th>
+  </tr>
+  <tr>
+   <td>Basic support (XHR1)</td>
+   <td>1</td>
+   <td>1.0</td>
+   <td>5 (via ActiveXObject)<br>
+    7 (XMLHttpRequest)</td>
+   <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td>
+   <td>1.2</td>
+  </tr>
+  <tr>
+   <td>send(ArrayBuffer)</td>
+   <td>9</td>
+   <td>9</td>
+   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+   <td>11.60</td>
+   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+  </tr>
+  <tr>
+   <td>send(Blob)</td>
+   <td>7</td>
+   <td>3.6</td>
+   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+   <td>12</td>
+   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+  </tr>
+  <tr>
+   <td>send(FormData)</td>
+   <td>6</td>
+   <td>4</td>
+   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+   <td>12</td>
+   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+  </tr>
+  <tr>
+   <td>response</td>
+   <td>10</td>
+   <td>6</td>
+   <td>10</td>
+   <td>11.60</td>
+   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+  </tr>
+  <tr>
+   <td>responseType = 'arraybuffer'</td>
+   <td>10</td>
+   <td>6</td>
+   <td>10</td>
+   <td>11.60</td>
+   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+  </tr>
+  <tr>
+   <td>responseType = 'blob'</td>
+   <td>19</td>
+   <td>6</td>
+   <td>10</td>
+   <td>12</td>
+   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+  </tr>
+  <tr>
+   <td>responseType = 'document'</td>
+   <td>18</td>
+   <td>11</td>
+   <td><span style="color: #f00;">未实现</span></td>
+   <td><span style="color: #f00;">未实现</span></td>
+   <td><span style="color: #f00;">未实现</span></td>
+  </tr>
+  <tr>
+   <td>responseType = 'json'</td>
+   <td><span style="color: #f00;">未实现</span></td>
+   <td>10</td>
+   <td><span style="color: #f00;">未实现</span></td>
+   <td>12</td>
+   <td><span style="color: #f00;">未实现</span></td>
+  </tr>
+  <tr>
+   <td>Progress Events</td>
+   <td>7</td>
+   <td>3.5</td>
+   <td>10</td>
+   <td>12</td>
+   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+  </tr>
+  <tr>
+   <td>withCredentials</td>
+   <td>3</td>
+   <td>3.5</td>
+   <td>10</td>
+   <td>12</td>
+   <td>4</td>
+  </tr>
+ </tbody>
+</table>
+</div>
 
 #### 使用ActiveXObject
 
