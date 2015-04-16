@@ -239,9 +239,9 @@ req.open(http Method,URL,isAsync,userName,password);
 //参数
 //http Method 请求所使用的HTTP方法; "POST" 或者 "GET". 如果下个参数是非HTTP(S)的URL,则忽略该参数.
 //URL 该请求所要访问的URL
-//isAsync An optional boolean parameter, defaulting to true, indicating whether or not to perform the operation asynchronously. If this value is false, the send()method does not return until the response is received. If true, notification of a completed transaction is provided using event listeners. This must be true if the multipart attribute is true, or an exception will be thrown.
-//userName The optional user name to use for authentication purposes; by default, this is an empty string.
-//password The optional password to use for authentication purposes; by default, this is an empty string.
+//isAsync 一个可选的布尔参数，默认为真，指示是否异步执行操作。如果该值为false时，send()方法不返回直到收到响应。如果为true，完成交易的通知使用事件侦听器提供。这必须是真实的，如果多部分属性为true，或将引发异常。
+//userName 可选的用户名，以用于身份验证的目的;默认情况下，这是一个空字符串。
+//password 可选的密码用于认证的目的;默认情况下，这是一个空字符串。
 ```
 初始化一个请求. 该方法用于JavaScript代码中;如果是本地代码, 使用 openRequest()方法代替.
 
@@ -250,7 +250,7 @@ req.open(http Method,URL,isAsync,userName,password);
 req.overrideMimeType("text/html");
 //参数必须为MIME Type格式
 ```
-Overrides the MIME type returned by the server. This may be used, for example, to force a stream to be treated and parsed as text/xml, even if the server does not report it as such.This method must be called before send().
+重写由服务器返回的MIME类型。这可以用于一下情况。例如，强制服务器返回的数据流流被处理和解析为`text/ xml`，即使服务器不报告它作为这个MIME类型.这个方法必须send()之前调用。
 
 ###### send()
 *注意: 所有相关的事件绑定必须在调用send()方法之前进行.*
@@ -259,8 +259,7 @@ req.send(undefined||null||ArrayBuffer||Blob||XML||String||FormData);
 //此方法有7种参数重载
 ```
 发送请求. 如果该请求是异步模式(默认),该方法会立刻返回. 相反,如果请求是同步模式,则直到请求的响应完全接受以后,该方法才会返回.<br/>
-*If the data is a Document, it is serialized before being sent. When sending a Document, versions of Firefox prior to version 3 always send the request using UTF-8 encoding; Firefox 3 properly sends the document using the encoding specified by body.xmlEncoding, or UTF-8 if no encoding is specified.*<br/>
-*If it's an nsIInputStream, it must be compatible with nsIUploadChannel's setUploadStream()method. In that case, a Content-Length header is added to the request, with its value obtained using nsIInputStream's available()method. Any headers included at the top of the stream are treated as part of the message body. The stream's MIMEtype should be specified by setting the Content-Type header using the setRequestHeader()method prior to calling send().*
+*如果数据是一个Document，它在发送之前被序列化。当发送文件时，Firefox之前的版本3的版本总是使用UTF-8编码发送请求; Firefox 3的正常使用发送，如果没有指定编码由body.xml编码，或者UTF-8指定的编码文件。*<br/>
 
 ###### setRequestHeader()
 ```js
@@ -270,6 +269,54 @@ req.setRequestHeader("header","value");
 //value 给指定的请求头赋的值.
 ```
 给指定的HTTP请求头赋值.在这之前,你必须确认已经调用 open() 方法打开了一个url.
+
+示例代码：
+```js
+//一些简单的代码做一些与数据通过网络获取的XML文档
+function processData(data) {
+  // taking care of data
+}
+
+function handler() {
+  if(this.readyState == this.DONE) {
+    if(this.status == 200 &&
+       this.responseXML != null &&
+       this.responseXML.getElementById('test').textContent) {
+      // success!
+      processData(this.responseXML.getElementById('test').textContent);
+      return;
+    }
+    // something went wrong
+    processData(null);
+  }
+}
+
+var client = new XMLHttpRequest();
+client.onreadystatechange = handler;
+client.open("GET", "unicorn.xml");
+client.send();
+
+//如果你只是想记录一个消息服务器
+function log(message) {
+  var client = new XMLHttpRequest();
+  client.open("POST", "/log");
+  client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+  client.send(message);
+}
+
+//或者，如果您要检查服务器上的文档的状态
+function fetchStatus(address) {
+  var client = new XMLHttpRequest();
+  client.onreadystatechange = function() {
+    // in case of network errors this might not give reliable results
+    if(this.readyState == this.DONE)
+      returnStatus(this.status);
+  }
+  client.open("HEAD", address);
+  client.send();
+}
+
+```
 
 #### 浏览器兼容性
 <div id="compat-desktop" style="display: block;">
