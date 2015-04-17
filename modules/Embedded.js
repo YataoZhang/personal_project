@@ -931,7 +931,9 @@
                 return con.getMessage();
             },
             onReveicedMessageListener: function (_function) {
-                RongIMClient.getInstance().setOnReceiveMessageListener(RongIMClient.OnReceiveMessageListener(_function));
+                RongIMClient.getInstance().setOnReceiveMessageListener({
+                    onReceived:_function
+                })
             },
             suspendThisChat: function (callback) {
                 var msg = new RongIMClient.SuspendMessage();

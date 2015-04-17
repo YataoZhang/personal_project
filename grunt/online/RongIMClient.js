@@ -1,4 +1,3 @@
-;
 (function (global, undefined) {
     if (global.RongIMClient) {
         return;
@@ -61,10 +60,54 @@
         return enumeration;
 
     };
+    global.MD5 = function (e) {
+        function n(d) {
+            for (var a = 0, b = ""; 3 >= a; a++)b += "0123456789abcdef".charAt(d >> 8 * a + 4 & 15) + "0123456789abcdef".charAt(d >> 8 * a & 15);
+            return b
+        }
+
+        function m(a, b) {
+            var d = (a & 65535) + (b & 65535);
+            return(a >> 16) + (b >> 16) + (d >> 16) << 16 | d & 65535
+        }
+
+        function h(a, b, d, c, e, f) {
+            a = m(m(b, a), m(c, f));
+            return m(a << e | a >>> 32 - e, d)
+        }
+
+        function g(a, b, d, c, e, f, g) {
+            return h(b & d | ~b & c, a, b, e, f, g)
+        }
+
+        function k(a, b, d, c, e, f, g) {
+            return h(b & c | d & ~c, a, b, e, f, g)
+        }
+
+        function l(a, b, d, c, e, f, g) {
+            return h(d ^ (b | ~c), a, b, e, f, g)
+        }
+
+        e = function (a) {
+            for (var b =
+                (a.length + 8 >> 6) + 1, d = Array(16 * b), c = 0; c < 16 * b; c++)d[c] = 0;
+            for (c = 0; c < a.length; c++)d[c >> 2] |= a.charCodeAt(c) << c % 4 * 8;
+            d[c >> 2] |= 128 << c % 4 * 8;
+            d[16 * b - 2] = 8 * a.length;
+            return d
+        }(e);
+        for (var d = 1732584193, a = -271733879, b = -1732584194, c = 271733878, f = 0; f < e.length; f += 16)var p = d, q = a, r = b, t = c, d = g(d, a, b, c, e[f + 0], 7, -680876936), c = g(c, d, a, b, e[f + 1], 12, -389564586), b = g(b, c, d, a, e[f + 2], 17, 606105819), a = g(a, b, c, d, e[f + 3], 22, -1044525330), d = g(d, a, b, c, e[f + 4], 7, -176418897), c = g(c, d, a, b, e[f + 5], 12, 1200080426), b = g(b, c, d, a, e[f + 6], 17, -1473231341),
+            a = g(a, b, c, d, e[f + 7], 22, -45705983), d = g(d, a, b, c, e[f + 8], 7, 1770035416), c = g(c, d, a, b, e[f + 9], 12, -1958414417), b = g(b, c, d, a, e[f + 10], 17, -42063), a = g(a, b, c, d, e[f + 11], 22, -1990404162), d = g(d, a, b, c, e[f + 12], 7, 1804603682), c = g(c, d, a, b, e[f + 13], 12, -40341101), b = g(b, c, d, a, e[f + 14], 17, -1502002290), a = g(a, b, c, d, e[f + 15], 22, 1236535329), d = k(d, a, b, c, e[f + 1], 5, -165796510), c = k(c, d, a, b, e[f + 6], 9, -1069501632), b = k(b, c, d, a, e[f + 11], 14, 643717713), a = k(a, b, c, d, e[f + 0], 20, -373897302), d = k(d, a, b, c, e[f + 5], 5, -701558691), c = k(c, d, a, b, e[f + 10], 9, 38016083),
+            b = k(b, c, d, a, e[f + 15], 14, -660478335), a = k(a, b, c, d, e[f + 4], 20, -405537848), d = k(d, a, b, c, e[f + 9], 5, 568446438), c = k(c, d, a, b, e[f + 14], 9, -1019803690), b = k(b, c, d, a, e[f + 3], 14, -187363961), a = k(a, b, c, d, e[f + 8], 20, 1163531501), d = k(d, a, b, c, e[f + 13], 5, -1444681467), c = k(c, d, a, b, e[f + 2], 9, -51403784), b = k(b, c, d, a, e[f + 7], 14, 1735328473), a = k(a, b, c, d, e[f + 12], 20, -1926607734), d = h(a ^ b ^ c, d, a, e[f + 5], 4, -378558), c = h(d ^ a ^ b, c, d, e[f + 8], 11, -2022574463), b = h(c ^ d ^ a, b, c, e[f + 11], 16, 1839030562), a = h(b ^ c ^ d, a, b, e[f + 14], 23, -35309556), d = h(a ^ b ^ c, d, a, e[f +
+                1], 4, -1530992060), c = h(d ^ a ^ b, c, d, e[f + 4], 11, 1272893353), b = h(c ^ d ^ a, b, c, e[f + 7], 16, -155497632), a = h(b ^ c ^ d, a, b, e[f + 10], 23, -1094730640), d = h(a ^ b ^ c, d, a, e[f + 13], 4, 681279174), c = h(d ^ a ^ b, c, d, e[f + 0], 11, -358537222), b = h(c ^ d ^ a, b, c, e[f + 3], 16, -722521979), a = h(b ^ c ^ d, a, b, e[f + 6], 23, 76029189), d = h(a ^ b ^ c, d, a, e[f + 9], 4, -640364487), c = h(d ^ a ^ b, c, d, e[f + 12], 11, -421815835), b = h(c ^ d ^ a, b, c, e[f + 15], 16, 530742520), a = h(b ^ c ^ d, a, b, e[f + 2], 23, -995338651), d = l(d, a, b, c, e[f + 0], 6, -198630844), c = l(c, d, a, b, e[f + 7], 10, 1126891415), b = l(b, c, d, a, e[f + 14], 15,
+                -1416354905), a = l(a, b, c, d, e[f + 5], 21, -57434055), d = l(d, a, b, c, e[f + 12], 6, 1700485571), c = l(c, d, a, b, e[f + 3], 10, -1894986606), b = l(b, c, d, a, e[f + 10], 15, -1051523), a = l(a, b, c, d, e[f + 1], 21, -2054922799), d = l(d, a, b, c, e[f + 8], 6, 1873313359), c = l(c, d, a, b, e[f + 15], 10, -30611744), b = l(b, c, d, a, e[f + 6], 15, -1560198380), a = l(a, b, c, d, e[f + 13], 21, 1309151649), d = l(d, a, b, c, e[f + 4], 6, -145523070), c = l(c, d, a, b, e[f + 11], 10, -1120210379), b = l(b, c, d, a, e[f + 2], 15, 718787259), a = l(a, b, c, d, e[f + 9], 21, -343485551), d = m(d, p), a = m(a, q), b = m(b, r), c = m(c, t);
+        return n(d) +
+            n(a) + n(b) + n(c)
+    };
 
     var io = {},
         messageIdHandler, func = function () {
-            var script = document.createElement("script"),head= document.getElementsByTagName("head")[0];
+            var script = document.createElement("script"), head = document.getElementsByTagName("head")[0];
             io._TransportType = "websocket";
             if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
                 script.src = "http://res.websdk.rongcloud.cn/protobuf-0.2.min.js?v=1";
@@ -89,9 +132,6 @@
                 script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=4";
             }
             head.appendChild(script);
-            var ele = document.createElement("script");
-            ele.src = "http://res.websdk.rongcloud.cn/MD5.min.js";
-            head.appendChild(ele);
             messageIdHandler = new function () {
                 var messageId = 0,
                     isXHR = io._TransportType === "xhr-polling",
@@ -1147,7 +1187,7 @@
                         var escFunc = function (m) {
                             return escMap[m] || '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).substr(1);
                         };
-                        var escRE = new RegExp('[\\"\u0000-\u001F\u2028\u2029]','g');
+                        var escRE = new RegExp('[\\"\u0000-\u001F\u2028\u2029]', 'g');
                         return function stringify(value) {
                             if (value == null) {
                                 return 'null';
@@ -1221,7 +1261,7 @@
             }
         };
         Transport.prototype._onData = function (data, header) {
-            if (!data||data=="lost params") {
+            if (!data || data == "lost params") {
                 return;
             }
             if (header) {
@@ -1738,7 +1778,7 @@
                 } else {
                     if (msg.getTopic() == "s_ntf") {
                         entity = Modules.NotifyMsg.decode(msg.getData());
-                        client.syncTime(self.listener, entity.getType());
+                        client.syncTime(self.listener, entity.getType(), msg.getDate());
                         return;
                     } else if (msg.getTopic() == "s_msg") {
                         entity = Modules.DownStreamMessage.decode(msg.getData());
@@ -1751,6 +1791,7 @@
                 content = entity.getContent ? entity.getContent() : entity.content;
                 var de = JSON.parse(binaryHelper.readUTF(content.offset ? io.util.arrayFrom(content.buffer).slice(content.offset, content.limit) : content)),
                     objectName = entity.classname || entity.getClassname();
+
                 if ("Expression" in RongIMClient && "RC:TxtMsg" == objectName && de.content) {
                     de.content = de.content.replace(/[\uf000-\uf700]/g, function (x) {
                         return RongIMClient.Expression.calcUTF(x) || x;
@@ -1905,6 +1946,7 @@
 
         function Channel(address, cb) {
             this.socket = io.connect(address.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer, cb);
+
             this.writeAndFlush = function (val) {
                 if (this.isWritable()) {
                     this.socket.send(val);
@@ -2168,26 +2210,22 @@
         };
         this.ConnectAck.prototype = new MessageCallback();
         this.ConnectAck.prototype.constructor = this.ConnectAck;
-        var uptimesSyncTime = null,
-            chatroomSyncTime = null;
-        this.syncTime = function (_listener, _type) {
-            var time, modules, str, target;
-            if (_type != 2) {
+        var SyncTimeQueue = [];
+        SyncTimeQueue.state = "complete";
+        function invoke() {
+            var time, modules, str, target, temp = SyncTimeQueue.shift();
+            if (temp == undefined) {
+                return;
+            }
+            SyncTimeQueue.state = "pending";
+            if (temp.type != 2) {
                 time = io.util.cookieHelper.getCookie(self.userId) || 0;
-                if (uptimesSyncTime == time) {
-                    return;
-                }
-                uptimesSyncTime = time;
                 modules = new Modules.SyncRequestMsg();
                 modules.setIspolling(false);
                 str = 'pullMsg';
                 target = self.userId;
             } else {
                 time = io.util.cookieHelper.getCookie(self.userId + "CST") || 0;
-                if (chatroomSyncTime == time) {
-                    return;
-                }
-                chatroomSyncTime = time;
                 modules = new Modules.ChrmPullMsg();
                 modules.setCount(0);
                 str = 'chrmPull';
@@ -2196,35 +2234,42 @@
                 }
                 target = self.chatroomId;
             }
+            if (temp.pulltime && temp.pulltime * 1000 <= time) {
+                SyncTimeQueue.state = "complete";
+                invoke();
+                return;
+            }
             modules.setSyncTime(time);
             self.queryMessage(str, io.util.arrayFrom(modules.toArrayBuffer()), target, Qos.AT_LEAST_ONCE, {
                 onSuccess: function (status, data) {
                     if (status == 0) {
                         var collection = Modules.DownStreamMessages.decode(data),
                             sync = io.util.int64ToTimestamp(collection.getSyncTime()),
-                            symbol;
-                        if (str == "pullMsg") {
                             symbol = self.userId;
-                            uptimesSyncTime == sync && (uptimesSyncTime += "_");
-                        } else {
-                            symbol = self.userId + 'CST';
-                            chatroomSyncTime == sync && (chatroomSyncTime += "_");
+                        if (str == "chrmPull") {
+                            symbol += 'CST';
                         }
                         io.util.cookieHelper.setCookie(symbol, sync, 86400);
                         var list = collection.getList();
-                        if (_listener) {
+                        if (temp.listener) {
                             for (var i = 0; i < list.length; i++) {
-                                _listener.onReceived(list[i])
+                                temp.listener.onReceived(list[i])
                             }
                         }
-                    } else {
-                        uptimesSyncTime = null;
+                        SyncTimeQueue.state = "complete";
+                        invoke();
                     }
                 },
                 onError: function () {
-                    uptimesSyncTime = null;
                 }
             })
+        }
+
+        this.syncTime = function (_listener, _type, pullTime) {
+            SyncTimeQueue.push({listener: _listener, type: _type, pulltime: pullTime});
+            if (SyncTimeQueue.length == 1 && SyncTimeQueue.state == "complete") {
+                invoke()
+            }
         }
     }
 
@@ -2259,7 +2304,7 @@
                 "navUrl-Release": "http://nav.cn.rong.io/"
             },
             xss = document.createElement("script");
-        xss.src = Url["navUrl-Release"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+        xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
             _onerror(RongIMClient.ConnectCallback.ErrorCode.setValue(5));
@@ -2316,7 +2361,7 @@
                 }
             }
             for (i = 0; i < arr.length; i++) {
-                [].unshift.apply(bridge._client.oldestConversation, bridge._client.ConversationList.splice(arr[i]-i, 1));
+                [].unshift.apply(bridge._client.oldestConversation, bridge._client.ConversationList.splice(arr[i] - i, 1));
             }
             bridge._client.oldestConversation.splice(10);
             return true;
@@ -2440,7 +2485,7 @@
             }
         };
         this.syncConversationList = function () {
-            if(m._TransportType=="xhr-polling"){
+            if (m._TransportType == "xhr-polling") {
                 return;
             }
             var modules = new Modules.RelationsInput();
@@ -2862,9 +2907,9 @@
             var modules = new Modules.BlackListStatusInput();
             modules.setUserId(userId);
             a.queryMsg(24, m.util.arrayFrom(modules.toArrayBuffer()), userId, {
-                onSuccess:function(x){
+                onSuccess: function (x) {
                     callback.onSuccess(RongIMClient.BlacklistStatus.setValue(x));
-                },onError:callback.onError
+                }, onError: callback.onError
             })
         };
         this.removeFromBlacklist = function (userId, callback) {
@@ -2898,11 +2943,13 @@
         };
     };
     RongIMClient.init = function (d) {
-        var a = new RongIMClient(d);
-        RongIMClient.getInstance = function () {
-            return a
-        };
-        return a
+        var instance = null;
+        RongIMClient.getInstance === undefined && (RongIMClient.getInstance = function () {
+            if (instance == null) {
+                instance = new RongIMClient(d);
+            }
+            return instance;
+        });
     };
     RongIMClient.registerMessageType = function (regMsg) {
         if (!RongIMClient.getInstance) {
@@ -3025,7 +3072,7 @@
             u = c
         };
         this.toJSONString = function () {
-            if(!t){
+            if (!t) {
                 throw new Error("lost the messageid")
             }
             var c = {

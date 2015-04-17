@@ -455,7 +455,7 @@
             return true;
         }).then(function () {
             log("得到未读消息状态");
-            RongIMClient.hasUnreadMessages(_default.appKey, _default.token, {
+            RongIMClient.hasUnreadMessages(RongBrIdge._client.appId, RongBrIdge._client.token, {
                 onSuccess: function (x) {
                     info(x);
                 }, onError: function (x) {
@@ -465,7 +465,7 @@
             });
             return true;
         }).delay(2000).then(function () {
-            log("注册自定义消息")
+            log("注册自定义消息");
             RongIMClient.registerMessageType({messageType: "_MessageType", "objectName": "RC:selfMsg", "fieldName": ["name", "id", "age"]});
 
             if (RongIMClient._MessageType) {
