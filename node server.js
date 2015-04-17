@@ -10,7 +10,7 @@ http.createServer(function (req, res) {
     urls.query ? console.log(urls.query) : void 0;
     if (url == "/") {
 //        readFile("junk/xhr-polling.html", res);
-        readFile("SDK_invoker.html", res);
+        readFile("emoji_test.html", res);
     } else if (url == "/qwer") {
         res.writeHead(200,
             {"Access-Control-Allow-Origin": "*",

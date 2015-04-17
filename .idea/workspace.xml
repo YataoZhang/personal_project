@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e2fcb2a3-7cfd-415b-8a38-f8e4f3a00ba8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/Embedded.js" afterPath="$PROJECT_DIR$/modules/Embedded.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Junit.js" afterPath="$PROJECT_DIR$/Junit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grunt/online/RongIMClient.js" afterPath="$PROJECT_DIR$/grunt/online/RongIMClient.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SDK_invoker.html" afterPath="$PROJECT_DIR$/SDK_invoker.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grunt/online/emoji-0.9.2.js" afterPath="$PROJECT_DIR$/grunt/online/emoji-0.9.2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node server.js" afterPath="$PROJECT_DIR$/node server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="personal_project.iws" />
@@ -39,11 +39,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RongIMClient.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="node server.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="880">
+              <caret line="26" column="57" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RongIMClient.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grunt/online/RongIMClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24814422" vertical-offset="26774" max-vertical-offset="59088">
-              <caret line="1788" column="21" selection-start-line="1788" selection-start-column="21" selection-end-line="1788" selection-end-column="21" />
+            <state vertical-scroll-proportion="-18.23077" vertical-offset="40006" max-vertical-offset="59088">
+              <caret line="2630" column="25" selection-start-line="2630" selection-start-column="24" selection-end-line="2630" selection-end-column="25" />
               <folding>
                 <element signature="e#128#1654#0" expanded="false" />
                 <element signature="e#1686#6106#0" expanded="false" />
@@ -55,23 +65,43 @@
       <file leaf-file-name="Embedded.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/Embedded.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="14605" max-vertical-offset="16144">
-              <caret line="935" column="18" selection-start-line="935" selection-start-column="18" selection-end-line="935" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="14412" max-vertical-offset="16144">
+              <caret line="924" column="47" selection-start-line="924" selection-start-column="47" selection-end-line="924" selection-end-column="47" />
               <folding>
-                <marker date="1428982813000" expanded="false" signature="2953:2967" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="3346:3365" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="3417:3430" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="3756:4018" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="4139:4245" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="4740:4753" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="46795:46843" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="46858:46908" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="47601:47649" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="47704:47771" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="48784:48832" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="48901:48968" placeholder="..." />
-                <marker date="1428982813000" expanded="false" signature="55814:55983" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="2953:2967" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="3346:3365" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="3417:3430" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="3756:4018" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="4139:4245" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="4740:4753" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="46795:46843" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="46858:46908" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="47601:47649" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="47704:47771" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="48784:48832" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="48901:48968" placeholder="..." />
+                <marker date="1429263757000" expanded="false" signature="55814:55983" placeholder="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="emoji-0.9.2.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grunt/online/emoji-0.9.2.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.39628482" vertical-offset="256" max-vertical-offset="1856">
+              <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="emoji_test.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/emoji_test.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.12" vertical-offset="0" max-vertical-offset="432">
+              <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -81,26 +111,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="8208">
               <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="myMVC.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/mvc/myMVC.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1168">
-              <caret line="51" column="36" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="html5.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/html5.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="1056">
-              <caret line="15" column="65" selection-start-line="15" selection-start-column="65" selection-end-line="15" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -121,16 +131,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="1040" max-vertical-offset="1504">
               <caret line="65" column="33" selection-start-line="65" selection-start-column="33" selection-end-line="65" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="技巧.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/技巧.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="384" max-vertical-offset="560">
-              <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -173,7 +173,6 @@
         <option value="$PROJECT_DIR$/online/new_SDK.js" />
         <option value="$USER_HOME$/Documents/grunt/Gruntfile.js" />
         <option value="$PROJECT_DIR$/test_SDK.html" />
-        <option value="$PROJECT_DIR$/grunt/online/emoji-0.9.2.js" />
         <option value="$PROJECT_DIR$/junk/视觉滚动差.html" />
         <option value="$PROJECT_DIR$/junk/技巧.txt" />
         <option value="$PROJECT_DIR$/grunt/online/temp.js" />
@@ -189,7 +188,6 @@
         <option value="$PROJECT_DIR$/junk/mvc/myMVC.html" />
         <option value="$PROJECT_DIR$/junk/mvc/view/admin.html" />
         <option value="$PROJECT_DIR$/junk/mvc/view/contact.html" />
-        <option value="$PROJECT_DIR$/node server.js" />
         <option value="$PROJECT_DIR$/grunt/online/swfobject.js" />
         <option value="$PROJECT_DIR$/junk/indexed DB/indexedDB.html" />
         <option value="$PROJECT_DIR$/junk/indexed DB/moz_demo.js" />
@@ -200,11 +198,15 @@
         <option value="$PROJECT_DIR$/grunt/online/indexedDB.js" />
         <option value="$USER_HOME$/web-im-lib/RongIMClient.js" />
         <option value="$PROJECT_DIR$/grunt/Gruntfile.js" />
-        <option value="$PROJECT_DIR$/modules/Embedded.js" />
         <option value="$PROJECT_DIR$/Junit.js" />
         <option value="$PROJECT_DIR$/junk/xhr-polling.html" />
-        <option value="$PROJECT_DIR$/SDK_invoker.html" />
         <option value="$PROJECT_DIR$/grunt/online/RongIMClient.js" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/modules/Embedded.js" />
+        <option value="$PROJECT_DIR$/SDK_invoker.html" />
+        <option value="$PROJECT_DIR$/node server.js" />
+        <option value="$PROJECT_DIR$/emoji_test.html" />
+        <option value="$PROJECT_DIR$/grunt/online/emoji-0.9.2.js" />
       </list>
     </option>
   </component>
@@ -583,7 +585,11 @@
       <created>1428921012418</created>
       <updated>1428921012418</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="代码优化">
+      <created>1429252716069</created>
+      <updated>1429252716069</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -610,6 +616,7 @@
     <frame x="-1920" y="-66" width="1920" height="1080" extended-state="0" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -618,13 +625,12 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2279587" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871288" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871288" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970297" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -683,7 +689,8 @@
     <MESSAGE value="修改flash" />
     <MESSAGE value="增加本地存储模块" />
     <MESSAGE value="修改代码分号问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改代码分号问题" />
+    <MESSAGE value="代码优化" />
+    <option name="LAST_COMMIT_MESSAGE" value="代码优化" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -691,14 +698,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/junk/xhr-polling.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="320" max-vertical-offset="560">
-          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/embed.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="848">
@@ -789,13 +788,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="128">
-          <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/embed.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="464" max-vertical-offset="848">
@@ -838,13 +830,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/emoji-0.9.2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="912" max-vertical-offset="1680">
-          <caret line="81" column="17" selection-start-line="81" selection-start-column="17" selection-end-line="81" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grunt/online/xhrpolling.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="6089" max-vertical-offset="8384">
@@ -884,13 +869,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="25392">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="25" max-vertical-offset="880">
-          <caret line="27" column="59" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -976,6 +954,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="22880">
           <caret line="854" column="9" selection-start-line="854" selection-start-column="9" selection-end-line="854" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1043,6 +1022,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.3209493" vertical-offset="5943" max-vertical-offset="8992">
+          <caret line="512" column="9" selection-start-line="512" selection-start-column="9" selection-end-line="512" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/Embedded.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="14412" max-vertical-offset="16144">
+          <caret line="924" column="47" selection-start-line="924" selection-start-column="47" selection-end-line="924" selection-end-column="47" />
+          <folding>
+            <marker date="1429263757000" expanded="false" signature="2953:2967" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="3346:3365" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="3417:3430" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="3756:4018" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="4139:4245" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="4740:4753" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="46795:46843" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="46858:46908" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="47601:47649" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="47704:47771" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="48784:48832" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="48901:48968" placeholder="..." />
+            <marker date="1429263757000" expanded="false" signature="55814:55983" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SDK_invoker.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.68" vertical-offset="0" max-vertical-offset="2032">
@@ -1051,36 +1060,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/Embedded.js">
+    <entry file="file://$PROJECT_DIR$/node server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="14605" max-vertical-offset="16144">
-          <caret line="935" column="18" selection-start-line="935" selection-start-column="18" selection-end-line="935" selection-end-column="18" />
-          <folding>
-            <marker date="1428982813000" expanded="false" signature="2953:2967" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="3346:3365" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="3417:3430" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="3756:4018" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="4139:4245" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="4740:4753" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="46795:46843" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="46858:46908" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="47601:47649" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="47704:47771" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="48784:48832" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="48901:48968" placeholder="..." />
-            <marker date="1428982813000" expanded="false" signature="55814:55983" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="880">
+          <caret line="26" column="57" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grunt/online/RongIMClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24814422" vertical-offset="26774" max-vertical-offset="59088">
-          <caret line="1788" column="21" selection-start-line="1788" selection-start-column="21" selection-end-line="1788" selection-end-column="21" />
+        <state vertical-scroll-proportion="-18.23077" vertical-offset="40006" max-vertical-offset="59088">
+          <caret line="2630" column="25" selection-start-line="2630" selection-start-column="24" selection-end-line="2630" selection-end-column="25" />
           <folding>
             <element signature="e#128#1654#0" expanded="false" />
             <element signature="e#1686#6106#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emoji_test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.12" vertical-offset="0" max-vertical-offset="432">
+          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/online/emoji-0.9.2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39628482" vertical-offset="256" max-vertical-offset="1856">
+          <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>

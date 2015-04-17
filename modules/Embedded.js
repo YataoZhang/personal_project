@@ -937,7 +937,7 @@
             },
             suspendThisChat: function (callback) {
                 var msg = new RongIMClient.SuspendMessage();
-                msg.setContent(RongIMClient.getInstance().getCurrentUserInfo().getUserId());
+                msg.setContent(RongBrIdge._client.userId);
                 var con = new RongIMClient.MessageContent(msg);
                 RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, targetId, con, null, callback);
             },
