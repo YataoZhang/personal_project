@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2fcb2a3-7cfd-415b-8a38-f8e4f3a00ba8" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/junk/QQ_zone.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grunt/online/Embedded.js" afterPath="$PROJECT_DIR$/grunt/online/Embedded.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grunt/Gruntfile.js" afterPath="$PROJECT_DIR$/grunt/Gruntfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grunt/online/RongIMClient.js" afterPath="$PROJECT_DIR$/grunt/online/RongIMClient.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SDK_invoker.html" afterPath="$PROJECT_DIR$/SDK_invoker.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/embed.html" afterPath="$PROJECT_DIR$/embed.html" />
@@ -33,18 +33,38 @@
       <file leaf-file-name="SDK_invoker.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SDK_invoker.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.16" vertical-offset="32" max-vertical-offset="2032">
-              <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+            <state vertical-scroll-proportion="-2.56" vertical-offset="112" max-vertical-offset="2048">
+              <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RongIMClient.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Embedded.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/release/Embedded.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="176">
+              <caret line="5" column="1122" selection-start-line="5" selection-start-column="1122" selection-end-line="5" selection-end-column="1122" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RongIMClient.emoji-0.9.2.min.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.emoji-0.9.2.min.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
+              <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RongIMClient.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grunt/online/RongIMClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.884615" vertical-offset="59233" max-vertical-offset="60832">
-              <caret line="3723" column="30" selection-start-line="3723" selection-start-column="30" selection-end-line="3723" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.23116615" vertical-offset="0" max-vertical-offset="60832">
+              <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -53,22 +73,31 @@
       <file leaf-file-name="RongIMClient.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/web-im-lib/RongIMClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="51628" max-vertical-offset="55984">
-              <caret line="3261" column="22" selection-start-line="3261" selection-start-column="22" selection-end-line="3261" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="56000">
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gruntfile.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/Gruntfile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="112" max-vertical-offset="1440">
+              <caret line="26" column="25" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Embedded.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Embedded.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grunt/online/Embedded.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21181263" vertical-offset="0" max-vertical-offset="1152">
-              <caret line="123" column="17" selection-start-line="123" selection-start-column="17" selection-end-line="123" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="762" max-vertical-offset="1872">
+              <caret line="889" column="50" selection-start-line="889" selection-start-column="33" selection-end-line="889" selection-end-column="50" />
               <folding>
-                <element signature="e#92#670#0" expanded="false" />
-                <element signature="e#243#344#0" expanded="false" />
-                <element signature="e#491#630#0" expanded="false" />
                 <element signature="e#723#785#0" expanded="false" />
                 <element signature="e#802#1146#0" expanded="false" />
                 <element signature="e#1162#1193#0" expanded="false" />
@@ -78,7 +107,6 @@
                 <element signature="e#1997#2245#0" expanded="false" />
                 <element signature="e#2053#2145#0" expanded="false" />
                 <element signature="e#2189#2234#0" expanded="false" />
-                <element signature="e#2279#2323#0" expanded="false" />
                 <element signature="e#2344#3001#0" expanded="false" />
                 <element signature="e#3019#5340#0" expanded="false" />
                 <element signature="e#5401#5515#0" expanded="false" />
@@ -235,7 +263,6 @@
                 <element signature="e#59192#59475#0" expanded="false" />
                 <element signature="e#59305#59385#0" expanded="false" />
                 <element signature="e#59391#59469#0" expanded="false" />
-                <element signature="e#59570#64571#0" expanded="false" />
                 <element signature="e#59616#59691#0" expanded="false" />
                 <element signature="e#59723#59904#0" expanded="false" />
                 <element signature="e#59806#59892#0" expanded="false" />
@@ -245,51 +272,47 @@
                 <element signature="e#60011#60088#0" expanded="false" />
                 <element signature="e#60178#60371#0" expanded="false" />
                 <element signature="e#60279#60361#0" expanded="false" />
-                <element signature="e#60485#61467#0" expanded="false" />
-                <element signature="e#60670#61455#0" expanded="false" />
-                <element signature="e#60724#61328#0" expanded="false" />
                 <element signature="e#61170#61310#0" expanded="false" />
-                <element signature="e#61381#61441#0" expanded="false" />
-                <element signature="e#61484#61580#0" expanded="false" />
-                <element signature="e#61617#61962#0" expanded="false" />
-                <element signature="e#61989#64330#0" expanded="false" />
-                <element signature="e#62049#63328#0" expanded="false" />
-                <element signature="e#62147#62282#0" expanded="false" />
-                <element signature="e#62201#62281#0" expanded="false" />
-                <element signature="e#62343#63121#0" expanded="false" />
-                <element signature="e#62513#63101#0" expanded="false" />
-                <element signature="e#62537#62787#0" expanded="false" />
-                <element signature="e#62811#63100#0" expanded="false" />
-                <element signature="e#62845#62985#0" expanded="false" />
-                <element signature="e#63127#63286#0" expanded="false" />
-                <element signature="e#63390#63539#0" expanded="false" />
-                <element signature="e#63463#63524#0" expanded="false" />
-                <element signature="e#63590#63860#0" expanded="false" />
-                <element signature="e#63921#64134#0" expanded="false" />
-                <element signature="e#64197#64320#0" expanded="false" />
-                <element signature="e#64354#64420#0" expanded="false" />
-                <element signature="e#64651#65594#0" expanded="false" />
-                <element signature="e#64828#64888#0" expanded="false" />
-                <element signature="e#64939#65591#0" expanded="false" />
-                <element signature="e#65133#65372#0" expanded="false" />
-                <element signature="e#65155#65257#0" expanded="false" />
-                <element signature="e#65286#65358#0" expanded="false" />
-                <element signature="e#65442#65580#0" expanded="false" />
-                <element signature="e#65627#66235#0" expanded="false" />
-                <element signature="e#65661#66233#0" expanded="false" />
-                <marker date="1429502934000" expanded="false" signature="3058:3072" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="3451:3470" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="3522:3535" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="3861:4124" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="4245:4351" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="4846:4859" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="46836:46884" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="46899:46949" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="47642:47690" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="47746:47813" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="48834:48882" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="48950:49017" placeholder="..." />
-                <marker date="1429502934000" expanded="false" signature="55857:56026" placeholder="..." />
+                <element signature="e#61496#61592#0" expanded="false" />
+                <element signature="e#61629#61974#0" expanded="false" />
+                <element signature="e#62001#64342#0" expanded="false" />
+                <element signature="e#62061#63340#0" expanded="false" />
+                <element signature="e#62159#62294#0" expanded="false" />
+                <element signature="e#62213#62293#0" expanded="false" />
+                <element signature="e#62355#63133#0" expanded="false" />
+                <element signature="e#62525#63113#0" expanded="false" />
+                <element signature="e#62549#62799#0" expanded="false" />
+                <element signature="e#62823#63112#0" expanded="false" />
+                <element signature="e#62857#62997#0" expanded="false" />
+                <element signature="e#63139#63298#0" expanded="false" />
+                <element signature="e#63402#63551#0" expanded="false" />
+                <element signature="e#63475#63536#0" expanded="false" />
+                <element signature="e#63602#63872#0" expanded="false" />
+                <element signature="e#63933#64146#0" expanded="false" />
+                <element signature="e#64209#64332#0" expanded="false" />
+                <element signature="e#64366#64432#0" expanded="false" />
+                <element signature="e#64663#65606#0" expanded="false" />
+                <element signature="e#64840#64900#0" expanded="false" />
+                <element signature="e#64951#65603#0" expanded="false" />
+                <element signature="e#65145#65384#0" expanded="false" />
+                <element signature="e#65167#65269#0" expanded="false" />
+                <element signature="e#65298#65370#0" expanded="false" />
+                <element signature="e#65454#65592#0" expanded="false" />
+                <element signature="e#65639#66247#0" expanded="false" />
+                <element signature="e#65673#66245#0" expanded="false" />
+                <marker date="1429524430000" expanded="false" signature="3058:3072" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="3451:3470" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="3522:3535" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="3861:4124" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="4245:4351" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="4846:4859" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="46836:46884" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="46899:46949" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="47642:47690" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="47746:47813" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="48834:48882" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="48950:49017" placeholder="..." />
+                <marker date="1429524430000" expanded="false" signature="55857:56026" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -298,58 +321,28 @@
       <file leaf-file-name="embed.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/embed.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.96" vertical-offset="0" max-vertical-offset="944">
-              <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+            <state vertical-scroll-proportion="-7.04" vertical-offset="0" max-vertical-offset="960">
+              <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sea.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/sea.js">
+      <file leaf-file-name="RongIMClient.min.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14656">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
+              <caret line="0" column="15" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="视觉滚动差.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/视觉滚动差.html">
+      <file leaf-file-name="indexedDB.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/online/indexedDB.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-24.96" vertical-offset="48" max-vertical-offset="1248">
-              <caret line="42" column="45" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="html5.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/html5.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.4" vertical-offset="80" max-vertical-offset="1056">
-              <caret line="15" column="65" selection-start-line="15" selection-start-column="65" selection-end-line="15" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="promise.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/promise.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-24.84" vertical-offset="1603" max-vertical-offset="2560">
-              <caret line="139" column="30" selection-start-line="139" selection-start-column="30" selection-end-line="139" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="juicer.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/juicer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8784">
-              <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="2048">
+              <caret line="74" column="51" selection-start-line="74" selection-start-column="51" selection-end-line="74" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -371,7 +364,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/junk/test.html" />
         <option value="$PROJECT_DIR$/junk/html5.html" />
         <option value="$PROJECT_DIR$/junk/suoluetu.js" />
         <option value="$PROJECT_DIR$/online/MD5.js" />
@@ -413,14 +405,15 @@
         <option value="$PROJECT_DIR$/grunt/online/emoji-0.9.2.js" />
         <option value="$PROJECT_DIR$/modules/embed.html" />
         <option value="$PROJECT_DIR$/modules/Embedded.js" />
-        <option value="$PROJECT_DIR$/grunt/Gruntfile.js" />
-        <option value="$PROJECT_DIR$/embed.html" />
-        <option value="$PROJECT_DIR$/grunt/online/Embedded.js" />
         <option value="$USER_HOME$/Documents/PaulGuo-Juicer-de634bf/src/juicer.js" />
         <option value="$PROJECT_DIR$/junk/juicer.js" />
         <option value="$PROJECT_DIR$/junk/sea.js" />
-        <option value="$PROJECT_DIR$/SDK_invoker.html" />
+        <option value="$PROJECT_DIR$/embed.html" />
+        <option value="$PROJECT_DIR$/grunt/online/Embedded.js" />
+        <option value="$PROJECT_DIR$/grunt/release/Embedded.js" />
         <option value="$PROJECT_DIR$/grunt/online/RongIMClient.js" />
+        <option value="$PROJECT_DIR$/grunt/Gruntfile.js" />
+        <option value="$PROJECT_DIR$/SDK_invoker.html" />
         <option value="$USER_HOME$/web-im-lib/RongIMClient.js" />
       </list>
     </option>
@@ -762,7 +755,11 @@
       <created>1429500581597</created>
       <updated>1429500581597</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="增加发送消息失败枚举">
+      <created>1429522659613</created>
+      <updated>1429522659613</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -794,7 +791,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2494043" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.164297" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.164297" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2279587" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871288" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -865,7 +862,8 @@
     <MESSAGE value="代码优化" />
     <MESSAGE value="修改表情" />
     <MESSAGE value="修改Embedded.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改Embedded.js" />
+    <MESSAGE value="增加发送消息失败枚举" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加发送消息失败枚举" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -873,36 +871,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SDK_invoker.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="1840">
-          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="14" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/RongIMClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="34620" max-vertical-offset="57888">
-          <caret line="2179" column="29" selection-start-line="2179" selection-start-column="29" selection-end-line="2179" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/web-im-lib/RongIMClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="304" max-vertical-offset="50720">
-          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="656">
-          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grunt/online/emoji-0.9.2.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="583" max-vertical-offset="1712">
@@ -1044,40 +1012,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient-0.9.7.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
-          <caret line="0" column="60" selection-start-line="0" selection-start-column="60" selection-end-line="0" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.indexedDB.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="969">
-          <caret line="0" column="9" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/indexedDB.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="761" max-vertical-offset="2048">
-          <caret line="62" column="24" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grunt/online/swfobject.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="22880">
           <caret line="854" column="9" selection-start-line="854" selection-start-column="9" selection-end-line="854" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
-          <caret line="0" column="118" selection-start-line="0" selection-start-column="117" selection-end-line="0" selection-end-column="118" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1127,34 +1065,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/Gruntfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="1456">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/junk/技巧.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24439919" vertical-offset="0" max-vertical-offset="982">
           <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/emoji_test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23406479" vertical-offset="0" max-vertical-offset="957">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/emoji-0.9.2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="304" max-vertical-offset="1856">
-          <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -1199,46 +1113,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SDK_invoker.html">
+    <entry file="file://$PROJECT_DIR$/grunt/release/protobuf-0.2.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.16" vertical-offset="32" max-vertical-offset="2032">
-          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3184">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/RongIMClient.js">
+    <entry file="file://$PROJECT_DIR$/grunt/online/emoji-0.9.2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.884615" vertical-offset="59233" max-vertical-offset="60832">
-          <caret line="3723" column="30" selection-start-line="3723" selection-start-column="30" selection-end-line="3723" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="304" max-vertical-offset="1856">
+          <caret line="37" column="39" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/web-im-lib/RongIMClient.js">
+    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.indexedDB.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="51628" max-vertical-offset="55984">
-          <caret line="3261" column="22" selection-start-line="3261" selection-start-column="22" selection-end-line="3261" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
+          <caret line="0" column="9" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.voice-0.9.1.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="946">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient-0.9.7.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
+          <caret line="0" column="60" selection-start-line="0" selection-start-column="60" selection-end-line="0" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/swfobject-0.2.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="946">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/xhrpolling-0.2.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="946">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emoji_test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.96" vertical-offset="0" max-vertical-offset="432">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/embed.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.96" vertical-offset="0" max-vertical-offset="944">
-          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+        <state vertical-scroll-proportion="-7.04" vertical-offset="0" max-vertical-offset="960">
+          <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grunt/online/Embedded.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21181263" vertical-offset="0" max-vertical-offset="1152">
-          <caret line="123" column="17" selection-start-line="123" selection-start-column="17" selection-end-line="123" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="762" max-vertical-offset="1872">
+          <caret line="889" column="50" selection-start-line="889" selection-start-column="33" selection-end-line="889" selection-end-column="50" />
           <folding>
-            <element signature="e#92#670#0" expanded="false" />
-            <element signature="e#243#344#0" expanded="false" />
-            <element signature="e#491#630#0" expanded="false" />
             <element signature="e#723#785#0" expanded="false" />
             <element signature="e#802#1146#0" expanded="false" />
             <element signature="e#1162#1193#0" expanded="false" />
@@ -1248,7 +1199,6 @@
             <element signature="e#1997#2245#0" expanded="false" />
             <element signature="e#2053#2145#0" expanded="false" />
             <element signature="e#2189#2234#0" expanded="false" />
-            <element signature="e#2279#2323#0" expanded="false" />
             <element signature="e#2344#3001#0" expanded="false" />
             <element signature="e#3019#5340#0" expanded="false" />
             <element signature="e#5401#5515#0" expanded="false" />
@@ -1405,7 +1355,6 @@
             <element signature="e#59192#59475#0" expanded="false" />
             <element signature="e#59305#59385#0" expanded="false" />
             <element signature="e#59391#59469#0" expanded="false" />
-            <element signature="e#59570#64571#0" expanded="false" />
             <element signature="e#59616#59691#0" expanded="false" />
             <element signature="e#59723#59904#0" expanded="false" />
             <element signature="e#59806#59892#0" expanded="false" />
@@ -1415,52 +1364,114 @@
             <element signature="e#60011#60088#0" expanded="false" />
             <element signature="e#60178#60371#0" expanded="false" />
             <element signature="e#60279#60361#0" expanded="false" />
-            <element signature="e#60485#61467#0" expanded="false" />
-            <element signature="e#60670#61455#0" expanded="false" />
-            <element signature="e#60724#61328#0" expanded="false" />
             <element signature="e#61170#61310#0" expanded="false" />
-            <element signature="e#61381#61441#0" expanded="false" />
-            <element signature="e#61484#61580#0" expanded="false" />
-            <element signature="e#61617#61962#0" expanded="false" />
-            <element signature="e#61989#64330#0" expanded="false" />
-            <element signature="e#62049#63328#0" expanded="false" />
-            <element signature="e#62147#62282#0" expanded="false" />
-            <element signature="e#62201#62281#0" expanded="false" />
-            <element signature="e#62343#63121#0" expanded="false" />
-            <element signature="e#62513#63101#0" expanded="false" />
-            <element signature="e#62537#62787#0" expanded="false" />
-            <element signature="e#62811#63100#0" expanded="false" />
-            <element signature="e#62845#62985#0" expanded="false" />
-            <element signature="e#63127#63286#0" expanded="false" />
-            <element signature="e#63390#63539#0" expanded="false" />
-            <element signature="e#63463#63524#0" expanded="false" />
-            <element signature="e#63590#63860#0" expanded="false" />
-            <element signature="e#63921#64134#0" expanded="false" />
-            <element signature="e#64197#64320#0" expanded="false" />
-            <element signature="e#64354#64420#0" expanded="false" />
-            <element signature="e#64651#65594#0" expanded="false" />
-            <element signature="e#64828#64888#0" expanded="false" />
-            <element signature="e#64939#65591#0" expanded="false" />
-            <element signature="e#65133#65372#0" expanded="false" />
-            <element signature="e#65155#65257#0" expanded="false" />
-            <element signature="e#65286#65358#0" expanded="false" />
-            <element signature="e#65442#65580#0" expanded="false" />
-            <element signature="e#65627#66235#0" expanded="false" />
-            <element signature="e#65661#66233#0" expanded="false" />
-            <marker date="1429502934000" expanded="false" signature="3058:3072" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="3451:3470" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="3522:3535" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="3861:4124" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="4245:4351" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="4846:4859" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="46836:46884" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="46899:46949" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="47642:47690" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="47746:47813" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="48834:48882" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="48950:49017" placeholder="..." />
-            <marker date="1429502934000" expanded="false" signature="55857:56026" placeholder="..." />
+            <element signature="e#61496#61592#0" expanded="false" />
+            <element signature="e#61629#61974#0" expanded="false" />
+            <element signature="e#62001#64342#0" expanded="false" />
+            <element signature="e#62061#63340#0" expanded="false" />
+            <element signature="e#62159#62294#0" expanded="false" />
+            <element signature="e#62213#62293#0" expanded="false" />
+            <element signature="e#62355#63133#0" expanded="false" />
+            <element signature="e#62525#63113#0" expanded="false" />
+            <element signature="e#62549#62799#0" expanded="false" />
+            <element signature="e#62823#63112#0" expanded="false" />
+            <element signature="e#62857#62997#0" expanded="false" />
+            <element signature="e#63139#63298#0" expanded="false" />
+            <element signature="e#63402#63551#0" expanded="false" />
+            <element signature="e#63475#63536#0" expanded="false" />
+            <element signature="e#63602#63872#0" expanded="false" />
+            <element signature="e#63933#64146#0" expanded="false" />
+            <element signature="e#64209#64332#0" expanded="false" />
+            <element signature="e#64366#64432#0" expanded="false" />
+            <element signature="e#64663#65606#0" expanded="false" />
+            <element signature="e#64840#64900#0" expanded="false" />
+            <element signature="e#64951#65603#0" expanded="false" />
+            <element signature="e#65145#65384#0" expanded="false" />
+            <element signature="e#65167#65269#0" expanded="false" />
+            <element signature="e#65298#65370#0" expanded="false" />
+            <element signature="e#65454#65592#0" expanded="false" />
+            <element signature="e#65639#66247#0" expanded="false" />
+            <element signature="e#65673#66245#0" expanded="false" />
+            <marker date="1429524430000" expanded="false" signature="3058:3072" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="3451:3470" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="3522:3535" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="3861:4124" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="4245:4351" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="4846:4859" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="46836:46884" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="46899:46949" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="47642:47690" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="47746:47813" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="48834:48882" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="48950:49017" placeholder="..." />
+            <marker date="1429524430000" expanded="false" signature="55857:56026" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/Gruntfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="112" max-vertical-offset="1440">
+          <caret line="26" column="25" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/Embedded.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="176">
+          <caret line="5" column="1122" selection-start-line="5" selection-start-column="1122" selection-end-line="5" selection-end-column="1122" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.emoji-0.9.2.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/online/indexedDB.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="2048">
+          <caret line="74" column="51" selection-start-line="74" selection-start-column="51" selection-end-line="74" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
+          <caret line="0" column="15" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SDK_invoker.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.56" vertical-offset="112" max-vertical-offset="2048">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/web-im-lib/RongIMClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="56000">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/online/RongIMClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23116615" vertical-offset="0" max-vertical-offset="60832">
+          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>

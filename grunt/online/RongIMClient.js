@@ -2641,7 +2641,7 @@
                 j.setObjectName(i.getObjectName());
                 j.setNotificationStatus(RongIMClient.ConversationNotificationStatus.DO_NOT_DISTURB);
                 j.setLatestMessageId(i.getMessageId());
-                j.setLatestMessage(e);
+                j.setLatestMessage(e.getMessage());
                 j.setUnreadMessageCount(0);
                 j.setTop();
             }

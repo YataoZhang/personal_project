@@ -23,8 +23,7 @@ module.exports = function (grunt) {
                 {src:"swfobject.js",nameList:"swfobject-0.2.min.js",operate:"uglify"},
                 {src:"voice-0.9.1.js",nameList:"RongIMClient.voice-0.9.1.min.js",operate:"pack"},
                 {src:"xhrpolling.js",nameList:"xhrpolling-0.2.min.js",operate:"uglify"},
-                {src:"indexedDB.js",nameList:"RongIMClient.indexedDB.min.js",operate:"pack"},
-                {src:"Embedded.js",nameList:"Embedded.js",operate:"uglify"}],
+                {src:"indexedDB.js",nameList:"RongIMClient.indexedDB.min.js",operate:"pack"}],
             env:"Release"
         }
     });

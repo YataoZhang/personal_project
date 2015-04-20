@@ -887,7 +887,7 @@
                     }
                 },
                 'onError': function (errorCodeObj) {
-                    console.log("error")
+                    console.log("get userinfo fail")
                 }
             });
         }, function (val) {
