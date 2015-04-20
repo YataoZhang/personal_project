@@ -49,9 +49,9 @@
         'cursorborderradius': "5px"
     };
     conf.resolvedSearch = function () {
-        var s = document.location.search.slice(1),parts = {}, i = 0;
+        var s = document.location.search.slice(1), parts = {}, i = 0;
         if (s) {
-            for (s = s.split('&') ; i < s.length; i++) {
+            for (s = s.split('&'); i < s.length; i++) {
                 var a = s[i].split('=');
                 parts[a[0]] = a[1];
             }
@@ -125,7 +125,7 @@
     var lib = {};
     lib.each = function (a, f) {
         if (!a || !f)return;
-        for (var i = 0; i <  a.length; i++) {
+        for (var i = 0; i < a.length; i++) {
             f(a[i], i)
         }
     };
@@ -345,7 +345,7 @@
             var winHeight = $(window).height();
             var otherHeight = 70;
             var data = conf.resolvedSearch();
-            if (data&&data.type == 'dyd') {
+            if (data && data.type == 'dyd') {
                 var ua = navigator.userAgent.toLowerCase();
                 if (ua.match(/MicroMessenger/i) == "micromessenger" || ua.match(/QQ/i) == "qq") {
                     otherHeight = 37;
@@ -454,25 +454,25 @@
                 } else if (conf.token && conf.appKey && conf.targetId) {
                     RongCloudWebSDK.initRongIMClient(conf.appKey, conf.token, conf.targetId);
                 } else if (conf.url) {
-                        $.ajax({
-                            url: conf.url,
-                            type: 'get',
-                            dataType: 'json',
-                            async: false,
-                            cache:false,
-                            crossDomain:!!conf.Xdomain,
-                            success: function (data) {
-                                if (data.errorno == 0||data.code==200) {
-                                    var msg = data.msg;
-                                    self.initRongIMClient(msg.appKey||msg.appkey, msg.token, msg.targetId, {});
-                                } else {
-                                    self.showError('获取 Token 失败~！');
-                                }
-                            },
-                            error: function (data) {
-                                self.showError('服务器错误~！');
+                    $.ajax({
+                        url: conf.url,
+                        type: 'get',
+                        dataType: 'json',
+                        async: false,
+                        cache: false,
+                        crossDomain: !!conf.Xdomain,
+                        success: function (data) {
+                            if (data.errorno == 0 || data.code == 200) {
+                                var msg = data.msg;
+                                self.initRongIMClient(msg.appKey || msg.appkey, msg.token, msg.targetId, {});
+                            } else {
+                                self.showError('获取 Token 失败~！');
                             }
-                        });
+                        },
+                        error: function (data) {
+                            self.showError('服务器错误~！');
+                        }
+                    });
                 }
             }
             var that = $(this);
@@ -542,7 +542,7 @@
         }
     };
     self.showImg = function (cfg) {
-        var _body=$("body");
+        var _body = $("body");
         _body.css('overflow', 'hidden');
         var img = new Image();
         img.src = cfg.img;
@@ -563,11 +563,11 @@
         }
     };
     self.showBigImg = function () {
-        var html = '<div class="light_notice_backlayer" style = "line-height: 100%; font-size: 28px; color: #fff;"></div>',frontLayer = '<div class="frontlayer" style="text-align: center;vertical-align: middle;width: 100%;height: 100%;"></div>'
-        ,winWidth = $(window).width(),winHeight = $(window).height(),style = '',left = 0,top = 0,width,height;
+        var html = '<div class="light_notice_backlayer" style = "line-height: 100%; font-size: 28px; color: #fff;"></div>', frontLayer = '<div class="frontlayer" style="text-align: center;vertical-align: middle;width: 100%;height: 100%;"></div>'
+            , winWidth = $(window).width(), winHeight = $(window).height(), style = '', left = 0, top = 0, width, height;
         if (self.isPCBrowser()) {
-             width = this.width;
-             height = this.height;
+            width = this.width;
+            height = this.height;
             if (width > winWidth) {
                 width = winWidth;
             } else {
@@ -588,15 +588,15 @@
             var Layer = $(frontLayer);
             Layer.css('top', top + 'px');
         } else {
-             html = '<div class="light_notice_backlayer" style="line-height: 100%; font-size: 28px; color: #fff;"></div>';
-             frontLayer = '<div class="frontlayer" style="text-align: center;vertical-align: middle;width: 100%;height: 100%;"></div>';
-             winWidth = $(window).width();
-             winHeight = $(window).height();
-             style = '';
-             left = 0;
-             top = 0;
-             width = this.width;
-             height = this.height;
+            html = '<div class="light_notice_backlayer" style="line-height: 100%; font-size: 28px; color: #fff;"></div>';
+            frontLayer = '<div class="frontlayer" style="text-align: center;vertical-align: middle;width: 100%;height: 100%;"></div>';
+            winWidth = $(window).width();
+            winHeight = $(window).height();
+            style = '';
+            left = 0;
+            top = 0;
+            width = this.width;
+            height = this.height;
             if (this.height < winHeight) {
                 top = (winHeight - this.height) / 2;
             } else {
@@ -729,6 +729,7 @@
             });
             return str;
         }
+
         var htmlObj = $(
             [
                 '<div class="rc_other_user rc_user">',
@@ -835,9 +836,8 @@
         $("#" + conf.selector.msgPrv + msgId).next("div").addClass('rc_status_error');
     };
     self.callbackConnection = function (obj) {
-        var errorNum = obj.getValue();
         var msg = '';
-        if (!(errorNum == 0 || errorNum == 1 || errorNum == 5 || errorNum == 4)) {
+        if (!(obj == 0 || obj == 1 || obj == 5 || obj == 4)) {
             msg = obj.getMessage();
             self.showError(msg);
         } else {
@@ -845,7 +845,7 @@
             conf.isReOnline = false;
         }
     };
-    self.io=null;
+    self.io = null;
     self.initRongIMClient = function (appkey, token, targetId, callback) {
         if (!appkey || !token || !targetId) {
             console.log('wrong paramters');
@@ -865,7 +865,7 @@
         RongIMClient.init(appkey);
         var isSuccess = false, errorurl = function () {
             var data = conf.resolvedSearch();
-            if (!isSuccess&&data && data.errorURL) {
+            if (!isSuccess && data && data.errorURL) {
                 location.href = decodeURIComponent(data.errorURL);
             }
         };
@@ -890,30 +890,27 @@
                     console.log("error")
                 }
             });
-        }, function () {
+        }, function (val) {
+            conf.onConnectError && conf.onConnectError(val);
             errorurl();
         }));
-
+        function strreplace(str) {
+            if (!str) return '';
+            str = str.replace(/&amp;/g, '&');
+            str = str.replace(/&lt;/g, '<');
+            str = str.replace(/&gt;/g, '>');
+            str = str.replace(/&quot;/g, '"');
+            str = str.replace(/&#039;/g, "'");
+            str = str.replace(/&nbsp;/g, " ");
+            return str;
+        }
         conf.RongClient = {
             sendMessage: function (content, callback, id) {
-                function strreplace(str) {
-                    if (!str) return '';
-                    str = str.replace(/&amp;/g, '&');
-                    str = str.replace(/&lt;/g, '<');
-                    str = str.replace(/&gt;/g, '>');
-                    str = str.replace(/&quot;/g, '"');
-                    str = str.replace(/&#039;/g, "'");
-                    str = str.replace(/&nbsp;/g, " ");
-                    return str;
-                }
-
-                var msg = new RongIMClient.TextMessage();
-                msg.setContent(strreplace(content));
-                var con = new RongIMClient.MessageContent(msg), _callback = {onSuccess: callback.onSuccess, onError: function (x) {
-                    callback.onError(x, con.getMessage().getMessageId());
+                var con = new RongIMClient.TextMessage.obtain(strreplace(content)), _callback = {onSuccess: callback.onSuccess, onError: function (x) {
+                    callback.onError(x, con.getMessageId());
                 }};
                 if (self.io && self.io.connected == false) {
-                    con.getMessage().setMessageId(RongIMClient.ConversationType.CUSTOMER_SERVICE.getValue() + "_" + Date.now());
+                    con.setMessageId(RongIMClient.ConversationType.CUSTOMER_SERVICE.value + "_" + Date.now());
                     RongIMClient.getInstance().reconnect({onSuccess: function () {
                         conf.RongClient.coustomerServiceHandshake(self.handShake);
                         RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, targetId, con, null, _callback);
@@ -928,23 +925,21 @@
                 } else {
                     RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, targetId, con, null, _callback);
                 }
-                return con.getMessage();
+                return con;
             },
             onReveicedMessageListener: function (_function) {
                 RongIMClient.getInstance().setOnReceiveMessageListener({
-                    onReceived:_function
+                    onReceived: _function
                 })
             },
             suspendThisChat: function (callback) {
                 var msg = new RongIMClient.SuspendMessage();
                 msg.setContent(RongBrIdge._client.userId);
-                var con = new RongIMClient.MessageContent(msg);
-                RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, targetId, con, null, callback);
+                RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, targetId, msg, null, callback);
             },
             coustomerServiceHandshake: function (callback) {
                 var msg = new RongIMClient.HandshakeMessage();
-                var con = new RongIMClient.MessageContent(msg);
-                RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, targetId, con, null, callback);
+                RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, targetId, msg, null, callback);
             },
             onConnectionStatesListener: function (_function) {
                 RongIMClient.setConnectionStatusListener(RongIMClient.ConnectionStatusListener(_function));
@@ -984,7 +979,8 @@
         else if (wk)
             var t = setInterval(function () {
                 if (/^(loaded|complete)$/.test(d.readyState))
-                    clearInterval(t); run();
+                    clearInterval(t);
+                run();
             }, 0);
     };
 })();

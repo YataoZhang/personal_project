@@ -11,7 +11,7 @@
 <script src="http://res.websdk.rongcloud.net/Embedded.js"></script>
 <!--<script src="Embedded.js"></script>-->
 <script>
-    if(/type=dyd/.test(location.search)){
+    if (/type=dyd/.test(location.search)) {
         window.RongCloudWebSDK.instantce({
             'style': {
                 'headerColor': 'rgba(15, 15, 15, 1)',   //标题背景色
@@ -24,7 +24,7 @@
                 'cursorcolor': '#78d0f4'    //滚动条色
             }
         });
-    }else{
+    } else {
         window.RongCloudWebSDK.instantce({
             'style': {
                 'headerColor': 'rgba(120, 208, 244, 0.6)',   //标题背景色
@@ -37,11 +37,14 @@
                 'cursorcolor': '#78d0f4'    //滚动条色
 
             },
-            'btncss':"width: 15px; padding: 10px; height: 92px; position: fixed; bottom: 20px; z-index: 999999; right: 0px; border: 1px solid rgb(196, 196, 196); border-radius: 5px; cursor: pointer; color: rgb(14, 180, 216); background-color: #f6f6f6;",
-
-            'appKey':'e0x9wycfx7flq',
-            'token':'FR2KvQHe6clQ\/OiSDzm8TtIkV4VlpjW4WbHSmNHHImUddPK7kWD+Ob0XVzFx6mnzHm0awMAH\/MmdkN2SfraMTw==',
-            'targetId':'rongcloud.net.kefu.service112'
+            'btncss': "width: 15px; padding: 10px; height: 92px; position: fixed; bottom: 20px; z-index: 999999; right: 0px; border: 1px solid rgb(196, 196, 196); border-radius: 5px; cursor: pointer; color: rgb(14, 180, 216); background-color: #f6f6f6;",
+            'appKey': 'e0x9wycfx7flq',
+            'token': 'FR2KvQHe6clQ\/OiSDzm8TtIkV4VlpjW4WbHSmNHHImUddPK7kWD+Ob0XVzFx6mnzHm0awMAH\/MmdkN2SfraMTw==',
+            'targetId': 'rongcloud.net.kefu.service112',
+            'onConnectError': function (val) {
+                //val 是 RongIMClient.ConnectCallback.ErrorCode 对象
+                //doSomething
+            }
         });
     }
 </script>
