@@ -2136,7 +2136,7 @@
                     }
                     cb();
                 } else {
-                    _timeout(RongIMClient.callback.ErrorCode.setValue(1))
+                    _timeout(RongIMClient.SendErrorStatus.setValue(_staus));
                 }
             };
             var arg = arguments.callee;
@@ -3709,6 +3709,15 @@
         ContactNotificationMessage: "contact",
         ProfileNotificationMessage: "profile",
         CommandNotificationMessage: "command"
+    });
+    RongIMClient.SendErrorStatus=global.Enum({
+        UNKNOWN:-1,
+        HANDLER_EXP:-2,
+        TIMEOUT:3001,
+        REJECTED_BY_BLACKLIST:405,
+        NOT_IN_DISCUSSION:21406,
+        NOT_IN_GROUP:22406,
+        NOT_IN_CHATROOM:23406
     });
     RongIMClient.BlacklistStatus = global.Enum({
         EXIT_BLACK_LIST: 0,

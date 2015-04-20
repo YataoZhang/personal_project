@@ -1,19 +1,18 @@
 ;
 (function (win, doc, undefined) {
-
-    var _doc = document.createElement("script"), _doc1 = _doc.cloneNode(), _head = document.getElementsByTagName("head")[0];
-    if (!_head) {
-        _head = document.documentElement.appendChild(document.createElement("head"));
+    if(!(win.RongIMClient&&win.RongIMClient.Expression)){
+        var _doc = document.createElement("script"), _doc1 = _doc.cloneNode(), _head = document.getElementsByTagName("head")[0];
+        if (!_head) {
+            _head = document.documentElement.appendChild(document.createElement("head"));
+        }
+        _doc.type = "text/javascript";
+        _doc.src = "http://res.websdk.rongcloud.cn/RongIMClient.min.js";
+        _doc.onload = function () {
+            _doc1.src = "http://res.websdk.rongcloud.cn/RongIMClient.emoji-0.9.2.min.js";
+            _head.appendChild(_doc1);
+        };
+        _head.appendChild(_doc);
     }
-    _doc.type = "text/javascript";
-    _doc.src = "http://res.websdk.rongcloud.cn/RongIMClient.min.js";
-    _doc.onload = function () {
-        _doc1.src = "http://res.websdk.rongcloud.cn/RongIMClient.emoji-0.9.2.min.js";
-        _head.appendChild(_doc1);
-    };
-    _head.appendChild(_doc);
-
-
     String.prototype.replaceAll = function (s1, s2) {
         return this.replace(new RegExp(s1, "gm"), s2);
     };
@@ -97,7 +96,7 @@
         '            </div>',
         '        </div>',
         '        <div class="rc_dialog_box">',
-        '           <div class="rc_notice" style="height: 20px; line-height: 20px;z-index: 1000; width: 100%; position: fixed; color: rgb(0, 0, 0); text-align: center; margin: 0px auto; background-color: rgb(252, 248, 227);filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;opacity: 0.8;display: none;">',
+        '           <div class="rc_notice" style="height: 20px; line-height: 20px;z-index: 1000; width: 100%; position: absolute; color: rgb(0, 0, 0); text-align: center; margin: 0 auto; background-color: rgb(252, 248, 227);filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;display: none;">',
         '           </div>',
         '        </div>',
         '        <div class="rc_RongIMexpressionWrap" style="position: absolute; z-index: 2000; bottom: 140px;border-top-left-radius: 5px;border-top-right-radius: 5px;"></div>',
@@ -837,6 +836,7 @@
     };
     self.callbackConnection = function (obj) {
         var msg = '';
+        obj=obj.getValue();
         if (!(obj == 0 || obj == 1 || obj == 5 || obj == 4)) {
             msg = obj.getMessage();
             self.showError(msg);
