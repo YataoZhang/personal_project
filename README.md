@@ -731,7 +731,7 @@ var http;
         };
 
 
-        xhr.responseType && (xhr.responseType = defaultOptions.dataType);
+        ('responseType' in xhr)&& (xhr.responseType = defaultOptions.dataType);
         xhr.onreadystatechange = function () {
             if (this.readyState == 4) {
                 if (defaultOptions.mimeType) {
@@ -844,4 +844,3 @@ var http;
     };
 })(window);
 ```
-
