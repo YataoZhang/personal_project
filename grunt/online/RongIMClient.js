@@ -1810,7 +1810,7 @@
                 }
                 message.setSentTime(io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()));
                 message.setSenderUserId(entity.fromUserId || entity.getFromUserId());
-                message.setConversationType(mapping[entity.type || entity.getType()]);
+                message.setConversationType(RongIMClient.ConversationType.setValue(mapping[entity.type || entity.getType()]));
                 message.setTargetId(/^[234]$/.test(entity.type || entity.getType()) ? entity.groupId || entity.getGroupId() : entity.fromUserId || entity.getFromUserId());
                 message.setMessageDirection(RongIMClient.MessageDirection.RECEIVE);
                 message.setReceivedTime((new Date).getTime());
