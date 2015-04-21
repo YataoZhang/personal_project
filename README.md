@@ -704,7 +704,7 @@ var http;
 
         for (tempVal in defaultOptions.accepts) {
             if (defaultOptions.accepts.hasOwnProperty(tempVal))
-                xhr.setRequestHeader('Content-Type', defaultOptions.accepts[tempVal]);
+                xhr.setRequestHeader('Accepts', defaultOptions.accepts[tempVal]);
         }
         for (tempVal in defaultOptions.headers) {
             if (defaultOptions.headers.hasOwnProperty(tempVal))
