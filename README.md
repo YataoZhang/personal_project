@@ -72,13 +72,15 @@ http软件处理下列状态码和原因短语的方式是一样的：
 ### MIME Type
 因特网上有数千种不同的数据类型，http仔细地给每种要通过web传输的对象都打上了名为MIME类型(MIME Type)的数据格式标签。最初设计MIME(Multipurpose Internet Mail Extension，多用途因特网邮件扩展) 是为了解决在不同的电子邮件系统之间搬移报文时存在的问题。MIME在电子邮件系统中工作得非常好，因此HTTP也采纳了它，用它来描述并标记多媒体内容。<br/>
 web服务器会为所有的http对象数据附加一个MIME类型。当web浏览器从服务器中取回一个对象时，回去查看相关的MIME类型，看看它是否知道应该如何处理这个对象。大多数浏览器都可以处理数百种常见的对象类型。<br/>
+MIME Type就是告诉浏览器用什么方式来处理这个数据。<br/>
 *MIME类型是一种文本标记，表示一种主要的对象类型和一个特定的子类型，中间由一条斜杠来分隔。*
-+   html格式的文本文档有`text/html`类型来标记
++   html格式的文本文档由`text/html`类型来标记
 +   普通的ASCII文本文档由`text/plain`类型来标记
 +   JPEG格式的图片为`image/jpeg`类型
 +   GIF格式的图片为`image/gif`类型
++   表单提交由`application/x-www-form-urlencoded`类型来标记
 
-MIME类型在HTTP协议中的表现为`Request Header`或者`Response Header`中的`Content-Type`还有`Content-length`
+MIME类型在HTTP协议中的表现为`Request Header`或者`Response Header`中的`Content-Type`
 
 ### URI、URL、URN
 >URI : 每个web服务器资源都有一个名字，这样客户端就可以说明他们感兴趣的资源是什么了。服务器资源名被称为`统一资源标识符(Uniform Resource Identifier，URI)` URI就像因特网上的邮政地址一样，在世界范围内唯一标识并定位信息资源。<br/>
@@ -552,5 +554,294 @@ var http;
 ```
 
 ### AJAX 示例
+上面的基础知识和使用处理ajax的对象需要注意的一些地方我们都都已经提到了，现在我们开始写ajax示例，以便更好的巩固ajax知识。<br/>
+这个示例是参照jQuery的ajax函数使用方法来编写的,并且可以使用链式调用以增强体验。<br/>
+```js
+ $http.get('http://localhost:8888/ajaxAPI','arg=1',function(x){
+                console.log(x)
+            },'json').done(function(){
+                console.log('done')
+            }).fail(function(e){
+                console.error(e)
+            }).always(function(){
+                console.info('always');
+            });
+```
+最终代码如下：
+```js
+(function (global, undefined) {
+    if (global.$http) {
+        return
+    }
+    var http = global.$http = {};
 
+    function isType(str) {
+        return function (obj) {
+            return Object.prototype.toString.call(obj) == '[object ' + str + ']';
+        }
+    }
+
+    var isObject = isType("Object");
+    var isFunction = isType("Function");
+    var isNumber = isType("Number");
+    var isString = isType("String");
+    var isBoolean = isType('Boolean');
+    var hasSearch = function (url) {
+        return /^.+\?[^?]*$/g.test(url)
+    };
+
+    function each(arr, func) {
+        if ([].forEach) {
+            [].forEach.call(arr, func);
+        } else {
+            for (var i = 0; i < arr.length; i++) {
+                func.call(arr, arr[i], i, arr);
+            }
+        }
+    }
+
+    //获取ajax对象
+    var getXHR = function () {
+        for (var list = [function () {
+            return new XMLHttpRequest
+        }, function () {
+            return new ActiveXObject("Microsoft.XMLHTTP")
+        }, function () {
+            return new ActiveXObject("Msxml2.XMLHTTP")
+        }, function () {
+            return new ActiveXObject("Msxml3.XMLHTTP")
+        }], temp = null, index = 0; index < list.length; index++) {
+            try {
+                temp = list[index]()
+            } catch (ex) {
+                continue
+            }
+            getXHR = list[index];
+            break;
+        }
+        if (!temp) {
+            throw new ReferenceError("browser is not supported")
+        }
+        return temp;
+    };
+
+
+    http.ajax = function (options) {
+        if (!isObject(options)) {
+            return;
+        }
+
+        //默认参数
+        var defaultOptions = {
+            accepts: {},
+            async: true,
+            beforeSend: undefined,
+            cache: false,
+            complete: function () {
+            },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            context: undefined,
+            data: undefined,
+            dataType: 'text',
+            dataFilter: undefined,
+            error: function () {
+            },
+            headers: {},
+            mimeType: '',
+            password: undefined,
+            statusCode: {},
+            success: function () {
+            },
+            timeout: undefined,
+            type: '',
+            url: '',
+            username: undefined,
+            xhrFields: undefined
+        }, tempVal;
+
+        for (tempVal in defaultOptions) {
+            if (defaultOptions.hasOwnProperty(tempVal) && options[tempVal])
+                defaultOptions[tempVal] = options[tempVal];
+        }
+
+        var xhr = getXHR(), _promise = new __promise();
+
+        if (!/^(get|post|head|put|delete)$/img.test(defaultOptions.type)) {
+            throw new ReferenceError('not supported this http method');
+        }
+        if (!/^(xml|bolb|arraybuffer|html|script|json|text)/img.test(defaultOptions.dataType)) {
+            throw new TypeError('not supported ' + defaultOptions.dataType + ' data type');
+        }
+        if (!isString(defaultOptions.url)) {
+            throw new TypeError('url must be a string')
+        }
+        if (defaultOptions.cache) {
+            defaultOptions.url += (hasSearch(defaultOptions.url) ? '_=' : '?_=') + Math.random() * (1 << 24) | 0;
+        }
+        if (defaultOptions.data) {
+            if (isObject(defaultOptions.data)) {
+                var arr = [];
+                for (tempVal in defaultOptions.data) {
+                    if (defaultOptions.data.hasOwnProperty(tempVal)) {
+                        arr.push(encodeURIComponent(tempVal) + "=" + encodeURIComponent(defaultOptions.data[tempVal]));
+                    }
+                }
+                defaultOptions.data = arr.join('&');
+            }
+            if (/^get$/img.test(defaultOptions.type)) {
+                defaultOptions.url += (hasSearch(defaultOptions.url) ? '' : '?') + defaultOptions.data;
+                delete  defaultOptions.data;
+            }
+        }
+        if (defaultOptions.xhrFields) {
+            for (tempVal in defaultOptions.xhrFields) {
+                if (defaultOptions.xhrFields.hasOwnProperty(tempVal)) {
+                    xhr[tempVal] = defaultOptions.xhrFields[tempVal];
+                }
+            }
+        }
+        xhr.open(defaultOptions.type, defaultOptions.url, defaultOptions.async, defaultOptions.username, defaultOptions.password);
+
+        for (tempVal in defaultOptions.accepts) {
+            if (defaultOptions.accepts.hasOwnProperty(tempVal))
+                xhr.setRequestHeader('Content-Type', defaultOptions.accepts[tempVal]);
+        }
+        for (tempVal in defaultOptions.headers) {
+            if (defaultOptions.headers.hasOwnProperty(tempVal))
+                xhr.setRequestHeader(tempVal, defaultOptions.headers[tempVal]);
+        }
+        xhr.setRequestHeader("Content-Type", defaultOptions.contentType);
+
+        if (defaultOptions.context) {
+            defaultOptions.complete = defaultOptions.complete.bind(defaultOptions.context);
+            defaultOptions.success = defaultOptions.success.bind(defaultOptions.context);
+            defaultOptions.error = defaultOptions.error.bind(defaultOptions.context);
+        }
+
+        var _success = function (text) {
+            defaultOptions.success(text);
+            _promise._done(text);
+            defaultOptions.complete(xhr);
+            _promise._always();
+        }, _error = function (text) {
+            defaultOptions.error(xhr, xhr.status, text);
+            _promise._fail(xhr, xhr.status, text);
+            defaultOptions.complete(xhr);
+            _promise._always();
+        };
+
+
+        xhr.responseType && (xhr.responseType = defaultOptions.dataType);
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (defaultOptions.mimeType) {
+                    xhr.overrideMimeType(defaultOptions.mimeType);
+                }
+                if (/^2\d{2}$/.test(this.status)) {
+                    var returnVal = undefined;
+                    if (xhr.responseType) {
+                        returnVal = this.response;
+                    } else {
+                        switch (defaultOptions.dataType.toLowerCase()) {
+                            case 'xml':
+                                returnVal = this.responseXML;
+                                break;
+                            case 'html':
+                                var frag = document.createDocumentFragment();
+                                frag.innerHTML = this.responseText;
+                                returnVal = frag;
+                                break;
+                            case 'script':
+                                var scr = document.createElement("script");
+                                scr.innerHTML = this.responseText;
+                                returnVal = scr;
+                                break;
+                            case 'json':
+                                if (global.JSON.parse) {
+                                    try {
+                                        returnVal = JSON.parse(this.responseText);
+                                    } catch (ex) {
+                                        _error(ex)
+                                    }
+                                } else {
+                                    returnVal = eval('(' + this.responseText + ')');
+                                }
+                                break;
+                            case 'arraybuffer':
+                                throw new ReferenceError('not supported arraybuffer');
+                            case 'blob':
+                                throw new ReferenceError('not supported blob');
+                            default:
+                                returnVal = this.responseText;
+                        }
+                    }
+                    _success(returnVal);
+                }
+                if (/^(4|5)\d{2}$/.test(this.status)) {
+                    _error();
+                }
+                (this.status.toString() in defaultOptions.statusCode) && defaultOptions.statusCode[this.status]();
+            }
+        };
+        if (defaultOptions.beforeSend) {
+            defaultOptions.beforeSend(xhr);
+        }
+        xhr.send(defaultOptions.data);
+        xhr.onerror = _error;
+        if (isNumber(defaultOptions.timeout) && defaultOptions.timeout > 500) {
+            if ('timeout' in xhr) {
+                xhr.timeout = defaultOptions.timeout;
+                xhr.ontimeout = defaultOptions.error;
+            } else {
+                setTimeout(function () {
+                    if (xhr.readyState != 4) {
+                        _error();
+                    }
+                }, defaultOptions.timeout);
+            }
+        }
+
+        return _promise;
+    };
+    each(['get', 'post'], function (x) {
+        http[x] = function (url, data, func, datatype) {
+            if (arguments.length != 4)
+                throw new TypeError('lacking arguments');
+            return http.ajax({
+                url: url,
+                data: data,
+                success: func,
+                dataType: datatype,
+                type: x
+            })
+        }
+    });
+    http.getScript = function (url, data, func) {
+        return http.ajax({
+            url: url,
+            type: 'get',
+            data: data,
+            success: func,
+            dataType: 'script'
+        })
+    };
+    function __promise() {
+        this._done = this._fail = this._always = function () {
+        };
+    }
+
+    __promise.prototype.done = function (func) {
+        this._done = func;
+        return this;
+    };
+    __promise.prototype.fail = function (func) {
+        this._fail = func;
+        return this;
+    };
+    __promise.prototype.always = function (func) {
+        this._always = func;
+        return this;
+    };
+})(window);
+```
 
