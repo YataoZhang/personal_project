@@ -586,6 +586,7 @@ var http;
     var isNumber = isType("Number");
     var isString = isType("String");
     var isBoolean = isType('Boolean');
+    var isArray = isType('Array');
     var hasSearch = function (url) {
         return /^.+\?[^?]*$/g.test(url)
     };
@@ -633,7 +634,7 @@ var http;
 
         //默认参数
         var defaultOptions = {
-            accepts: {},
+            accepts: undefined,
             async: true,
             beforeSend: undefined,
             cache: false,
@@ -660,7 +661,7 @@ var http;
         }, tempVal;
 
         for (tempVal in defaultOptions) {
-            if (defaultOptions.hasOwnProperty(tempVal) && options[tempVal])
+            if (options.hasOwnProperty(tempVal) && options[tempVal])
                 defaultOptions[tempVal] = options[tempVal];
         }
 
@@ -701,10 +702,10 @@ var http;
             }
         }
         xhr.open(defaultOptions.type, defaultOptions.url, defaultOptions.async, defaultOptions.username, defaultOptions.password);
-
-        for (tempVal in defaultOptions.accepts) {
-            if (defaultOptions.accepts.hasOwnProperty(tempVal))
-                xhr.setRequestHeader('Accepts', defaultOptions.accepts[tempVal]);
+        if(isArray(defaultOptions.accepts)){
+           each(defaultOptions.accepts,function(x){
+              xhr.setRequestHeader('Accepts',x);
+           })
         }
         for (tempVal in defaultOptions.headers) {
             if (defaultOptions.headers.hasOwnProperty(tempVal))
