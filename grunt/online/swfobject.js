@@ -823,14 +823,9 @@ var swfobject = function () {
     WebSocket.__instances = {};
     WebSocket.__tasks = [];
     WebSocket.__nextId = 0;
-    var isPolicy=false;
     WebSocket.loadFlashPolicyFile = function () {
         WebSocket.__addTask(function () {
-            if(isPolicy){
-                return;
-            }
             WebSocket.__flash.loadManualPolicyFile("xmlsocket://119.254.110.241:8300");
-            isPolicy=true;
         })
     };
 
@@ -847,7 +842,7 @@ var swfobject = function () {
                 WebSocket.loadFlashPolicyFile();
             } catch (e) {
             }
-            window.WEB_SOCKET_DEBUG = true;
+            window.WEB_SOCKET_DEBUG = 0;
         }
         if (WebSocket.__initialized) {
             return

@@ -2068,9 +2068,6 @@
                         _callback.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(1));
                         return;
                     }
-                    if (WebSocket.loadFlashPolicyFile) {
-                        WebSocket.loadFlashPolicyFile(Client.Endpoint.host.split(":")[0]);
-                    }
                 }
                 this.handler = new MessageHandler(this);
                 this.handler.setReceiveMessageListener(this.ReceiveMessageListener);
