@@ -387,18 +387,18 @@ req.setRequestHeader("Accepts",'text/css');
 //那个请求头中的Accepts的值为 “text/html,text/css”
 ```
 你不能制定`Content-Length`、`Date`、`Referer`或`User-Agent`头，XMLHttpRequest将自动添加这些头而防止伪造他们。类似地，XMLHttpRequest对象自动处理cookie、连接时间、字符集和编码判断，所以你无法向setRequestHeader()传递这些头：
->>+   Accept-Charset
->>+   Content-Transfer-Encoding
->>+   Date
->>+   Connection
->>+   Expect
->>+   Content-Length
->>+   Host
->>+   Cookie
->>+   Keep-Alive
->>+   User-Agent
->>+   Cookie2
->>+   Referer
+>+   Accept-Charset
+>+   Content-Transfer-Encoding
+>+   Date
+>+   Connection
+>+   Expect
+>+   Content-Length
+>+   Host
+>+   Cookie
+>+   Keep-Alive
+>+   User-Agent
+>+   Cookie2
+>+   Referer
 
 你能为请求指定`Authorization`头，但通常不需要这么做。如果请求一个受密码保护的URL，把用户名和密码作为第四个和第五个参数传递给open)，则XMLHttpRequest将设置合适的头。
 
@@ -970,11 +970,11 @@ var http;
 ### 表单操作
 考虑到HTML表单。当用户提交表单时，表单中的数据(每个表单元素的名字和值)编码到一个字符串中随请求发送。默认情况下，HTML表单通过POST方法发送给服务器，而编码之后的表单数据则用做请求主体。对表单数据使用的编码方案相对简单：对每个表单元素的名字和值执行偶痛的URL编码(使用十六进制转义码替换特殊字符；编码利用encodeURIComponent()方法，解码利用decodeURIComponent()方法)，使用等号把编码后的名字和值分开，并使用`&`符号分开`名/值`对。一个简单表单的编码如下这样：
 
->>name=pizza&age=18&address=%E5%8C%97%E4%BA%AC
+>name=pizza&age=18&address=%E5%8C%97%E4%BA%AC
 
 表单数据编码格式有一个正式的MIME类型
 
->>application/x-www=form-urlencoded
+>application/x-www=form-urlencoded
 
 当使用post方法提交这顺序的表单数据时，必须设置`Content-Type`请求头为这个值。<BR/>
 注意：这种类型的编码并不需要HTML表单，在本章我们实际上将不需要直接使用表单。在Ajax应用中，你希望发给服务器的可能是个javascript对象。前面展示的数据变成javascript对象的表单编码形式可能为：
