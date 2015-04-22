@@ -180,73 +180,11 @@ console.log(xmlObj);
   var xmlObj=XHR();
   console.log(xmlObj);
 ```
-本方法的核心就是利用 `惰性函数` 。这才是正点。第一次计算得到的值，供内部函数调用，然后用这个内部函数重置外部函数（因为同名），以后就不用计算了，也不用判断分支条件。这时函数就相当于一个被赋值的变量。接下来我们以此介绍`XMLHttpRequest`和`ActiveXObject`如何使用。
+本方法的核心就是利用 `惰性函数` 。这才是正点。第一次计算得到的值，供内部函数调用，然后用这个内部函数重置外部函数（因为同名），以后就不用计算了，也不用判断分支条件。这时函数就相当于一个被赋值的变量。<br/>
+接下来我们依次介绍`XMLHttpRequest`和`ActiveXObject`如何使用。
 
 #### 使用XMLHttpRequest
 XMLHttpRequest 是一个 JavaScript 对象,它最初由微软设计,随后被 Mozilla,Apple, 和 Google采纳. 如今,该对象已经被 W3C组织标准化. 通过它,你可以很容易的取回一个URL上的资源数据. 尽管名字里有XML, 但XMLHttpRequest 可以取回所有类型的数据资源,并不局限于XML. 而且除了HTTP ,它还支持file 和 ftp 协议.<br/>
-ECMA定义XMLHttpRequest `C++` 接口：
-```C
-[NoInterfaceObject]
-interface XMLHttpRequestEventTarget : EventTarget {
-  // event handlers
-  attribute EventHandler onloadstart;
-  attribute EventHandler onprogress;
-  attribute EventHandler onabort;
-  attribute EventHandler onerror;
-  attribute EventHandler onload;
-  attribute EventHandler ontimeout;
-  attribute EventHandler onloadend;
-};
-
-interface XMLHttpRequestUpload : XMLHttpRequestEventTarget {
-
-};
-
-enum XMLHttpRequestResponseType {
-  "",
-  "arraybuffer",
-  "blob",
-  "document",
-  "json",
-  "text"
-};
-
-[Constructor]
-interface XMLHttpRequest : XMLHttpRequestEventTarget {
-  // event handler
-  attribute EventHandler onreadystatechange;
-
-  // states
-  const unsigned short UNSENT = 0;
-  const unsigned short OPENED = 1;
-  const unsigned short HEADERS_RECEIVED = 2;
-  const unsigned short LOADING = 3;
-  const unsigned short DONE = 4;
-  readonly attribute unsigned short readyState;
-
-  // request
-  void open(ByteString method, [EnsureUTF16] DOMString url);
-  void open(ByteString method, [EnsureUTF16] DOMString url, boolean async, optional [EnsureUTF16] DOMString? username = null, optional [EnsureUTF16] DOMString? password = null);
-  void setRequestHeader(ByteString header, ByteString value);
-           attribute unsigned long timeout;
-           attribute boolean withCredentials;
-  readonly attribute XMLHttpRequestUpload upload;
-  void send(optional (ArrayBufferView or Blob or Document or [EnsureUTF16] DOMString or FormData)? data = null);
-  void abort();
-
-  // response
-  readonly attribute unsigned short status;
-  readonly attribute ByteString statusText;
-  ByteString? getResponseHeader(ByteString header);
-  ByteString getAllResponseHeaders();
-  void overrideMimeType(DOMString mime);
-           attribute XMLHttpRequestResponseType responseType;
-  readonly attribute any response;
-  readonly attribute DOMString responseText;
-  readonly attribute Document? responseXML;
-};
-```
-从这个c++的接口中我们可以清楚的了解到XMLHttpRequest对象中有哪些属性和方法；
 
 在浏览器中创建并使用一个 XMLHttpRequest 实例, 可以使用如下语句:
 ```js
@@ -453,111 +391,6 @@ function fetchStatus(address) {
 
 ```
 
-#### 浏览器兼容性
-<div id="compat-desktop" style="display: block;">
-<table class="compat-table">
- <tbody>
-  <tr>
-   <th>Feature</th>
-   <th>Chrome</th>
-   <th>Firefox (Gecko)</th>
-   <th>Internet Explorer</th>
-   <th>Opera</th>
-   <th>Safari (WebKit)</th>
-  </tr>
-  <tr>
-   <td>Basic support (XHR1)</td>
-   <td>1</td>
-   <td>1.0</td>
-   <td>5 (via ActiveXObject)<br>
-    7 (XMLHttpRequest)</td>
-   <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td>
-   <td>1.2</td>
-  </tr>
-  <tr>
-   <td>send(ArrayBuffer)</td>
-   <td>9</td>
-   <td>9</td>
-   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
-   <td>11.60</td>
-   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
-  </tr>
-  <tr>
-   <td>send(Blob)</td>
-   <td>7</td>
-   <td>3.6</td>
-   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
-   <td>12</td>
-   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
-  </tr>
-  <tr>
-   <td>send(FormData)</td>
-   <td>6</td>
-   <td>4</td>
-   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
-   <td>12</td>
-   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
-  </tr>
-  <tr>
-   <td>response</td>
-   <td>10</td>
-   <td>6</td>
-   <td>10</td>
-   <td>11.60</td>
-   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
-  </tr>
-  <tr>
-   <td>responseType = 'arraybuffer'</td>
-   <td>10</td>
-   <td>6</td>
-   <td>10</td>
-   <td>11.60</td>
-   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
-  </tr>
-  <tr>
-   <td>responseType = 'blob'</td>
-   <td>19</td>
-   <td>6</td>
-   <td>10</td>
-   <td>12</td>
-   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
-  </tr>
-  <tr>
-   <td>responseType = 'document'</td>
-   <td>18</td>
-   <td>11</td>
-   <td><span style="color: #f00;">未实现</span></td>
-   <td><span style="color: #f00;">未实现</span></td>
-   <td><span style="color: #f00;">未实现</span></td>
-  </tr>
-  <tr>
-   <td>responseType = 'json'</td>
-   <td><span style="color: #f00;">未实现</span></td>
-   <td>10</td>
-   <td><span style="color: #f00;">未实现</span></td>
-   <td>12</td>
-   <td><span style="color: #f00;">未实现</span></td>
-  </tr>
-  <tr>
-   <td>Progress Events</td>
-   <td>7</td>
-   <td>3.5</td>
-   <td>10</td>
-   <td>12</td>
-   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
-  </tr>
-  <tr>
-   <td>withCredentials</td>
-   <td>3</td>
-   <td>3.5</td>
-   <td>10</td>
-   <td>12</td>
-   <td>4</td>
-  </tr>
- </tbody>
-</table>
-</div>
-
 #### 使用ActiveXObject时需要注意的地方
 使用ActiveXObject与XMLHttpRequest对象大体相同。不过还是有些不同的地方。
 >不同点：
@@ -629,17 +462,16 @@ var http;
     };
     //循环帮助函数
     var each=(function(){
-            if ([].forEach) {
-                return function(arr,func){
+         if ([].forEach)
+             return function(arr,func){
                  [].forEach.call(arr, func);
+             }
+         else
+             return function(arr,func){
+                for (var i = 0; i < arr.length; i++) {
+                   func.call(arr, arr[i], i, arr);
                 }
-            } else {
-                return function(arr,func){
-                    for (var i = 0; i < arr.length; i++) {
-                        func.call(arr, arr[i], i, arr);
-                    }
-                }
-            }
+             }
     })();
 
     //获取ajax对象,
@@ -669,10 +501,8 @@ var http;
 
 
     http.ajax = function (options) {
-        // 如果options你是一个对象就什么都不执行。
-        if (!isObject(options)) {
-            return;
-        }
+        // 如果options不是一个对象那么此方法后续将不执行。
+        if (!isObject(options)) return;
 
         //默认参数对象
         var defaultOptions = {
@@ -685,8 +515,7 @@ var http;
             //是否缓存。Boolean类型
             cache: false,
             //不管成功或失败都会执行的函数。Function类型
-            complete: function () {
-            },
+            complete: function () {},
             //添加到请求头`Content-Type`中，标识此http是什么MiME Type，默认为`application/x-www-form-urlencoded; charset=UTF-8`。String类型
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             //宿主对象。Object类型
@@ -698,8 +527,7 @@ var http;
             //过滤服务器返回数据。Function类型
             dataFilter: undefined,
             //执行失败、parseError或者timeout执行的函数。Function类型
-            error: function (xhr, xhr.status, text) {
-            },
+            error: function (xhr, xhr.status, text) {},
             //自定义头信息。Object类型
             headers: {},
             //重写服务器返回MIME Type。String类型
@@ -709,8 +537,7 @@ var http;
             //注册对应http状态码时执行的函数。Object类型
             statusCode: {},
             //Ajax成功时执行的函数。Function类型
-            success: function (response) {
-            },
+            success: function (response) {},
             //超时毫秒值，此值必须大于500毫秒，否则不生效。Number类型
             timeout: undefined,
             //请求的http方法，可以为`get|post|head|put|delete`。String类型
@@ -720,8 +547,7 @@ var http;
             //URL认证账号。String类型
             username: undefined,
             //在send()执行前，通过此函数操作xhr对象。Function类型
-            setXhrFields: function(xhr){
-            }
+            setXhrFields: function(xhr){}
         },
          //临时变量
          tempVal;
@@ -927,16 +753,12 @@ var http;
 ```
 ##### 如何使用上面的Ajax库
 ```html
-<!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
     <script src="/ajax.js"></script>
     <script>
         window.onload=function(){
             //假设本地有一台端口为1111的web服务器，且这个web服务器上有一个名为ajaxAPI的接口
-
             //可以这样使用
             $http.get('http://localhost:1111/ajaxAPI','arg=1',function(x){
                 console.log(toString.call(x),x)
@@ -947,7 +769,6 @@ var http;
             }).always(function(){
                 console.info('always');
             });
-
             //也可以这样使用
             $http.ajax({
                 type:'get',
@@ -957,7 +778,6 @@ var http;
                     console.log(x,this.a);
                 }
             });
-
             //... 你还可以根据ajax中提供的参数编写功能更加强大的函数
         }
     </script>
