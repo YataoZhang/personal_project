@@ -284,6 +284,9 @@ XMLHttpRequest对象属性概述：
 -   `upload` 	`XMLHttpRequestUpload`	可以在 upload 上添加一个事件监听来跟踪上传过程。
 -   `withCredentials` 	`boolean` 表明在进行跨站(cross-site)的访问控制(Access-Control)请求时，是否使用认证信息(例如cookie或授权的header)。 默认为 false。*注意: 这不会影响同站(same-site)请求.*
 
+##### XMLHttpRequest和本地文件
+*网页中可以使用相对URL的能力通常意味着我们能使用本地文件系统来开发和测试HTML，并避免对web服务器进行不必要的部署。然后当使用XMLHttpRqeust进行Ajax编程时，这通常是不可行的。XMLHttpRequest用于HTTP和HTTPS协议一起工作。理论上，它能够同像FTP这样的其他协议一起工作，但比如像请求方法和响应状态码等部分API是HTTP特有的。如果从本地文件中加载网页，那么该网页中的脚本将无法通过相对URL使用XMLHttpRequest，因为这些URL将相对于`file://URL`而不是`http://URL`。而同源策略通常会阻止使用绝对`http://URL`。结果是当使用XMLHttpRequest时，为了测试它们通常必须把文件上传到wen服务器(或运行一个本地服务器)*
+
 ##### 方法
 ###### abort()
 ```js
