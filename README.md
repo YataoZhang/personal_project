@@ -289,7 +289,14 @@ XMLHttpRequest对象属性概述：
 ```js
 req.abort();
 ```
-如果请求已经被发送,则立刻中止请求(canceled).
+如果请求已经被发送,则立刻中止请求(cancel).abort()方法在所有的XMLHttpRequest版本和XHR2中可用，调用abort()方法在这个对象上触发abort事件。可以通过XMLHttpRequest对象的`onabort`属性是否存在来判断。
+```js
+//if成立的话abort()存在,否则不存在
+if('onabort' in req){
+   req.abort();
+}
+```
+
 ###### getAllResponseHeaders()
 ```js
 var allHeaders = req.getAllResponseHeaders();
@@ -314,14 +321,20 @@ req.open(http Method,URL,isAsync,userName,password);
 初始化一个请求. 该方法用于JavaScript代码中;如果是本地代码, 使用 openRequest()方法代替.<br/>
 *如果传入的http method不区分大小写与 CONNECT, DELETE, GET, HEAD, OPTIONS, POST, PUT, TRACE, 或者 TRACK匹配上, 从范围0x61（ASCII a）每个字节0x7A（ASCII a）减去0x20。把小写转换成大写(`如果它不匹配任何上述情况，它是通过传递字面上，包括在最后的请求。`)*
 
-*如果http method 不区分大小写匹配到 CONNECT, TRACE, 或者 TRACK 这三个方法, 抛出 "SecurityError" 异常*
+*如果http method 不区分大小写匹配到 CONNECT, TRACE, 或者 TRACK 这三个方法, 抛出 "SecurityError" 异常，因为安全风险已被明确禁止。旧浏览器并不支持所有这些方法，但至少`HEAD`得到广泛支持*
+
 
 ###### overrideMimeType()
 ```js
-req.overrideMimeType("text/html");
+req.overrideMimeType("text/plain");
 //参数必须为MIME Type格式
 ```
-重写由服务器返回的MIME类型。这可以用于一下情况。例如，强制服务器返回的数据流流被处理和解析为`text/ xml`，即使服务器不报告它作为这个MIME类型.这个方法必须send()之前调用。
+重写由服务器返回的MIME类型。这可以用于一下情况。假如你将下载XML文件，而你计划把它当成纯文本对待。可以使用overrideMimeType()让XMLHttpRequest知道它不需要把文件解析为XML文档：
+```js
+//不要把响应作为XML文档处理
+req.overrideMimeType('text/plain; charset=utf-8');
+```
+这个方法必须send()之前调用。
 
 ###### onload
 ```js
@@ -352,6 +365,8 @@ req.send(undefined||null||ArrayBufferView||Blob||XML||String||FormData);
 //此方法有7种参数重载
 ```
 发送请求. 如果该请求是异步模式(默认),该方法会立刻返回. 相反,如果请求是同步模式,则直到请求的响应完全接受以后,该方法才会返回.<br/>
+GET请求`绝对`没有主体，所以应该传递null或者省略这个参数。POST请求通常拥有主体，同时它应该匹配使用setRequestHeader()指定的`Content-Type`头。
+
 *如果数据是一个Document，它在发送之前被序列化。当发送文件时，Firefox之前的版本3的版本总是使用UTF-8编码发送请求; Firefox 3的正常使用发送，如果没有指定编码由body.xml编码，或者UTF-8指定的编码文件。*<br/>
 
 ###### setRequestHeader()
@@ -361,7 +376,31 @@ req.setRequestHeader("header","value");
 //header 将要被赋值的请求头名称.
 //value 给指定的请求头赋的值.
 ```
-给指定的HTTP请求头赋值.在这之前,你必须确认已经调用 open() 方法打开了一个url.
+给指定的HTTP请求头赋值.在这之前,你必须确认已经调用 open() 方法打开了一个url.<br/>
+如果对相同的头调用setRequestHeader()多次，新值不会取代之前指定的值，相反，HTTP请求将包含这个头的多个副本或者个头将指定多个值。例如：
+```js
+req.setRequestHeader("Accepts",'text/html');
+req.setRequestHeader("Accepts",'text/css');
+//那个请求头中的Accepts的值为 “text/html,text/css”
+```
+你不能制定`Content-Length`、`Date`、`Referer`或`User-Agent`头，XMLHttpRequest将自动添加这些头而防止伪造他们。类似地，XMLHttpRequest对象自动处理cookie、连接时间、字符集和编码判断，所以你无法向setRequestHeader()传递这些头：
++   Accept-Charset
++   Content-Transfer-Encoding
++   Date
++   Connection
++   Expect
++   Content-Length
++   Host
++   Cookie
++   Keep-Alive
++   User-Agent
++   Cookie2
++   Referer
+
+你能为请求指定`Authorization`头，但通常不需要这么做。如果请求一个受密码保护的URL，把用户名和密码作为第四个和第五个参数传递给open)，则XMLHttpRequest将设置合适的头。
+
+##### 顺序问题
+*HTTP请求的各部分有指定顺序：请求方法和URL首先到达，然后是请求头，最后是请求主题。MXLHttpRequest实现通常直到调用send()方法才开始启动网络。单XMLHttpRequest API的设计似乎使每个方法都将写入网络流。这意味着调用XMLHttpRequest方法的顺序必须匹配HTTP请求的架构。例如，setRequestHeader()方法的调用必须在调用send()之前但在调用open()之后，否则它将抛出异常。*
 
 示例代码：
 ```js
