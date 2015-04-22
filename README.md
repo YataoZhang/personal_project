@@ -384,18 +384,18 @@ req.setRequestHeader("Accepts",'text/css');
 //那个请求头中的Accepts的值为 “text/html,text/css”
 ```
 你不能制定`Content-Length`、`Date`、`Referer`或`User-Agent`头，XMLHttpRequest将自动添加这些头而防止伪造他们。类似地，XMLHttpRequest对象自动处理cookie、连接时间、字符集和编码判断，所以你无法向setRequestHeader()传递这些头：
-+   Accept-Charset
-+   Content-Transfer-Encoding
-+   Date
-+   Connection
-+   Expect
-+   Content-Length
-+   Host
-+   Cookie
-+   Keep-Alive
-+   User-Agent
-+   Cookie2
-+   Referer
+>>+   Accept-Charset
+>>+   Content-Transfer-Encoding
+>>+   Date
+>>+   Connection
+>>+   Expect
+>>+   Content-Length
+>>+   Host
+>>+   Cookie
+>>+   Keep-Alive
+>>+   User-Agent
+>>+   Cookie2
+>>+   Referer
 
 你能为请求指定`Authorization`头，但通常不需要这么做。如果请求一个受密码保护的URL，把用户名和密码作为第四个和第五个参数传递给open)，则XMLHttpRequest将设置合适的头。
 
