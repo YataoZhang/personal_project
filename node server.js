@@ -9,16 +9,17 @@ http.createServer(function (req, res) {
     var url = urls.pathname;
     urls.query ? console.log(urls.query) : void 0;
     if (url == "/") {
-//        readFile("junk/xhr-polling.html", res);
-        readFile("emoji_test.html", res);
+        readFile("junk/ajax.html", res);
+//        readFile("emoji_test.html", res);
     } else if (url == "/qwer") {
-        res.writeHead(200,
-            {"Access-Control-Allow-Origin": "*",
-                "Set-Cookie": "phpauth=asdfasdhfgahsdgf",
-                "Access-Control-Request-Headers": "cookie",
-                "Access-Control-Allow-Headers": "cookie",
-                "Access-Control-Allow-Credentials": true});
-        res.end();
+//        res.writeHead(200,
+//            {"Access-Control-Allow-Origin": "*",
+//                "Set-Cookie": "phpauth=asdfasdhfgahsdgf",
+//                "Access-Control-Request-Headers": "cookie",
+//                "Access-Control-Allow-Headers": "cookie",
+//                "Access-Control-Allow-Credentials": true});
+        res.writeHead(200);
+        res.end(JSON.stringify({name:'zhangyatao',age:23}));
     } else if (url == "/register") {
         console.log(req.headers);
         res.writeHead(200,
