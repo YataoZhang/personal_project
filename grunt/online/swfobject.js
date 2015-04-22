@@ -823,11 +823,15 @@ var swfobject = function () {
     WebSocket.__instances = {};
     WebSocket.__tasks = [];
     WebSocket.__nextId = 0;
-
+    var isPolicy=false;
     WebSocket.loadFlashPolicyFile = function () {
         WebSocket.__addTask(function () {
+            if(isPolicy){
+                return;
+            }
             WebSocket.__flash.loadManualPolicyFile("xmlsocket://119.254.110.241:8300");
-        });
+            isPolicy=true;
+        })
     };
 
     WebSocket.Serialize = function (type, arg) {
@@ -838,10 +842,9 @@ var swfobject = function () {
     };
     WebSocket.__initialize = function () {
         if (typeof window != 'undefined') {
-            window.WEB_SOCKET_SWF_LOCATION = 'http://res.websdk.rongcloud.cn/WebSocketMainInsecure-0.2.swf?v=1';
-            window.WEB_SOCKET_DEBUG = true;
+            window.WEB_SOCKET_SWF_LOCATION = 'http://res.websdk.rongcloud.cn/WebSocketMainInsecure-0.2.swf?v=2';
             try {
-                WebSocket.loadFlashPolicyFile("xmlsocket://119.254.110.241:8300");
+                WebSocket.loadFlashPolicyFile();
             } catch (e) {
             }
             window.WEB_SOCKET_DEBUG = true;

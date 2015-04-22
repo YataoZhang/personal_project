@@ -123,7 +123,8 @@
                 }
                 return false;
             })()) {
-                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=6";
+//                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=6";
+                script.src = "grunt/online/swfobject.js";
             } else {
                 if (navigator.cookieEnabled === false) {
                     throw new Error("Cookie is not available, please open the cookie");
@@ -2933,7 +2934,7 @@
     };
     RongIMClient.hasUnreadMessages = function (appkey, token, callback) {
         var xss = document.createElement("script");
-        xss.src = "http://api.cn.rong.io/message/exist.js?appKey=" + encodeURIComponent(appkey) + "&token=" + encodeURIComponent(token) + "&callBack=RongIMClient.hasUnreadMessages.RCcallback";
+        xss.src = "http://api.cn.rong.io/message/exist.js?appKey=" + encodeURIComponent(appkey) + "&token=" + encodeURIComponent(token) + "&callBack=RongIMClient.hasUnreadMessages.RCcallback&_="+Date.now();
         document.body.appendChild(xss);
         xss.onerror = function () {
             callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
@@ -3671,7 +3672,8 @@
         'CUSTOMER_SERVICE': 1,
         'DISCUSSION': 2,
         'GROUP': 3,
-        'PRIVATE': 4
+        'PRIVATE': 4,
+        'SYSTEM':5
     });
     RongIMClient.SentStatus = global.Enum({
         'DESTROYED': 0,
