@@ -924,6 +924,7 @@ var http;
     };
 })(window);
 ```
+##### 如何使用上面的Ajax库
 ```html
 <!DOCTYPE html>
 <html>
@@ -933,6 +934,8 @@ var http;
     <script src="/ajax.js"></script>
     <script>
         window.onload=function(){
+            //假设本地有一台端口为1111的web服务器，且这个web服务器上有一个名为ajaxAPI的接口
+
             //可以这样使用
             $http.get('http://localhost:1111/ajaxAPI','arg=1',function(x){
                 console.log(toString.call(x),x)
@@ -947,7 +950,7 @@ var http;
             //也可以这样使用
             $http.ajax({
                 type:'get',
-                url:'http://localhost:1111/qwer',
+                url:'http://localhost:1111/ajaxAPI',
                 context:{a:'123'},
                 success:function(x){
                     console.log(x,this.a);
@@ -959,7 +962,6 @@ var http;
     </script>
 </head>
 <body>
-
 </body>
 </html>
 ```
