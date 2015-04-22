@@ -924,3 +924,42 @@ var http;
     };
 })(window);
 ```
+```html
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="/ajax.js"></script>
+    <script>
+        window.onload=function(){
+            //可以这样使用
+            $http.get('http://localhost:1111/ajaxAPI','arg=1',function(x){
+                console.log(toString.call(x),x)
+            },'json').done(function(){
+                console.log('done')
+            }).fail(function(e){
+                console.error(e)
+            }).always(function(){
+                console.info('always');
+            });
+
+            //也可以这样使用
+            $http.ajax({
+                type:'get',
+                url:'http://localhost:1111/qwer',
+                context:{a:'123'},
+                success:function(x){
+                    console.log(x,this.a);
+                }
+            });
+
+            //... 你还可以根据ajax中提供的参数编写功能更加强大的函数
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
+```
