@@ -1016,7 +1016,11 @@ http.serialize = function (form) {
                     if (ele.name) {
                         each(ele.options, function (option) {
                             if (option.selected) {
-                                optValue = (option.hasAttribute("value") ? option.value : option.text);
+                                 if (option.hasAttribute) {
+                                      optValue = (option.hasAttribute("value") ? option.value : option.text);
+                                 } else {
+                                      optValue = (option.attributes["value"].specified ? option.value : option.text);
+                                 }
                                 parts.push(encodeURIComponent(ele.name) + "=" + encodeURIComponent(optValue));
                             }
                         })
