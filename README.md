@@ -753,6 +753,7 @@ var http;
                 var arr = [];
                 for (tempVal in defaultOptions.data) {
                     if (defaultOptions.data.hasOwnProperty(tempVal)) {
+                        // 此处参见下文的表单操作
                         arr.push(encodeURIComponent(tempVal) + "=" + encodeURIComponent(defaultOptions.data[tempVal]));
                     }
                 }
@@ -965,3 +966,36 @@ var http;
 </body>
 </html>
 ```
+
+### 表单操作
+考虑到HTML表单。当用户提交表单时，表单中的数据(每个表单元素的名字和值)编码到一个字符串中随请求发送。默认情况下，HTML表单通过POST方法发送给服务器，而编码之后的表单数据则用做请求主体。对表单数据使用的编码方案相对简单：对每个表单元素的名字和值执行偶痛的URL编码(使用十六进制转义码替换特殊字符；编码利用encodeURIComponent()方法，解码利用decodeURIComponent()方法)，使用等号把编码后的名字和值分开，并使用`&`符号分开`名/值`对。一个简单表单的编码如下这样：
+>>name=pizza&age=18&address=%E5%8C%97%E4%BA%AC
+表单数据编码格式有一个正式的MIME类型
+>>application/x-www=form-urlencoded
+当使用post方法提交这顺序的表单数据时，必须设置`Content-Type`请求头为这个值。<BR/>
+注意：这种类型的编码并不需要HTML表单，在本章我们实际上将不需要直接使用表单。在Ajax应用中，你希望发给服务器的可能是个javascript对象。前面展示的数据变成javascript对象的表单编码形式可能为：
+```js
+{
+    name:pizza,
+    age:18,
+    address:'北京'
+}
+```
+表单编码在web上如此广泛的使用，同时所有服务器端的编程语言都能很好的支持，所以非表单数据的表单编码也是容易实现的事情。如下代码：
+```js
+function encodeFormData(data){
+    if(!data) return '';
+    var arr=[];
+    for(var name in data){
+        if(!data.hasOwnProperty(name)) continue;
+        if(typeof data[name] === 'function') continue;
+        var value = data[name] + '';
+        name=encodeURIComponent(name);
+        value=encodeURIComponent(value);
+        arr.push(name + '=' + value);
+    }
+    return arr.join('&');
+}
+```
+使用已定义的encodeFormData()函数，我们能容易的将javascript对象转化为表单格式的数据。<BR/>
+*表单数据同样可以通过get请求来提交，既然表单提交的目的是为了执行只读查询，因此get请求比post更合适。get请求从来没有主体，所以需要发送给服务器的表单编码数据`负载`要作为URL的查询(search)部分。*<br/>
