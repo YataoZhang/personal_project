@@ -376,7 +376,12 @@
             SERVER_UNAVAILABLE: 3,
             BAD_USERNAME_OR_PASSWORD: 4,
             NOT_AUTHORIZED: 5,
-            REDIRECT: 6
+            REDIRECT: 6,
+            PACKAGE_ERROR: 7,
+            APP_BLOCK_OR_DELETE: 8,
+            BLOCK: 9,
+            TOKEN_EXPIRE: 10,
+            DEVICE_ERROR: 11
         }),
         DisconnectionStatus = global.Enum({
             RECONNECT: 0,
@@ -2302,7 +2307,7 @@
                 "navUrl-Release": "http://nav.cn.rong.io/"
             },
             xss = document.createElement("script");
-        xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+        xss.src = Url["navUrl-Release"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
             _onerror(RongIMClient.ConnectCallback.ErrorCode.setValue(5));
@@ -2931,7 +2936,7 @@
     };
     RongIMClient.hasUnreadMessages = function (appkey, token, callback) {
         var xss = document.createElement("script");
-        xss.src = "http://api.cn.rong.io/message/exist.js?appKey=" + encodeURIComponent(appkey) + "&token=" + encodeURIComponent(token) + "&callBack=RongIMClient.hasUnreadMessages.RCcallback&_="+Date.now();
+        xss.src = "http://api.cn.rong.io/message/exist.js?appKey=" + encodeURIComponent(appkey) + "&token=" + encodeURIComponent(token) + "&callBack=RongIMClient.hasUnreadMessages.RCcallback&_=" + Date.now();
         document.body.appendChild(xss);
         xss.onerror = function () {
             callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
@@ -3670,7 +3675,7 @@
         'DISCUSSION': 2,
         'GROUP': 3,
         'PRIVATE': 4,
-        'SYSTEM':5
+        'SYSTEM': 5
     });
     RongIMClient.SentStatus = global.Enum({
         'DESTROYED': 0,
@@ -3709,14 +3714,14 @@
         ProfileNotificationMessage: "profile",
         CommandNotificationMessage: "command"
     });
-    RongIMClient.SendErrorStatus=global.Enum({
-        UNKNOWN:-1,
-        HANDLER_EXP:-2,
-        TIMEOUT:3001,
-        REJECTED_BY_BLACKLIST:405,
-        NOT_IN_DISCUSSION:21406,
-        NOT_IN_GROUP:22406,
-        NOT_IN_CHATROOM:23406
+    RongIMClient.SendErrorStatus = global.Enum({
+        UNKNOWN: -1,
+        HANDLER_EXP: -2,
+        TIMEOUT: 3001,
+        REJECTED_BY_BLACKLIST: 405,
+        NOT_IN_DISCUSSION: 21406,
+        NOT_IN_GROUP: 22406,
+        NOT_IN_CHATROOM: 23406
     });
     RongIMClient.BlacklistStatus = global.Enum({
         EXIT_BLACK_LIST: 0,
@@ -3727,10 +3732,7 @@
         this.onSuccess = d
     };
     RongIMClient.callback.ErrorCode = function (a) {
-        var e = a || 0,
-            f = navigator.language == "zh-CN" ? ["\u670D\u52A1\u5668\u8D85\u65F6", "\u672A\u77E5\u9519\u8BEF"] : ["TIMEOUT", "UNKNOWN ERROR"];
-        this.TIMEOUT = 0;
-        this.UNKNOW = 1;
+        var e = a || 0,f = ["TIMEOUT", "UNKNOWN ERROR"];
         this.getMessage = function () {
             return f[e]
         };
@@ -3745,16 +3747,7 @@
         RongIMClient.callback.apply(this, arguments)
     };
     RongIMClient.ConnectCallback.ErrorCode = function (a) {
-        var d = 0,
-            c = navigator.language == "zh-CN" ? ["\u63A5\u53D7", "\u4E0D\u53EF\u7528\u7684\u534F\u8BAE\u7248\u672C", "\u6807\u8BC6\u7B26\u88AB\u62D2\u7EDD", "\u670D\u52A1\u5668\u4E0D\u53EF\u7528", "TOKEN\u5931\u6548", "\u6CA1\u6709\u9A8C\u8BC1\u7528\u6237", "\u91CD\u5B9A\u5411"] : ["ACCEPTED", "UNACCEPTABLE_PROTOCOL_VERSION", "IDENTIFIER_REJECTED", "SERVER_UNAVAILABLE", "TOKEN_INCORRECT", "NOT_AUTHORIZED", "REDIRECT"];
-        d = a;
-        this.ACCPTED = 0;
-        this.UNACCEPTABLE_PROTOCOL_VERSION = 1;
-        this.IDENTIFIER_REJECTED = 2;
-        this.SERVER_UNAVAILABLE = 3;
-        this.TOKEN_INCORRECT = 4;
-        this.NOT_AUTHORIZED = 5;
-        this.REDIRECT = 6;
+        var d = a||0,c = ["ACCEPTED", "UNACCEPTABLE_PROTOCOL_VERSION", "IDENTIFIER_REJECTED", "SERVER_UNAVAILABLE", "TOKEN_INCORRECT", "NOT_AUTHORIZED", "REDIRECT",'PACKAGE_ERROR','APP_BLOCK_OR_DELETE','BLOCK','TOKEN_EXPIRE','DEVICE_ERROR'];
         this.getValue = function () {
             return d
         };
@@ -3763,7 +3756,7 @@
         }
     };
     RongIMClient.ConnectCallback.ErrorCode.setValue = function (a) {
-        return new RongIMClient.ConnectCallback.ErrorCode(a % 7);
+        return new RongIMClient.ConnectCallback.ErrorCode(a);
     };
     RongIMClient.ConnectCallback.prototype = new RongIMClient.callback();
     RongIMClient.ConnectCallback.prototype.constructor = RongIMClient.ConnectCallback;
@@ -3773,16 +3766,7 @@
         }
     };
     RongIMClient.ConnectionStatusListener.ConnectionStatus = function (a) {
-        var e = a || 0,
-            f = navigator.language == "zh-CN" ? ["\u8FDE\u63A5\u6210\u529F", "\u8FDE\u63A5\u4E2D", "\u91CD\u8FDE", "\u5F53\u524D\u5E10\u53F7\u5DF2\u5728\u5176\u4ED6\u5730\u65B9\u767B\u5F55", "\u5DF2\u5173\u95ED", "\u672A\u77E5\u9519\u8BEF", "\u767B\u51FA", "\u9501\u5B9A"] : ["CONNECTED", "CONNECTING", "RECONNECT", "OTHER_DEVICE_LOGIN", "CLOSED", "UNKNOWN ERROR", "LOGOUT", "BLOCK"];
-        this.CONNECTED = 0;
-        this.CONNECTING = 1;
-        this.RECONNECT = 2;
-        this.OTHER_DEVICE_LOGIN = 3;
-        this.CLOSED = 4;
-        this.UNKNOW = 5;
-        this.LOGOUT = 6;
-        this.BLOCK = 7;
+        var e = a || 0,f = ["CONNECTED", "CONNECTING", "RECONNECT", "OTHER_DEVICE_LOGIN", "CLOSED", "UNKNOWN ERROR", "LOGOUT", "BLOCK"];
         this.getMessage = function () {
             return f[e]
         };

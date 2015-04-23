@@ -749,6 +749,17 @@ var http;
         this._always = func;
         return this;
     };
+
+    //AMD, CommonJs, then globals
+        if (typeof define === 'function' && define.amd) {
+            define([], function(){
+                return http;
+            });
+        } else if (typeof exports === 'object') {
+            module.exports = http;
+        } else {
+            global.$http =  global.$http || http;
+        }
 })(window);
 ```
 ##### 如何使用上面的Ajax库

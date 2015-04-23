@@ -835,9 +835,8 @@
         $("#" + conf.selector.msgPrv + msgId).next("div").addClass('rc_status_error');
     };
     self.callbackConnection = function (obj) {
-        var msg = '';
-        obj=obj.getValue();
-        if (!(obj == 0 || obj == 1 || obj == 5 || obj == 4)) {
+        var msg = '',val=obj.getValue();
+        if (!(val == 0 || val == 1 || val == 5 || val == 4)) {
             msg = obj.getMessage();
             self.showError(msg);
         } else {
