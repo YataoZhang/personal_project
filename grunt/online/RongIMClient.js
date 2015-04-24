@@ -369,26 +369,29 @@
             PINGRESP: 13,
             DISCONNECT: 14
         }),
-        ConnectionState = global.Enum({
-            ACCEPTED: 0,
-            UNACCEPTABLE_PROTOCOL_VERSION: 1,
-            IDENTIFIER_REJECTED: 2,
-            SERVER_UNAVAILABLE: 3,
-            BAD_USERNAME_OR_PASSWORD: 4,
-            NOT_AUTHORIZED: 5,
-            REDIRECT: 6,
-            PACKAGE_ERROR: 7,
-            APP_BLOCK_OR_DELETE: 8,
-            BLOCK: 9,
-            TOKEN_EXPIRE: 10,
-            DEVICE_ERROR: 11
-        }),
         DisconnectionStatus = global.Enum({
             RECONNECT: 0,
             OTHER_DEVICE_LOGIN: 1,
-            CLOSURE: 2
+            CLOSURE: 2,
+            UNKNOWN_ERROR: 3,
+            LOGOUT: 4,
+            BLOCK: 5
         });
 
+    global.ConnectionState = global.Enum({
+        ACCEPTED: 0,
+        UNACCEPTABLE_PROTOCOL_VERSION: 1,
+        IDENTIFIER_REJECTED: 2,
+        SERVER_UNAVAILABLE: 3,
+        BAD_USERNAME_OR_PASSWORD: 4,
+        NOT_AUTHORIZED: 5,
+        REDIRECT: 6,
+        PACKAGE_ERROR: 7,
+        APP_BLOCK_OR_DELETE: 8,
+        BLOCK: 9,
+        TOKEN_EXPIRE: 10,
+        DEVICE_ERROR: 11
+    });
     function Message(argu) {
         var _header, _headerCode, lengthSize = 0;
         if (argu instanceof Header) {
@@ -1317,12 +1320,11 @@
                 }
             };
             this.socket.onclose = function () {
-                console.log("closed");
                 self._onClose()
             };
             this.socket.onerror = function () {
                 if (bridge._client && bridge._client.reconnectObj.onError) {
-                    bridge._client.reconnectObj.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(2));
+                    bridge._client.reconnectObj.onError(RongIMClient.ConnectErrorStatus.setValue(2));
                     delete bridge._client.reconnectObj.onError;
                 } else {
                     throw new Error("network is unavailable or unknown error");
@@ -1714,7 +1716,7 @@
         };
         this.readTimeOut = function (isTimeout) {
             if (isTimeout && this.onError) {
-                this.onError(RongIMClient.callback.ErrorCode.setValue(0))
+                this.onError( RongIMClient.callback.ErrorCode.TIMEOUT)
             } else {
                 this.pauseTimer()
             }
@@ -2070,7 +2072,7 @@
             if (Client.Endpoint.host) {
                 if (io._TransportType == "websocket") {
                     if (!global.WebSocket) {
-                        _callback.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(1));
+                        _callback.onError(RongIMClient.ConnectErrorStatus.setValue(1));
                         return;
                     }
                 }
@@ -2085,7 +2087,7 @@
                 }
                 this.channel.socket.fire("StatusChanged", 1)
             } else {
-                _callback.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(5));
+                _callback.onError(RongIMClient.ConnectErrorStatus.setValue(5));
             }
         };
 
@@ -2164,7 +2166,7 @@
                         cb(status, data, serverTime)
                     }
                 } else {
-                    _timeout(RongIMClient.callback.ErrorCode.setValue(1));
+                    _timeout(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
                 }
             };
             var arg = arguments.callee;
@@ -2199,10 +2201,10 @@
                     }, _timeout, false);
                 } else {
                     if (self.reconnectObj.onError) {
-                        self.reconnectObj.onError(RongIMClient.ConnectCallback.ErrorCode.setValue(status));
+                        self.reconnectObj.onError(RongIMClient.ConnectErrorStatus.setValue(status));
                         delete self.reconnectObj.onError;
                     } else {
-                        _timeout(RongIMClient.ConnectCallback.ErrorCode.setValue(status))
+                        _timeout(RongIMClient.ConnectErrorStatus.setValue(status))
                     }
                 }
             };
@@ -2307,10 +2309,10 @@
                 "navUrl-Release": "http://nav.cn.rong.io/"
             },
             xss = document.createElement("script");
-        xss.src = Url["navUrl-Release"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+        xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
-            _onerror(RongIMClient.ConnectCallback.ErrorCode.setValue(5));
+            _onerror(RongIMClient.ConnectErrorStatus.setValue(4));
         };
         if ("onload" in xss) {
             xss.onload = _onsuccess;
@@ -2473,7 +2475,7 @@
                 o = [];
             }
             if (p) {
-                a.setConnectionStatusListener(RongIMClient.ConnectionStatusListener.ConnectionStatus, p)
+                a.setConnectionStatusListener(RongIMClient.ConnectionStatus, p)
             }
         };
         this.disconnect = function () {
@@ -2511,7 +2513,7 @@
                     });
                 },
                 onError: function () {
-                    callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                    callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
                 }
             }, "RelationsOutput");
             this.checkoutOfflineConversationList = undefined;
@@ -2532,7 +2534,7 @@
             if (c) {
                 e.onSuccess(c.getNotificationStatus())
             } else {
-                e.onError(RongIMClient.callback.ErrorCode.setValue(1))
+                e.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR)
             }
         };
         this.clearConversations = function (_conversationTypes) {
@@ -2566,7 +2568,7 @@
                 c.setNotificationStatus(g);
                 e.onSuccess(g)
             } else {
-                e.onError(RongIMClient.callback.ErrorCode.setValue(1))
+                e.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR)
             }
         };
         this.setConversationToTop = function (c, e) {
@@ -2603,7 +2605,7 @@
         this.sendMessage = function (h, v, e, c, u) {
             q(["object", "string", "object", "object|null|global", "object"]);
             if (!m.getInstance().connected) {
-                u.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                u.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
                 return;
             }
             if (!(e instanceof RongIMClient.MessageContent)) {
@@ -2673,7 +2675,7 @@
             if (!a) {
                 p = c;
             } else {
-                a.setConnectionStatusListener(RongIMClient.ConnectionStatusListener.ConnectionStatus, c);
+                a.setConnectionStatusListener(RongIMClient.ConnectionStatus, c);
             }
         };
         this.setOnReceiveMessageListener = function (c) {
@@ -2756,7 +2758,7 @@
                     })
                 },
                 onError: function () {
-                    callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                    callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
                 }
             }, "ChrmOutput");
         };
@@ -2812,13 +2814,13 @@
                         onSuccess: function () {
                         },
                         onError: function () {
-                            _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                            _callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
                         }
                     });
                     _callback.onSuccess(data);
                 },
                 onError: function () {
-                    _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                    _callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
                 }
             }, "CreateDiscussionOutput");
         };
@@ -2879,7 +2881,7 @@
                                 _callback.onSuccess();
                             },
                             onError: function () {
-                                _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                                _callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
                             }
                         }, "GroupOutput");
                     } else {
@@ -2887,7 +2889,7 @@
                     }
                 },
                 onError: function () {
-                    _callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+                    _callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
                 }
             }, "GroupHashOutput");
 
@@ -2939,7 +2941,7 @@
         xss.src = "http://api.cn.rong.io/message/exist.js?appKey=" + encodeURIComponent(appkey) + "&token=" + encodeURIComponent(token) + "&callBack=RongIMClient.hasUnreadMessages.RCcallback&_=" + Date.now();
         document.body.appendChild(xss);
         xss.onerror = function () {
-            callback.onError(RongIMClient.callback.ErrorCode.setValue(1));
+            callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
         };
         RongIMClient.hasUnreadMessages.RCcallback = function (x) {
             callback.onSuccess(!!+x.status);
@@ -3715,9 +3717,6 @@
         CommandNotificationMessage: "command"
     });
     RongIMClient.SendErrorStatus = global.Enum({
-        UNKNOWN: -1,
-        HANDLER_EXP: -2,
-        TIMEOUT: 3001,
         REJECTED_BY_BLACKLIST: 405,
         NOT_IN_DISCUSSION: 21406,
         NOT_IN_GROUP: 22406,
@@ -3727,54 +3726,23 @@
         EXIT_BLACK_LIST: 0,
         NOT_EXIT_BLACK_LIST: 1
     });
+    RongIMClient.ConnectionStatus = global.Enum({
+        CONNECTED: 0,
+        CONNECTING: 1,
+        RECONNECT: 2,
+        OTHER_DEVICE_LOGIN: 3,
+        CLOSURE: 4,
+        UNKNOWN_ERROR: 5,
+        LOGOUT: 6,
+        BLOCK: 7
+    });
+    RongIMClient.ConnectErrorStatus = global.ConnectionState;
     RongIMClient.callback = function (d, a) {
         this.onError = a;
         this.onSuccess = d
     };
-    RongIMClient.callback.ErrorCode = function (a) {
-        var e = a || 0,f = ["TIMEOUT", "UNKNOWN ERROR"];
-        this.getMessage = function () {
-            return f[e]
-        };
-        this.getValue = function () {
-            return e
-        }
-    };
-    RongIMClient.callback.ErrorCode.setValue = function (a) {
-        return new RongIMClient.callback.ErrorCode(a)
-    };
-    RongIMClient.ConnectCallback = function () {
-        RongIMClient.callback.apply(this, arguments)
-    };
-    RongIMClient.ConnectCallback.ErrorCode = function (a) {
-        var d = a||0,c = ["ACCEPTED", "UNACCEPTABLE_PROTOCOL_VERSION", "IDENTIFIER_REJECTED", "SERVER_UNAVAILABLE", "TOKEN_INCORRECT", "NOT_AUTHORIZED", "REDIRECT",'PACKAGE_ERROR','APP_BLOCK_OR_DELETE','BLOCK','TOKEN_EXPIRE','DEVICE_ERROR'];
-        this.getValue = function () {
-            return d
-        };
-        this.getMessage = function () {
-            return c[d];
-        }
-    };
-    RongIMClient.ConnectCallback.ErrorCode.setValue = function (a) {
-        return new RongIMClient.ConnectCallback.ErrorCode(a);
-    };
-    RongIMClient.ConnectCallback.prototype = new RongIMClient.callback();
-    RongIMClient.ConnectCallback.prototype.constructor = RongIMClient.ConnectCallback;
-    RongIMClient.ConnectionStatusListener = function (a) {
-        return {
-            onChanged: a
-        }
-    };
-    RongIMClient.ConnectionStatusListener.ConnectionStatus = function (a) {
-        var e = a || 0,f = ["CONNECTED", "CONNECTING", "RECONNECT", "OTHER_DEVICE_LOGIN", "CLOSED", "UNKNOWN ERROR", "LOGOUT", "BLOCK"];
-        this.getMessage = function () {
-            return f[e]
-        };
-        this.getValue = function () {
-            return e
-        }
-    };
-    RongIMClient.ConnectionStatusListener.ConnectionStatus.setValue = function (a) {
-        return new RongIMClient.ConnectionStatusListener.ConnectionStatus(a)
-    };
+    RongIMClient.callback.ErrorCode = global.Enum({
+        TIMEOUT: -1,
+        UNKNOWN_ERROR: -2
+    });
 })(window);
