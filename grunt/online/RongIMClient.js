@@ -2,14 +2,14 @@
     if (global.RongIMClient) {
         return;
     }
-    global.Enum = function (namesToValues) {
+    global.RongIMEnum = function (namesToValues) {
         var enumeration = function () {
             throw "can't Instantiate Enumerations";
         };
         enumeration.setValue = function (x) {
             var val = null;
             enumeration.foreach(function (i) {
-                if (i.value == x) {
+                if (i.value == x|| i.name==x) {
                     val = enumeration[i.name];
                 }
             }, null);
@@ -347,13 +347,13 @@
             return pool
         }
     };
-    var Qos = global.Enum({
+    var Qos = global.RongIMEnum({
             AT_MOST_ONCE: 0,
             AT_LEAST_ONCE: 1,
             EXACTLY_ONCE: 2,
             DEFAULT: 3
         }),
-        Type = global.Enum({
+        Type = global.RongIMEnum({
             CONNECT: 1,
             CONNACK: 2,
             PUBLISH: 3,
@@ -369,7 +369,7 @@
             PINGRESP: 13,
             DISCONNECT: 14
         }),
-        DisconnectionStatus = global.Enum({
+        DisconnectionStatus = global.RongIMEnum({
             RECONNECT: 0,
             OTHER_DEVICE_LOGIN: 1,
             CLOSURE: 2,
@@ -378,7 +378,7 @@
             BLOCK: 5
         });
 
-    global.ConnectionState = global.Enum({
+    global.ConnectionState = global.RongIMEnum({
         ACCEPTED: 0,
         UNACCEPTABLE_PROTOCOL_VERSION: 1,
         IDENTIFIER_REJECTED: 2,
@@ -2389,6 +2389,7 @@
         }
     };
 })(window);
+
 (function (global, undefined) {
     global.RongIMClient = function (r) {
         function getType(str) {
@@ -3661,17 +3662,17 @@
             k = c
         }
     };
-    RongIMClient.MessageTag = global.Enum({
+    RongIMClient.MessageTag = global.RongIMEnum({
         'ISPERSISTED': 'ISPERSISTED',
         'ISCOUNTED': 'ISCOUNTED',
         'NONE': 'NONE',
         ISDISPLAYED: "ISDISPLAYED"
     });
-    RongIMClient.ConversationNotificationStatus = global.Enum({
+    RongIMClient.ConversationNotificationStatus = global.RongIMEnum({
         'DO_NOT_DISTURB': 0,
         'NOTIFY': 1
     });
-    RongIMClient.ConversationType = global.Enum({
+    RongIMClient.ConversationType = global.RongIMEnum({
         'CHATROOM': 0,
         'CUSTOMER_SERVICE': 1,
         'DISCUSSION': 2,
@@ -3679,7 +3680,7 @@
         'PRIVATE': 4,
         'SYSTEM': 5
     });
-    RongIMClient.SentStatus = global.Enum({
+    RongIMClient.SentStatus = global.RongIMEnum({
         'DESTROYED': 0,
         'FAILED': 1,
         'READ': 2,
@@ -3687,46 +3688,46 @@
         'SENDING': 4,
         'SENT': 5
     });
-    RongIMClient.DiscussionInviteStatus = global.Enum({
+    RongIMClient.DiscussionInviteStatus = global.RongIMEnum({
         'CLOSED': 0,
         'OPENED': 1
     });
-    RongIMClient.MediaType = global.Enum({
+    RongIMClient.MediaType = global.RongIMEnum({
         'AUDIO': 0,
         'FILE': 1,
         'IMAGE': 2,
         'VIDEO': 3
     });
-    RongIMClient.MessageDirection = global.Enum({
+    RongIMClient.MessageDirection = global.RongIMEnum({
         'RECEIVE': 0,
         'SEND': 1
     });
-    RongIMClient.MessageType = global.Enum({
-        DiscussionNotificationMessage: "dizntf",
-        TextMessage: "txt",
-        ImageMessage: "img",
-        VoiceMessage: "voice",
-        RichContentMessage: "txtimg",
-        HandshakeMessage: "handshake",
-        UnknownMessage: "unknown",
-        SuspendMessage: "suspend",
-        LocationMessage: "location",
-        InformationNotificationMessage: "information",
-        ContactNotificationMessage: "contact",
-        ProfileNotificationMessage: "profile",
-        CommandNotificationMessage: "command"
+    RongIMClient.MessageType = global.RongIMEnum({
+        DiscussionNotificationMessage: 0,
+        TextMessage: 2,
+        ImageMessage: 3,
+        VoiceMessage: 4,
+        RichContentMessage: 5,
+        HandshakeMessage: 6,
+        UnknownMessage: 7,
+        SuspendMessage: 8,
+        LocationMessage: 9,
+        InformationNotificationMessage: 10,
+        ContactNotificationMessage: 11,
+        ProfileNotificationMessage: 12,
+        CommandNotificationMessage: 13
     });
-    RongIMClient.SendErrorStatus = global.Enum({
+    RongIMClient.SendErrorStatus = global.RongIMEnum({
         REJECTED_BY_BLACKLIST: 405,
         NOT_IN_DISCUSSION: 21406,
         NOT_IN_GROUP: 22406,
         NOT_IN_CHATROOM: 23406
     });
-    RongIMClient.BlacklistStatus = global.Enum({
+    RongIMClient.BlacklistStatus = global.RongIMEnum({
         EXIT_BLACK_LIST: 0,
         NOT_EXIT_BLACK_LIST: 1
     });
-    RongIMClient.ConnectionStatus = global.Enum({
+    RongIMClient.ConnectionStatus = global.RongIMEnum({
         CONNECTED: 0,
         CONNECTING: 1,
         RECONNECT: 2,
@@ -3741,7 +3742,7 @@
         this.onError = a;
         this.onSuccess = d
     };
-    RongIMClient.callback.ErrorCode = global.Enum({
+    RongIMClient.callback.ErrorCode = global.RongIMEnum({
         TIMEOUT: -1,
         UNKNOWN_ERROR: -2
     });
