@@ -6,7 +6,8 @@
             _head = document.documentElement.appendChild(document.createElement("head"));
         }
         _doc.type = "text/javascript";
-        _doc.src = "http://res.websdk.rongcloud.cn/RongIMClient.min.js";
+        _doc.src = "grunt/online/RongIMClient.js";
+//        _doc.src = "http://res.websdk.rongcloud.cn/RongIMClient.min.js";
         _doc.onload = function () {
             _doc1.src = "http://res.websdk.rongcloud.cn/RongIMClient.emoji-0.9.2.min.js";
             _head.appendChild(_doc1);
@@ -835,10 +836,8 @@
         $("#" + conf.selector.msgPrv + msgId).next("div").addClass('rc_status_error');
     };
     self.callbackConnection = function (obj) {
-        var msg = '',val=obj.getValue();
-        if (!(val == 0 || val == 1 || val == 5 || val == 4)) {
-            msg = obj.getMessage();
-            self.showError(msg);
+        if (!(obj == 0 || obj == 1 || obj == 5 || obj == 4)) {
+            self.showError(obj);
         } else {
             self.hideError();
             conf.isReOnline = false;
@@ -941,7 +940,9 @@
                 RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, targetId, msg, null, callback);
             },
             onConnectionStatesListener: function (_function) {
-                RongIMClient.setConnectionStatusListener(RongIMClient.ConnectionStatusListener(_function));
+                RongIMClient.setConnectionStatusListener({
+                    onChanged:_function
+                });
             }
         };
         if (callback) {
