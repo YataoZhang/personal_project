@@ -398,7 +398,7 @@ function fetchStatus(address) {
 >+   ActiveXObject对象中不支持statustext属性。
 >+   ActiveXObject对象中没有DONE、OPEN、UNSENT、HEADERS_RECEIVED、DONE 这些属性。
 >+   ActiveXObject对象中没有onload方法。
->+   ActiveXObject对象中send()不支持ArrayBuffer||Blob||Formdata 等类型重载。
+>+   ActiveXObject对象中send()不支持`ArrayBuffer|Blob|Formdata` 等类型重载。
 >+   ActiveXObject对象中没有withCredentials属性。<br/>
 >由于ActiveXObject对象只在IE5、IE6中使用，所以很多功能都没有。所以使用时需注意。<br/>
 
@@ -763,11 +763,7 @@ var http;
 })(window);
 ```
 ##### 如何使用上面的Ajax库
-```html
-<html>
-<head lang="en">
-    <script src="/ajax.js"></script>
-    <script>
+```js
         window.onload=function(){
             //假设本地有一台端口为1111的web服务器，且这个web服务器上有一个名为ajaxAPI的接口
             //可以这样使用
@@ -791,11 +787,6 @@ var http;
             });
             //... 你还可以根据ajax中提供的参数编写功能更加强大的函数
         }
-    </script>
-</head>
-<body>
-</body>
-</html>
 ```
 
 ### 表单操作
@@ -882,7 +873,8 @@ http.serialize = function (form) {
         $http.get('/serialize',$http.serialize(this),function(res){
             console.log(res);
         });
-        return;
+        //阻止默认行为
+        return false;
     };
 ```
 上面这个serialize()函数首先定义了一个名为parts的数组，用于保存将要创建的字符串的各个部分。然后，通过for循环迭代每个表单字段，并将其保存在field变量中。在获得了一个字段的引用之后，使用switch语句检测其type属性。序列化过程最麻烦的就是`select`元素，它可能是单选框也可能是多选框，值可能有一个选中项，而多选框则可能有零或多个选中项。这里的代码适用于这两种选择框，至于可选框的数量是由浏览器控制的。在找到了一个选中项之后，需要确定使用什么值。如果不存在value特性，或者虽然存在该特性，但值为空字符串，要使用选项的文本代替。为检查这个特性，在DOM兼容的浏览器中需要使用hasAttribute()方法，而在IE中需要使用特性的specified属性.
@@ -891,5 +883,174 @@ http.serialize = function (form) {
 如果表单中包含`fieldset`元素，则该元素会出现在元素集合中，但没有type属性。因此，如果type属性未定义，则不需要对其进行序列化。同样，对于各种按钮以及文件输入字段也是如此。对于单选按钮和复选框，要检查其checked属性是否被设置为false，如果是则退出switch语句。如果checked属性为ture，则继续执行default语句，即将当前字段的名称和值进行编码，然后添加到parts数组中。函数的最后一步，就是使用join()格式化整个字符串，也就是用和号来分割每一个表单字段。<br/>
 
 最后，serialize()函数会以查询字符串的格式输出序列化之后的字符串。当然，要序列化成其它格式，也不是什么困难的事。<br/>
+<hr>
+### 跨域请求操作
+在应用场景中会经常出现不同源的数据请求，这种情况下需要做相应的处理操作。由于同源策略和浏览器兼容等问题的存在，所以处理不同来源的请求需要注意的地方有很多。下面会为大家列出相应的解决方案以及相应的概念普及。
+#### 同源策略
+同源策略就是规定了javascript可以操作那些web内容的一个完整的安全限制。
+##### 什么是同源？
+同源就是规定多个web资源的url中`scheme`、`hostname`、`port`必须相同，只要有一项不同那么这个web资源就不是同源的。同时，同源策略就会其相应的作用来限制这个web资源。
+##### 同源策略为什么会出现？
+对于防止脚本窃取所有内容来说，同源策略是非常有必要的。如果没有这一个限制，恶意脚本可能会打开一个空页面，诱导用户进入并使用这个窗口在内网浏览操作文件。这样的话，恶意脚本就能够读取窗口内的内容发送到自己的服务器来达到窃取数据的目的。而同源策略就是限制了这种行为。
+
+*思考：web的安全性如何考虑？*
+
+#### 跨域HTTP请求
+##### 什么是跨域？
+当请求的资源的URL与当前页面的URL中的`scheme`、`hostname`、`port`有一个不同的时候就算是跨域操作。请参见上面的同源。<br/>
+
+因为有同源策略的限制，XMLHttpRequest仅可以发起操作同域(同源)下的请求。虽然这个限制关闭了安全漏洞但是也阻止了大量合法的适合使用的跨域请求。不过这种情况下也可以在页面中使用`img`、`form`、`iframe`等元素中使用跨域URL，最中在浏览器中显示这些数据。但是因为同源策略，浏览器不允许操作或者不能良好的显示跨域文档内容。
+如果此处使用XMLHttpRequest来操作跨域请求，那么所有的文档内容都将在responseText属性中暴露，所以同源策略不允许XMLHttpRequest进行跨域请求。<br/>
+*注意：`img`元素会把返回的内容强制转换为图片。`iframe`元素不允许操作跨域数据.*<BR/>
+但是需要强调的是`script`元素并未真正受到同源策略的限制，因为script有可能需要加载不同域的javascript资源。需要加载并执行任何来源的脚本。正因为如此，`script`的灵活性使其成为在跨域操作中代替XMLHttpRequest的主流Ajax传输协议：`JSONP`。
+##### JSONP
+`script`元素可以作为一种Ajax传输协议，只需设置`script`元素的src属性并且插入到DOM中，浏览器就会发出一个HTTP请求到src属性所指向的URL。使用`script`元素进行Ajax传输的一个主要原因就是因为它不受同源策略的影响。因此可以发送一个不同源的请求。而另外一个原因就是用`script`元素会自动解码并执行(浏览器会当做javascript来处理)下载的数据。
+
+>JSONP带来的安全性考虑：
+>为了使用`script`元素来进行Ajax传输，你必须允许web页面信任并执行目标服务器返回过来的任何数据。这意味这对于不信任的服务器，不应该采取该技术。在与信任的服务器交互是还要提防攻击者可能会进入服务器中。所以作为Ajax数据传输的`script`与可信的服务器交互，是相当危险的事情。
+
+使用这种`script`元素来进行Ajax数据的传输的技术就叫做'JSONP'，也就是`JSON－padding`.这个`P`(`padding`)代表的是 填充、补充、前缀。在于服务器返回的数据必须用javascript的方法名加括号包裹住才行。而不是仅仅发送一段JSON格式的数据而已，要是这样的话浏览器只会对返回的数据进行JSON解码，结果还是数据，并没有做任何相应的处理。<BR/>
+因此在使用JSONP的时候需要注意的是，服务器返回的数据是有固定格式的。例如：
+```js
+//服务器不可以返回这样的数据
+["jeams","bond",{NAME:"OBAMA"，AGE:56}]
+//服务器会返回一个这样的响应
+functionName(["jeams","bond",{NAME:"OBAMA"，AGE:56}])
+```
+其中的functionName必须是在window下可以访问的名称。这样的话服务器就不仅仅只是返回一段JSON数据而已了，同时还会执行对应的操作。包裹后的响应会成为这个`script`元素的内容，它先判断JSON编码后的数据(因为是一个javascript表达式)，然后把数据传给functionName函数。此处我们可以假设functionName会那这些数据做有用的事情。
+但是为了可行起见，我们必须要把需要包裹数据的那个javascript方法名告诉服务器，也就是上面例子里的那个functionName。这样的话服务器就会知道用什么来包裹需要返回的数据了。服务器也可以知道返回的是一个JSONP数据而不是一个普通的JSON数据。例如可以在请求的URL后面加上`?callback=functionName`。
+```js
+//实现一个简单的JSONP请求
+//请求的url、包裹方法名称、回调函数
+function JSONP(url,callbackName,callback){
+    //为本次请求创建一个唯一的callback名称
+    var cbnum="cb"+JSONP.count++; //计数器 生成一个唯一的名称
+    var cbname="JSONP."+cbnum; //作为JSONP方法的一个静态属性
+
+    if(url.indexOf("?")==-1){
+        url+="?"+callbackName+"="+cbname;
+    }else{
+        url+="&"+callbackName+"="+cbname;
+    }
+
+    JSONP[cbnum]=function(response){
+        try{
+            callback(response);
+        }catch (ex){
+
+        }finally{
+            //执行完毕之后就删掉，因为没什么用了
+            delete JSONP[cbnum];
+            script.parentNode.removeChild(script);
+        }
+    }
+    var script=document.createElement("script");
+    script.src=url;
+    document.body.appendChild(script);
+}
+//初始化用于创建唯一名称的计数器
+JSONP.count=0;
+
+//发起JSONP请求。
+JSONP("http://suggestion.baidu.com/su?wd=xxx","cb",function(data){
+    //将百度返回的数据输出到控制台中
+    console.log(data)
+});
+```
+*注意：当多次执行同一个url的JSONP操作时需要注意缓存问题。*
+
+>可用的jsonp接口：<br/>
+>查询淘宝商品：<br/>
+>1:*http://suggest.taobao.com/sug?code=utf-8&q=商品关键字&callback=cb;*<br/>
+>快递查询：<br/>
+>2:http://www.kuaidi100.com/query?type=quanfengkuaidi&postid=390011492112;<br/>（ps:快递公司编码:申通="shentong" EMS="ems" 顺丰="shunfeng" 圆通="yuantong" 中通="zhongtong" 韵达="yunda" 天天="tiantian" 汇通="huitongkuaidi" 全峰="quanfengkuaidi" 德邦="debangwuliu" 宅急送="zhaijisong"）<br/>
+>天气查询：<br/>
+>3:*http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&day=0&city=&dfc=1&charset=utf-8;*<br/>
+>手机号查询：<br/>
+>4:http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=手机号;<br/>
+>百度搜素：<br/>
+>5:*http://suggestion.baidu.com/su?wd=a&cb=xxx;*
+
+##### 跨域资源共享
+由于浏览器的同源策略，限制了XMLHttpRequest的跨域请求的操作。但是在XHR2中浏览器选择允许发送合适的CORS(cross-origin resource sharing，跨域资源共享)来跨域请求数据。在标准浏览器中依旧使用XMLHttpRequest对象，而在IE8－9中则使用XDomainRequest对象来请求跨域资源。<BR/>
+虽然实现CORS不需要做任何事情，但是还有一些安全细节需要了解。首先，如果通过XMLHttpRequest的open()方法传入用户名和密码(详情见open方法)，那么它们绝不会通过跨域请求发送。另外跨域请求也不会包含其他任何的用户证书：cookie和HTTP身份认证的令牌(TOKEN)通常不会作为请求的内容发送
+到对方的服务器且对方服务器返回任何数据(cookie以及其他的一些响应头)都将被丢弃。如果跨域请求必须需要传入这几种用户证书才能成功，那么就必须在调用send()方法之前设置XMLHttpRequest的WithCredentials为true，此属性默认为false。也可以检索XMLHttpRequest对象有没有该属性来判断是否它支持CORS操作。<BR/>
+
+###### withCredentials属性
+默认情况下，在浏览器中使用XMLHttpRequest进行跨源请求不提供凭据(cookie、HTTP认证及客户端SSL证明等)。通过将XMLHttpRequest的withCredentials属性设置为true，可以指定某个请求应该发送凭据。如果服务器接收带凭据的请求，会用下面的HTTP头部来响应。<BR/>
+```js
+//服务器端返回此响应头
+Access-Control-Allow-Credentials: true
+//XMLHttpRequest的withCredentials设置为true
+xhr.withCredentials=true;
+```
+如果发送的是带凭据的请求，但服务器的相应中没有包含这个头部，那么浏览器就不会把相应交给JavaScript(于是，responseText中将是空字符串，status的值为0，而且会调用onerror()事件处理程序)。另外，服务器还可以在响应中发送这个HTTP头部，表示允许源发送带凭据的请求。<BR/>
+
+>使用XDomainRequest对象时需要注意的地方:<BR/>
+>1、XDomainRequest对象没有onreadystatechange属性。<BR/>
+>2、此对象只有IE8中有。<BR/>
+>3、此方法只可使用http方案和https方案。<BR/>
+>4、此对象还有一个特殊的contentType属性，用来获得响应头中的Content-Type。<BR/>
+
+当浏览器使用跨域资源共享时，不管是使用XMLHttpRequest还是XDoaminRequest。服务器都必须在响应头中设置`Access-Control-Allow-Origin`。
+```js
+//在java或者C#中
+<% Response.AddHeader("Access-Control-Allow-Origin","*") %>
+//nodejs中
+response.writeHead(200,{"Access-Control-Allow-Origin":"*"})
+```
+其中`＊`代码允许任何源请求本服务器，也可以改成固定的源。例如：`{"Access-Control-Allow-Origin":"http://localhost:63342"}` 只允许URL为`http://localhost:63342`的请求源请求本服务器。
+**警告：如果将XMLHttpRequest的withCredentials属性设置为true的时候，`Access-Control-Allow-Origin`这个响应头不可以设置为`*`。**
+
+>W3C规定的跨域资源共享中服务器可以返回的头信息如下：
+>+   Access-Control-Allow-Origin 使用格式：Access-Control-Allow-Origin = "Access-Control-Allow-Origin" ":" ascii-origin | "*"
+>+   Access-Control-Max-Age 使用格式：Access-Control-Max-Age = "Access-Control-Max-Age" ":" delta-seconds
+>+   Access-Control-Allow-Credentials 使用格式：Access-Control-Allow-Credentials: "Access-Control-Allow-Credentials" ":" "true"
+>+   Access-Control-Allow-Methods 使用格式：Access-Control-Allow-Methods: "Access-Control-Allow-Methods" ":" #Method
+>+   Access-Control-Allow-Headers 使用格式：Access-Control-Allow-Headers: "Access-Control-Allow-Headers" ":" #field-name
+>+   Access-Control-Request-Method 使用格式：Access-Control-Request-Method: "Access-Control-Request-Method" ":" Method
+>+   Access-Control-Request-Headers 使用格式：Access-Control-Request-Headers: "Access-Control-Request-Headers" ":" #field-name
+
+```js
+(function (global, undefined) {
+    //根据有无withCredentials来判断浏览器时候支持XMLHttpRequest跨域请求操作
+    var XMLHttpRequestCORS = (function () {
+        if (!('XMLHttpRequest' in global))
+            return false;
+        var a = new XMLHttpRequest();
+        return a.withCredentials !== undefined;
+    })(), request = function () {
+        //判断浏览器兼容性
+        if ('XDomainRequest' in global)
+            return new XDomainRequest();
+        //是否支持跨域请求
+        if ('XMLHttpRequest' in global && XMLHttpRequestCORS)
+            return new XMLHttpRequest();
+        return false;
+    };
+    var xhr = request();
+    if(xhr){
+        xhr.open("get", "http://localhost:1111");
+        xhr.onload = function () {
+            //onload方法表示请求已经完成，参见上面XMLHttpRequest的onload属性解释
+            console.log(this.responseText);
+        };
+        xhr.send();
+    }
+
+})(window);
+```
+### 结束语
+现在你可能已经准备开始编写第一个`Ajax`应用程序了，不过可以首先从这些应用程序如何工作的基本概念开始，对`XMLHttpRequest`对象有基本的了解。<BR/>
+现在先花点儿时间考虑考虑`Ajax`应用程序有多么强大。设想一下，当单击按钮、输入一个字段、从组合框中选择一个选项或者用鼠标在屏幕上拖动时，Web 表单能够立刻作出响应会是什么情形。想一想异步 究竟意味着什么，想一想 JavaScript 代码运行而且不等待 服务器对它的请求作出响应。会遇到什么样的问题？会进入什么样的领域？考虑到这种新的方法，编程的时候应如何改变表单的设计？<BR/>
+如果在这些问题上花一点儿时间，与简单地剪切/粘贴某些代码到您根本不理解的应用程序中相比，收益会更多。
+
+#### 参考
++   http://bob.ippoli.to/archives/2005/12/05/remote-json-jsonp/
++   http://www.w3.org/TR/cors/
++   http://www.w3.org/TR/XMLHttpRequest/
++   https://msdn.microsoft.com/zh-cn/library/ie/cc288060(v=vs.85).aspx
++   https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
++   https://developer.mozilla.org/en-US/docs/Web/HTTP
 
 *特别声明：本文仅供个人学习参考，不保证准确性，随之而来的风险与本人无关*
