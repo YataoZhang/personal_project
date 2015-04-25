@@ -115,9 +115,9 @@ URI包括两种形式，一种是URL一种是URN。目前大部分会不加区�
 >-   telnet 用于交互式访问业务
 
 ### 浏览器兼容性
-在IE8以下版本的IE系列浏览器中，要应用AJAX必须使用`ActiveXObject(这个对象是一个微软推广和支持在Internet Explorer中，不在Windows应用商店的应用程序。)` 方法。在标准浏览器(chrome、firefox、opera、safari、ie7+)当中则使用`XMLHttpRequest`对象。
+在IE7以下版本的IE系列浏览器中，要应用AJAX必须使用`ActiveXObject(这个对象是一个微软推广和支持在Internet Explorer中，不在Windows应用商店的应用程序。)` 方法。在标准浏览器(chrome、firefox、opera、safari、ie7+)当中则使用`XMLHttpRequest`对象。
 ### 如何发起AJAX?
-在低版本IE(8-)中使用`ActiveXObject`构造AJAX对象时需要传入一个String类型的参数`Microsoft.XMLHTTP`，也可以使用`Msxml3.XMLHTTP`和`Msxml2.XMLHTTP`。因为一开始是`Microsoft.XMLHTTP` 之后变成`Msxml2.XMLHTTP`及更新版的`Msxml3.XMLHTTP`
+在低版本IE(7-)中使用`ActiveXObject`构造AJAX对象时需要传入一个String类型的参数`Microsoft.XMLHTTP`，也可以使用`Msxml3.XMLHTTP`和`Msxml2.XMLHTTP`。因为一开始是`Microsoft.XMLHTTP` 之后变成`Msxml2.XMLHTTP`及更新版的`Msxml3.XMLHTTP`
 ```js
 // code for IE6, IE5
  var xmlhttp1 = new ActiveXObject("Microsoft.XMLHTTP");
@@ -126,10 +126,10 @@ URI包括两种形式，一种是URL一种是URN。目前大部分会不加区�
 ```
 在标准浏览器中则使用`XMLHttpRequest`对象
 ```js
-// code for IE7+, Firefox, Chrome, Opera, Safari
+// code for IE8+, Firefox, Chrome, Opera, Safari
 var xmlhttp = new XMLHttpRequest();
 ```
-为了在项目中可以在任何浏览器中使用AJAX所以我们必须做一个判断，如果浏览器为低版本ie就是用`ActiveXObject`对象否则使用`XMLHttpRequest`对象。代码如下：
+为了在项目中可以在任何浏览器中使用AJAX所以我们必须做一个判断，如果浏览器为低版本IE就使用`ActiveXObject`对象否则使用`XMLHttpRequest`对象。代码如下：
 ```js
 var XHR = function () {
     var xmlhttp;
@@ -195,23 +195,23 @@ XMLHttpRequest 让发送一个HTTP请求变得非常容易。你只需要简单�
 
 XMLHttpRequest对象方法概述：
 +   **返回值**   **方法(参数)**
-+   void `abort`();
-+   DOMString `getAllResponseHeaders`();
-+   DOMString? `getResponseHeader`(DOMString header);
-+   void `open`(DOMString method, DOMString url, optional boolean async, optional DOMString? user, optional DOMString? +   password);
-+   void `overrideMimeType`(DOMString mime);
-+   void `send`();
-+   void `send`(ArrayBuffer data);
-+   void `send`(Blob data);
-+   void `send`(Document data);
-+   void `send`(DOMString? data);
-+   void `send`(FormData data);
-+   void `setRequestHeader`(DOMString header, DOMString value);
++   void `abort`();中止操作
++   DOMString `getAllResponseHeaders`();得到所有响应头
++   DOMString? `getResponseHeader`(DOMString header);得到指定响应头
++   void `open`(DOMString method, DOMString url, optional boolean async, optional DOMString? user, optional DOMString? +   password);开启XMLHttpRequest对象
++   void `overrideMimeType`(DOMString mime);重写MIME类型
++   void `send`();发送请求，此方法有六种重载
++   void `send`(ArrayBuffer data);发送二进制流
++   void `send`(Blob data);发送二进制块
++   void `send`(Document data);发送文档
++   void `send`(DOMString? data);发送字符串
++   void `send`(FormData data);发送格式化表单数据
++   void `setRequestHeader`(DOMString header, DOMString value);设置请求头
 
 XMLHttpRequest对象属性概述：
 
 -   **属性名**  **格式类型**  **说明**
--   `onreadystatechange`  `Function?`	 一个JavaScript函数对象，当readyState属性改变时会调用它。回调函数会在user interface线程中调用。(`警告: 不能在本地代码中使用. 也不应该在同步模式的请求中使用.`)
+-   `onreadystatechange`  `Function?`	 一个JavaScript函数对象，当readyState属性改变时会调用它。回调函数会在用户接口线程中调用。(`警告: 不能在本地代码中使用. 也不应该在同步模式的请求中使用.`)
 -   `readyState` 	`unsigned short	` 请求的五种状态: 0	UNSENT (未打开)	open()方法还未被调用、 1	OPENED  (未发送)	send()方法还未被调用、2	HEADERS_RECEIVED (已获取响应头)	send()方法已经被调用, 响应头和响应状态已经返回、 3	LOADING (正在下载响应体)	响应体下载中; responseText中已经获取了部分数据、 4	DONE (请求完成)	整个请求过程已经完毕.
 -   `response` 	`varies`	响应实体的类型由 responseType 来指定， 可以是 ArrayBuffer， Blob， Document， JavaScript 对象 (即 "json")， 或者是字符串。如果请求未完成或失败，则该值为 null。
 -   `responseText`	 `DOMString`	此次请求的响应为文本，或是当请求未成功或还未发送时为 null。只读。
@@ -242,14 +242,14 @@ if('onabort' in req){
 ```js
 var allHeaders = req.getAllResponseHeaders();
 ```
-返回所有响应头信息(响应头名和值), 如果响应头还没接受,则返回null. (`注意: For multipart requests, this returns the headers from the current part of the request, not from the original channel.`)
+返回所有响应头信息(响应头名和值), 如果响应头还没接收,则返回null. (`注意: 对于多部分请求，这将返回头从请求的当前一部分，而不是从原来的通道上。`)
 ###### getResponseHeader()
 ```js
 var dateHeader = req.getAllResponseHeaders("Date");
 ```
 返回指定的响应头的值, 如果响应头还没被接受,或该响应头不存在,则返回null.
 ###### open()
-*注意: Calling this method an already active request (one for which open()or openRequest()has already been called) is the equivalent of calling abort().*
+*注意: 调用此方法必须已经发出主动请求（open()或openRequest()已经被调用）是相当于调用abort()。*
 ```js
 req.open(http Method,URL,isAsync,userName,password);
 //参数
@@ -391,8 +391,8 @@ function fetchStatus(address) {
 
 ```
 
-#### 使用ActiveXObject时需要注意的地方
-使用ActiveXObject与XMLHttpRequest对象大体相同。不过还是有些不同的地方。
+#### 在低版本IE浏览器中使用ActiveXObject时需要注意的地方
+使用ActiveXObject与XMLHttpRequest对象大体相同。不过还是有许多不同的地方。
 >不同点：
 >+   ActiveXObject对象中没有timeout属性，没有ontimeout方法。
 >+   ActiveXObject对象中不支持statustext属性。
@@ -1002,14 +1002,28 @@ response.writeHead(200,{"Access-Control-Allow-Origin":"*"})
 其中`＊`代码允许任何源请求本服务器，也可以改成固定的源。例如：`{"Access-Control-Allow-Origin":"http://localhost:63342"}` 只允许URL为`http://localhost:63342`的请求源请求本服务器。
 **警告：如果将XMLHttpRequest的withCredentials属性设置为true的时候，`Access-Control-Allow-Origin`这个响应头不可以设置为`*`。**
 
->W3C规定的跨域资源共享中服务器可以返回的头信息如下：
->+   Access-Control-Allow-Origin 使用格式：Access-Control-Allow-Origin = "Access-Control-Allow-Origin" ":" ascii-origin | "*"
->+   Access-Control-Max-Age 使用格式：Access-Control-Max-Age = "Access-Control-Max-Age" ":" delta-seconds
->+   Access-Control-Allow-Credentials 使用格式：Access-Control-Allow-Credentials: "Access-Control-Allow-Credentials" ":" "true"
->+   Access-Control-Allow-Methods 使用格式：Access-Control-Allow-Methods: "Access-Control-Allow-Methods" ":" #Method
->+   Access-Control-Allow-Headers 使用格式：Access-Control-Allow-Headers: "Access-Control-Allow-Headers" ":" #field-name
->+   Access-Control-Request-Method 使用格式：Access-Control-Request-Method: "Access-Control-Request-Method" ":" Method
->+   Access-Control-Request-Headers 使用格式：Access-Control-Request-Headers: "Access-Control-Request-Headers" ":" #field-name
+>##### W3C规定的跨域资源共享中服务器可以返回的头信息如下：
+>1.   Access-Control-Allow-Origin<br/>
+>作用：设置可以跨域请求此服务器的域名<BR/>
+>使用格式：Access-Control-Allow-Origin = "Access-Control-Allow-Origin" ":" ascii-origin | "*"
+>2.   Access-Control-Max-Age<br/>
+>作用：表明在指定多少秒内，不需要再发送预检验请求，可以缓存该结果<br/>
+>使用格式：Access-Control-Max-Age = "Access-Control-Max-Age" ":" delta-seconds
+>3.   Access-Control-Allow-Credentials<br/>
+>作用：允许携带 用户认证凭据（也就是允许客户端发送的请求携带Cookie）<br/>
+>使用格式：Access-Control-Allow-Credentials: "Access-Control-Allow-Credentials" ":" "true"
+>4.   Access-Control-Allow-Methods<br/>
+>作用：表明它允许哪些指定HTTP方法的外域请求<br/>
+>使用格式：Access-Control-Allow-Methods: "Access-Control-Allow-Methods" ":" #Method
+>5.   Access-Control-Allow-Headers<br/>
+>作用：表明它允许跨域请求包含指定的那些头信息<br/>
+>使用格式：Access-Control-Allow-Headers: "Access-Control-Allow-Headers" ":" #field-name
+>6.   Access-Control-Request-Method<br/>
+>作用：表明它允许使用哪些HTTP方法跨域请求<br/>
+>使用格式：Access-Control-Request-Method: "Access-Control-Request-Method" ":" Method
+>7.   Access-Control-Request-Headers<br/>
+>作用：表明它允许跨域请求设置哪些头信息<br/>
+>使用格式：Access-Control-Request-Headers: "Access-Control-Request-Headers" ":" #field-name
 
 ```js
 (function (global, undefined) {
@@ -1053,4 +1067,6 @@ response.writeHead(200,{"Access-Control-Allow-Origin":"*"})
 +   https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
 +   https://developer.mozilla.org/en-US/docs/Web/HTTP
 
-*特别声明：本文仅供个人学习参考，不保证准确性，随之而来的风险与本人无关*
+*AUTHOR:张亚涛*<BR/>
+*VERSION:BATE 0.1*<BR/>
+*NOTICE：本文仅供珠峰培训学员内部学习参考使用。*
