@@ -118,14 +118,16 @@
             log("得到会话列表");
             log(instance.getConversationList());
             return true;
-        }).then(function () {
-            log("同步会话列表");
-            instance.getConversationList().length = 0;
-            instance.syncConversationList();
-        }).delay(5000).then(function () {
-            if (instance.getConversationList().length == 0 && instance.getIO()._TransportType != "xhr-polling") {
-                return error("syncConversationList");
-            }
+        })
+//            .then(function () {
+//            log("同步会话列表");
+//            instance.getConversationList().length = 0;
+//            instance.syncConversationList();
+//        }).delay(5000)
+            .then(function () {
+//            if (instance.getConversationList().length == 0 && instance.getIO()._TransportType != "xhr-polling") {
+//                return error("syncConversationList");
+//            }
             log("创建会话列表");
             if (instance.createConversation(_default.ConversationType, _default.targetId, "test")) {
                 return info();
