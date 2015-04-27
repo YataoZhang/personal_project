@@ -837,7 +837,7 @@ var swfobject = function () {
     };
     WebSocket.__initialize = function () {
         if (typeof window != 'undefined') {
-            window.WEB_SOCKET_SWF_LOCATION = 'http://res.websdk.rongcloud.cn/WebSocketMainInsecure-0.2.swf?v=2';
+            window.WEB_SOCKET_SWF_LOCATION = 'http://res.websdk.rongcloud.cn/WebSocketMainInsecure-0.2.swf?v=3';
             try {
                 WebSocket.loadFlashPolicyFile();
             } catch (e) {

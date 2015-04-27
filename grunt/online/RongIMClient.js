@@ -9,7 +9,7 @@
         enumeration.setValue = function (x) {
             var val = null;
             enumeration.foreach(function (i) {
-                if (i.value == x|| i.name==x) {
+                if (i.value == x || i.name == x) {
                     val = enumeration[i.name];
                 }
             }, null);
@@ -123,8 +123,7 @@
                 }
                 return false;
             })()) {
-//                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=6";
-                script.src = "grunt/online/swfobject.js";
+                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=7";
             } else {
                 if (navigator.cookieEnabled === false) {
                     throw new Error("Cookie is not available, please open the cookie");
@@ -140,10 +139,10 @@
                         messageId = +(io.util.cookieHelper.getCookie("msgId") || io.util.cookieHelper.setCookie("msgId", 0) || 0);
                     };
                 isXHR && init();
-                this.messageIdPlus = function (x) {
+                this.messageIdPlus = function (method) {
                     isXHR && init();
                     if (messageId >= 65535) {
-                        x.reconnect();
+                        method();
                         return false;
                     }
                     messageId++;
@@ -1509,7 +1508,7 @@
             }
         };
         XHRPolling.prototype.onopen = function (a, b) {
-            var msgId = messageIdHandler.messageIdPlus(this);
+            var msgId = messageIdHandler.messageIdPlus(this.reconnect);
             if (!msgId) {
                 return;
             }
@@ -1716,7 +1715,7 @@
         };
         this.readTimeOut = function (isTimeout) {
             if (isTimeout && this.onError) {
-                this.onError( RongIMClient.callback.ErrorCode.TIMEOUT)
+                this.onError(RongIMClient.callback.ErrorCode.TIMEOUT)
             } else {
                 this.pauseTimer()
             }
@@ -1729,10 +1728,11 @@
         }
     }
 
-    function MessageHandler(_client) {
-        var client = _client,
-            Map = {},
-            self = this,
+    function MessageHandler(client) {
+        if (!_ReceiveMessageListener) {
+            throw new Error("please set onReceiveMessageListener");
+        }
+        var Map = {},
             mapping = {
                 "1": 4,
                 "2": 2,
@@ -1741,7 +1741,7 @@
                 "5": 1,
                 "6": 5
             },
-            onReceived = null,
+            onReceived = _ReceiveMessageListener.onReceived,
             connectCallback = null,
             typeMapping = {
                 "RC:TxtMsg": "TextMessage",
@@ -1757,11 +1757,10 @@
                 "RC:CmdNtf": "CommandNotificationMessage",
                 "RC:DizNtf": "DiscussionNotificationMessage"
             };
-        this.listener = {};
 
-        this.putCallback = function (name, _publishCallback, _publishMessageId, _msg) {
+        this.putCallback = function (callbackObj, _publishMessageId, _msg) {
             var item = {
-                Callback: new client[name](_publishCallback.onSuccess, _publishCallback.onError),
+                Callback: callbackObj,
                 Message: _msg
             };
             item.Callback.resumeTimer();
@@ -1769,83 +1768,78 @@
         };
         this.setConnectCallback = function (_connectCallback) {
             if (_connectCallback) {
-                connectCallback = new client.ConnectAck(_connectCallback.onSuccess, _connectCallback.onError);
+                connectCallback = new ConnectAck(_connectCallback.onSuccess, _connectCallback.onError, client);
                 connectCallback.resumeTimer();
             }
         };
-        this.setReceiveMessageListener = function (_listener) {
-            if (!(_listener && "onReceived" in _listener)) {
-                throw new Error("please use setOnReceiveMessageListener")
-            }
-            onReceived = _listener.onReceived;
-            self.listener.onReceived = function (msg) {
-                var entity, message, content, con;
-                if (msg.constructor._name != "PublishMessage") {
-                    entity = msg;
+        this.onReceived = function (msg) {
+            var entity, message, content, con;
+            if (msg.constructor._name != "PublishMessage") {
+                entity = msg;
+                io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()), 86400);
+            } else {
+                if (msg.getTopic() == "s_ntf") {
+                    entity = Modules.NotifyMsg.decode(msg.getData());
+                    client.syncTime(this, entity.getType(), msg.getDate());
+                    return;
+                } else if (msg.getTopic() == "s_msg") {
+                    entity = Modules.DownStreamMessage.decode(msg.getData());
                     io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()), 86400);
                 } else {
-                    if (msg.getTopic() == "s_ntf") {
-                        entity = Modules.NotifyMsg.decode(msg.getData());
-                        client.syncTime(self.listener, entity.getType(), msg.getDate());
-                        return;
-                    } else if (msg.getTopic() == "s_msg") {
-                        entity = Modules.DownStreamMessage.decode(msg.getData());
-                        io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()), 86400);
-                    } else {
-                        console.log(msg.getTopic());
-                        return;
-                    }
-                }
-                content = entity.getContent ? entity.getContent() : entity.content;
-                var de = JSON.parse(binaryHelper.readUTF(content.offset ? io.util.arrayFrom(content.buffer).slice(content.offset, content.limit) : content)),
-                    objectName = entity.classname || entity.getClassname();
-
-                if ("Expression" in RongIMClient && "RC:TxtMsg" == objectName && de.content) {
-                    de.content = de.content.replace(/[\uf000-\uf700]/g, function (x) {
-                        return RongIMClient.Expression.calcUTF(x) || x;
-                    })
-                }
-                if (objectName in typeMapping) {
-                    message = new RongIMClient[typeMapping[objectName]](de);
-                } else if (objectName in sysNtf) {
-                    message = new RongIMClient[sysNtf[objectName]](de);
-                    onReceived(message);
+                    console.log(msg.getTopic());
                     return;
-                } else if (new RegExp(objectName).test(RongIMClient.registerMessageType.registerMessageTypePool)) {
-                    message = new RongIMClient[objectName](de);
-                } else {
-                    message = new RongIMClient.UnknownMessage(de, objectName);
                 }
-                message.setSentTime(io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()));
-                message.setSenderUserId(entity.fromUserId || entity.getFromUserId());
-                message.setConversationType(RongIMClient.ConversationType.setValue(mapping[entity.type || entity.getType()]));
-                message.setTargetId(/^[234]$/.test(entity.type || entity.getType()) ? entity.groupId || entity.getGroupId() : entity.fromUserId || entity.getFromUserId());
-                message.setMessageDirection(RongIMClient.MessageDirection.RECEIVE);
-                message.setReceivedTime((new Date).getTime());
-                message.setMessageId(message.getConversationType() + "_" + ~~(Math.random() * 0xffffff));
-                message.setReceivedStatus(new RongIMClient.ReceivedStatus());
-                con = RongIMClient.getInstance().getConversationList().get(message.getConversationType(), message.getTargetId()) || io.util.remove(RongIMClient.getInstance().getOldestConversationTypeList(), function (item) {
-                    return item.getTargetId() == message.getTargetId()
-                });
-                if (!con) {
-                    con = new RongIMClient.Conversation();
-                    con.setTargetId(message.getTargetId());
-                    con.setConversationType(message.getConversationType());
-                    con.setConversationTitle("")
-                }
-                if (/ISCOUNTED/.test(message.getMessageTag())) {
-                    con.getConversationType() != 0 && con.setUnreadMessageCount(con.getUnreadMessageCount() + 1);
-                }
-                con.setReceivedTime((new Date).getTime());
-                con.setReceivedStatus(new RongIMClient.ReceivedStatus());
-                con.setSenderUserId(message.getSenderUserId());
-                con.setObjectName(message.getObjectName());
-                con.setNotificationStatus(RongIMClient.ConversationNotificationStatus.DO_NOT_DISTURB);
-                con.setLatestMessageId(message.getMessageId());
-                con.setLatestMessage(message);
-                con.setTop();
-                onReceived(message);
             }
+            content = entity.getContent ? entity.getContent() : entity.content;
+            var de = JSON.parse(binaryHelper.readUTF(content.offset ? io.util.arrayFrom(content.buffer).slice(content.offset, content.limit) : content)),
+                objectName = entity.classname || entity.getClassname();
+
+            if ("Expression" in RongIMClient && "RC:TxtMsg" == objectName && de.content) {
+                de.content = de.content.replace(/[\uf000-\uf700]/g, function (x) {
+                    return RongIMClient.Expression.calcUTF(x) || x;
+                })
+            }
+            if (objectName in typeMapping) {
+                message = new RongIMClient[typeMapping[objectName]](de);
+            } else if (objectName in sysNtf) {
+                message = new RongIMClient[sysNtf[objectName]](de);
+                onReceived(message);
+                return;
+            } else if (new RegExp(objectName).test(RongIMClient.registerMessageType.registerMessageTypePool)) {
+                message = new RongIMClient[objectName](de);
+            } else {
+                message = new RongIMClient.UnknownMessage(de, objectName);
+            }
+            message.setSentTime(io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()));
+            message.setSenderUserId(entity.fromUserId || entity.getFromUserId());
+            message.setConversationType(RongIMClient.ConversationType.setValue(mapping[entity.type || entity.getType()]));
+            message.setTargetId(/^[234]$/.test(entity.type || entity.getType()) ? entity.groupId || entity.getGroupId() : entity.fromUserId || entity.getFromUserId());
+            message.setMessageDirection(RongIMClient.MessageDirection.RECEIVE);
+            message.setReceivedTime((new Date).getTime());
+            message.setMessageId(message.getConversationType() + "_" + ~~(Math.random() * 0xffffff));
+            message.setReceivedStatus(new RongIMClient.ReceivedStatus());
+            con = RongIMClient.getInstance().getConversationList().get(message.getConversationType(), message.getTargetId()) || io.util.remove(RongIMClient.getInstance().getOldestConversationTypeList(), function (item) {
+                return item.getTargetId() == message.getTargetId()
+            });
+            if (!con) {
+                con = new RongIMClient.Conversation();
+                con.setTargetId(message.getTargetId());
+                con.setConversationType(message.getConversationType());
+                con.setConversationTitle("")
+            }
+            if (/ISCOUNTED/.test(message.getMessageTag())) {
+                con.getConversationType() != 0 && con.setUnreadMessageCount(con.getUnreadMessageCount() + 1);
+            }
+            con.setReceivedTime((new Date).getTime());
+            con.setReceivedStatus(new RongIMClient.ReceivedStatus());
+            con.setSenderUserId(message.getSenderUserId());
+            con.setObjectName(message.getObjectName());
+            con.setNotificationStatus(RongIMClient.ConversationNotificationStatus.DO_NOT_DISTURB);
+            con.setLatestMessageId(message.getMessageId());
+            con.setLatestMessage(message);
+            con.setTop();
+            onReceived(message);
+
         };
         this.handleMessage = function (msg) {
             if (!msg) {
@@ -1859,9 +1853,7 @@
                     if (msg.getQos() != 0) {
                         client.channel.writeAndFlush(new PubAckMessage(msg.getMessageId()));
                     }
-                    if (onReceived) {
-                        self.listener.onReceived(msg);
-                    }
+                    client.handler.onReceived(msg);
                     break;
                 case "QueryAckMessage":
                     if (msg.getQos() != 0) {
@@ -1891,47 +1883,120 @@
         }
     }
 
-    function Client(_to, _ap) {
-
-        var timeoutMillis = 100000,
-            lastReadTimer, task, self = this,
-            _enum, _obj, func = function () {
-                this.add = function (x) {
-                    for (var i = 0; i < this.length; i++) {
-                        if (this[i].getTargetId() === x.getTargetId() && i != 0 && this[i].getConversationType() == x.getConversationType()) {
-                            this.unshift(this.splice(i, 1)[0]);
-                            return;
-                        }
-                    }
-                    this.push(x);
-                };
-                this.get = function (conver, tarid) {
-                    for (var i = 0; i < this.length; i++) {
-                        if (this[i].getTargetId() == tarid && this[i].getConversationType() == conver) {
-                            return this[i]
-                        }
-                    }
-                    return null;
+    var _func = function () {
+        this.add = function (x) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i].getTargetId() === x.getTargetId() && i != 0 && this[i].getConversationType() == x.getConversationType()) {
+                    this.unshift(this.splice(i, 1)[0]);
+                    return;
                 }
-            };
-        func.prototype = new Array;
-        this.timeout_ = null;
-        this.appId = _ap;
-        this.token = _to;
-        this.sdkVer = "1.0.1";
-        this.apiVer = "1.0.1";
-        this.channel = null;
-        this.group = null;
-        this.handler = null;
-        this.userId = "";
-        this.ConversationList = new func();
-        this.oldestConversation = [];
-        this.ReceiveMessageListener = null;
-        this.reconnectObj = {};
-        this.heartbeat = null;
-        this.chatroomId = 0;
+            }
+            this.push(x);
+        };
+        this.get = function (conver, tarid) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i].getTargetId() == tarid && this[i].getConversationType() == conver) {
+                    return this[i]
+                }
+            }
+            return null;
+        }
+    }, _ReceiveMessageListener, _ConnectionStatusListener;
+    _func.prototype = new Array;
 
-        function timeout(x) {
+    function Channel(address, cb, self) {
+        this.socket = io.connect(address.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer, cb);
+
+        if (typeof _ConnectionStatusListener == "object" && "onChanged" in _ConnectionStatusListener) {
+            this.socket.on("StatusChanged", function (code) {
+                if (code instanceof DisconnectionStatus) {
+                    _ConnectionStatusListener.onChanged(RongIMClient.ConnectionStatus.setValue(code + 2));
+                    self.pauseTimer();
+                    clearTimeout(self.heartbeat);
+                    return;
+                }
+                _ConnectionStatusListener.onChanged(RongIMClient.ConnectionStatus.setValue(code))
+            })
+        } else {
+            throw new Error("setConnectStatusListener:Parameter format is incorrect")
+        }
+
+        this.writeAndFlush = function (val) {
+            if (this.isWritable()) {
+                this.socket.send(val);
+            } else {
+                this.reconnect({
+                    onSuccess: function () {
+                        io.getInstance().send(val);
+                    },
+                    onError: function () {
+                        throw new Error("reconnect fail")
+                    }
+                })
+            }
+        };
+        this.reconnect = function (callback) {
+            messageIdHandler.clearMessageId();
+            this.socket = this.socket.reconnect();
+            if (callback) {
+                self.reconnectObj = callback;
+            }
+        };
+        this.disconnect = function (x) {
+            this.socket.disconnect(x);
+        };
+        this.isWritable = function () {
+            return io.getInstance().connected || io.getInstance().connecting
+        };
+        this.socket.on("message", self.handler.handleMessage);
+        this.socket.on("disconnect", function () {
+            self.channel.socket.fire("StatusChanged", 4);
+        })
+    }
+
+    function callbackMapping(entity, tag) {
+        switch (tag) {
+            case "GetUserInfoOutput":
+                var userInfo = new RongIMClient.UserInfo();
+                userInfo.setUserId(entity.getUserId());
+                userInfo.setUserName(entity.getUserName());
+                userInfo.setPortraitUri(entity.getUserPortrait());
+                return userInfo;
+            case "GetQNupTokenOutput":
+                return {
+                    deadline: io.util.int64ToTimestamp(entity.getDeadline()),
+                    token: entity.getToken()
+                };
+            case "GetQNdownloadUrlOutput":
+                return {
+                    downloadUrl: entity.getDownloadUrl()
+                };
+            case "CreateDiscussionOutput":
+                return entity.getId();
+            case "ChannelInfoOutput":
+                var disInfo = new RongIMClient.Discussion();
+                disInfo.setCreatorId(entity.getAdminUserId());
+                disInfo.setId(entity.getChannelId());
+                disInfo.setMemberIdList(entity.getFirstTenUserIds());
+                disInfo.setName(entity.getChannelName());
+                disInfo.setOpen(RongIMClient.DiscussionInviteStatus.setValue(entity.getOpenStatus()));
+                return disInfo;
+            case "GroupHashOutput":
+                return entity.getResult();
+                break;
+            case "QueryBlackListOutput":
+            case "RelationsOutput":
+                return entity.getUserIds();
+            default:
+                return {}
+        }
+    }
+
+    function _myTask(x) {
+        this.run = function () {
+            if (!x.timeout_) {
+                return;
+            }
             try {
                 x.channel.disconnect()
             } catch (e) {
@@ -1941,105 +2006,111 @@
             x.channel.reconnect();
             x.channel.socket.fire("StatusChanged", 5);
         }
+    }
 
-        function _myTask(x) {
-            var m = x;
-            this.run = function () {
-                if (!m.timeout_) {
-                    return
+    function PublishCallback(cb, _timeout) {
+        MessageCallback.call(this, _timeout);
+        this.process = function (_staus, _serverTime, _msg) {
+            this.readTimeOut();
+            if (_staus == 0) {
+                if (_msg) {
+                    _msg.setSentStatus(RongIMClient.SentStatus.RECEIVED)
                 }
-                timeout(m)
+                cb();
+            } else {
+                _timeout(RongIMClient.SendErrorStatus.setValue(_staus));
             }
+        };
+        var arg = arguments.callee;
+        this.readTimeOut = function (x) {
+            arg.prototype.readTimeOut.call(this, x)
         }
+    };
+    PublishCallback.prototype = new MessageCallback();
+    PublishCallback.prototype.constructor = PublishCallback;
 
-        function Channel(address, cb) {
-            this.socket = io.connect(address.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer, cb);
-
-            this.writeAndFlush = function (val) {
-                if (this.isWritable()) {
-                    this.socket.send(val);
+    function QueryCallback(cb, _timeout) {
+        MessageCallback.call(this, _timeout);
+        this.process = function (status, data, serverTime, pbtype) {
+            this.readTimeOut();
+            if (status == 0) {
+                if (pbtype && data) {
+                    data = callbackMapping(Modules[pbtype].decode(data), pbtype);
+                    if ("GetUserInfoOutput" == pbtype) {
+                        userInfoMapping[data.getUserId()] = data;
+                    }
+                    cb(data);
                 } else {
-                    this.reconnect({
-                        onSuccess: function () {
-                            io.getInstance().send(val);
-                        },
-                        onError: function () {
-                            throw new Error("reconnect fail")
-                        }
-                    })
+                    cb(status, data, serverTime)
                 }
-            };
-            this.reconnect = function (callback) {
-                messageIdHandler.clearMessageId();
-                this.socket = this.socket.reconnect();
-                if (callback) {
-                    self.reconnectObj = callback;
-                }
-            };
-            this.disconnect = function (x) {
-                this.socket.disconnect(x);
-            };
-            this.isWritable = function () {
-                return io.getInstance().connected || io.getInstance().connecting
-            };
-            this.setConnectStatusListener = function (_enum, func) {
-                if (typeof func == "object" && "onChanged" in func) {
-                    this.socket.on("StatusChanged", function (code) {
-                        if (code instanceof DisconnectionStatus) {
-                            func.onChanged(_enum.setValue(code + 2));
-                            self.pauseTimer();
-                            clearTimeout(self.heartbeat);
-                            return;
-                        }
-                        func.onChanged(_enum.setValue(code))
-                    })
-                } else {
-                    throw new Error("setConnectStatusListener:Parameter format is incorrect")
-                }
-            };
-            this.socket.on("message", self.handler.handleMessage);
-            this.socket.on("disconnect", function () {
-                self.channel.socket.fire("StatusChanged", 4);
-            })
-        }
-
-        function callbackMapping(entity, tag) {
-            switch (tag) {
-                case "GetUserInfoOutput":
-                    var userInfo = new RongIMClient.UserInfo();
-                    userInfo.setUserId(entity.getUserId());
-                    userInfo.setUserName(entity.getUserName());
-                    userInfo.setPortraitUri(entity.getUserPortrait());
-                    return userInfo;
-                case "GetQNupTokenOutput":
-                    return {
-                        deadline: io.util.int64ToTimestamp(entity.getDeadline()),
-                        token: entity.getToken()
-                    };
-                case "GetQNdownloadUrlOutput":
-                    return {
-                        downloadUrl: entity.getDownloadUrl()
-                    };
-                case "CreateDiscussionOutput":
-                    return entity.getId();
-                case "ChannelInfoOutput":
-                    var disInfo = new RongIMClient.Discussion();
-                    disInfo.setCreatorId(entity.getAdminUserId());
-                    disInfo.setId(entity.getChannelId());
-                    disInfo.setMemberIdList(entity.getFirstTenUserIds());
-                    disInfo.setName(entity.getChannelName());
-                    disInfo.setOpen(RongIMClient.DiscussionInviteStatus.setValue(entity.getOpenStatus()));
-                    return disInfo;
-                case "GroupHashOutput":
-                    return entity.getResult();
-                    break;
-                case "QueryBlackListOutput":
-                case "RelationsOutput":
-                    return entity.getUserIds();
-                default:
-                    return {}
+            } else {
+                _timeout(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
             }
+        };
+        var arg = arguments.callee;
+        this.readTimeOut = function (x) {
+            arg.prototype.readTimeOut.call(this, x)
         }
+    };
+    QueryCallback.prototype = new MessageCallback();
+    QueryCallback.prototype.constructor = QueryCallback;
+
+    function ConnectAck(cb, _timeout, self) {
+        MessageCallback.call(this, _timeout);
+        this.process = function (status, userId) {
+            this.readTimeOut();
+            if (status == 0) {
+                self.userId = userId;
+                self.syncTime(self.handler);
+                if (self.reconnectObj.onSuccess) {
+                    self.reconnectObj.onSuccess(userId);
+                    delete self.reconnectObj.onSuccess;
+                } else {
+                    cb(userId);
+                }
+                io.getInstance().fire("StatusChanged", 0);
+                io.getInstance()._doQueue()
+            } else if (status == 6) {
+                //重定向
+                Client.getServerEndpoint(self.appId, self.token, function () {
+                    clearInterval(self.heartbeat);
+                    this.channel.socket = io.connect(Client.Endpoint.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer, function () {
+                        io._TransportType == "websocket" && self.keepLive();
+                    });
+                }, _timeout, false);
+            } else {
+                if (self.reconnectObj.onError) {
+                    self.reconnectObj.onError(RongIMClient.ConnectErrorStatus.setValue(status));
+                    delete self.reconnectObj.onError;
+                } else {
+                    _timeout(RongIMClient.ConnectErrorStatus.setValue(status))
+                }
+            }
+        };
+        var arg = arguments.callee;
+        this.readTimeOut = function (x) {
+            arg.prototype.readTimeOut.call(this, x)
+        }
+    };
+    ConnectAck.prototype = new MessageCallback();
+    ConnectAck.prototype.constructor = ConnectAck;
+    var userInfoMapping = {};
+
+    function Client(_to, _ap) {
+        var timeoutMillis = 100000, lastReadTimer, task, self = this;
+        this.timeout_ = null;
+        this.appId = _ap;
+        this.token = _to;
+        this.sdkVer = "1.0.0";
+        this.apiVer = "1.0.0";
+        this.channel = null;
+        this.handler = null;
+        this.userId = "";
+        this.ConversationList = new _func();
+        this.oldestConversation = [];
+        this.reconnectObj = {};
+        this.heartbeat = null;
+        this.chatroomId = 0;
 
         this.removeConversationListCache = function () {
             var val = this.ConversationList.splice(30);
@@ -2059,15 +2130,6 @@
                 this.timeout_ = null;
             }
         };
-        this.setReceiveMessageListener = function (listener) {
-            if (typeof listener == "object" && "onReceived" in listener) {
-                this.ReceiveMessageListener = listener;
-            }
-        };
-        this.setConnectionStatusListener = function (enums, obj) {
-            _enum = enums;
-            _obj = obj
-        };
         this.connect = function (_callback) {
             if (Client.Endpoint.host) {
                 if (io._TransportType == "websocket") {
@@ -2077,14 +2139,10 @@
                     }
                 }
                 this.handler = new MessageHandler(this);
-                this.handler.setReceiveMessageListener(this.ReceiveMessageListener);
                 this.channel = new Channel(Client.Endpoint, function () {
                     io._TransportType == "websocket" && self.keepLive();
-                });
+                }, this);
                 this.handler.setConnectCallback(_callback);
-                if (_enum && _obj) {
-                    this.channel.setConnectStatusListener(_enum, _obj)
-                }
                 this.channel.socket.fire("StatusChanged", 1)
             } else {
                 _callback.onError(RongIMClient.ConnectErrorStatus.setValue(5));
@@ -2092,14 +2150,14 @@
         };
 
         this.keepLive = function () {
-            self.heartbeat = setInterval(function () {
+            this.heartbeat = setInterval(function () {
                 self.resumeTimer();
                 self.channel.writeAndFlush(new PingReqMessage());
                 console.log("keep live pingReqMessage sending appId " + self.appId);
             }, 180000);
         };
         this.publishMessage = function (_topic, _data, _targetId, _callback, _msg) {
-            var msgId = messageIdHandler.messageIdPlus(self.channel);
+            var msgId = messageIdHandler.messageIdPlus(this.channel.reconnect);
             if (!msgId) {
                 return;
             }
@@ -2107,13 +2165,13 @@
             msg.setMessageId(msgId);
             if (_callback) {
                 msg.setQos(Qos.AT_LEAST_ONCE);
-                this.handler.putCallback("PublishCallback", _callback, msg.getMessageId(), _msg)
+                this.handler.putCallback(new PublishCallback(_callback.onSuccess, _callback.onError), msg.getMessageId(), _msg)
             } else {
                 msg.setQos(Qos.AT_MOST_ONCE);
             }
             this.channel.writeAndFlush(msg);
         };
-        var userInfoMapping = {};
+
         this.queryMessage = function (_topic, _data, _targetId, _qos, _callback, pbtype) {
             if (_topic == "userInf") {
                 if (userInfoMapping[_targetId]) {
@@ -2121,100 +2179,17 @@
                     return;
                 }
             }
-            var msgId = messageIdHandler.messageIdPlus(self.channel);
+            var msgId = messageIdHandler.messageIdPlus(this.channel.reconnect);
             if (!msgId) {
                 return;
             }
             var msg = new QueryMessage(_topic, _data, _targetId);
             msg.setMessageId(msgId);
             msg.setQos(_qos);
-            this.handler.putCallback("QueryCallback", _callback, msg.getMessageId(), pbtype);
+            this.handler.putCallback(new QueryCallback(_callback.onSuccess, _callback.onError), msg.getMessageId(), pbtype);
             this.channel.writeAndFlush(msg)
         };
-        this.PublishCallback = function (cb, _timeout) {
-            MessageCallback.call(this, _timeout);
-            this.process = function (_staus, _serverTime, _msg) {
-                this.readTimeOut();
-                if (_staus == 0) {
-                    if (_msg) {
-                        _msg.setSentStatus(RongIMClient.SentStatus.RECEIVED)
-                    }
-                    cb();
-                } else {
-                    _timeout(RongIMClient.SendErrorStatus.setValue(_staus));
-                }
-            };
-            var arg = arguments.callee;
-            this.readTimeOut = function (x) {
-                arg.prototype.readTimeOut.call(this, x)
-            }
-        };
-        this.PublishCallback.prototype = new MessageCallback();
-        this.PublishCallback.prototype.constructor = this.PublishCallback;
-        this.QueryCallback = function (cb, _timeout) {
-            MessageCallback.call(this, _timeout);
-            this.process = function (status, data, serverTime, pbtype) {
-                this.readTimeOut();
-                if (status == 0) {
-                    if (pbtype && data) {
-                        data = callbackMapping(Modules[pbtype].decode(data), pbtype);
-                        if ("GetUserInfoOutput" == pbtype) {
-                            userInfoMapping[data.getUserId()] = data;
-                        }
-                        cb(data);
-                    } else {
-                        cb(status, data, serverTime)
-                    }
-                } else {
-                    _timeout(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
-                }
-            };
-            var arg = arguments.callee;
-            this.readTimeOut = function (x) {
-                arg.prototype.readTimeOut.call(this, x)
-            }
-        };
-        this.QueryCallback.prototype = new MessageCallback();
-        this.QueryCallback.prototype.constructor = this.QueryCallback;
-        this.ConnectAck = function (cb, _timeout) {
-            MessageCallback.call(this, _timeout);
-            this.process = function (status, userId) {
-                this.readTimeOut();
-                if (status == 0) {
-                    self.userId = userId;
-                    self.syncTime(self.handler.listener);
-                    if (self.reconnectObj.onSuccess) {
-                        self.reconnectObj.onSuccess(userId);
-                        delete self.reconnectObj.onSuccess;
-                    } else {
-                        cb(userId);
-                    }
-                    io.getInstance().fire("StatusChanged", 0);
-                    io.getInstance()._doQueue()
-                } else if (status == 6) {
-                    //重定向
-                    Client.getServerEndpoint(self.appId, self.token, function () {
-                        clearInterval(self.heartbeat);
-                        this.channel.socket = io.connect(Client.Endpoint.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer, function () {
-                            io._TransportType == "websocket" && self.keepLive();
-                        });
-                    }, _timeout, false);
-                } else {
-                    if (self.reconnectObj.onError) {
-                        self.reconnectObj.onError(RongIMClient.ConnectErrorStatus.setValue(status));
-                        delete self.reconnectObj.onError;
-                    } else {
-                        _timeout(RongIMClient.ConnectErrorStatus.setValue(status))
-                    }
-                }
-            };
-            var arg = arguments.callee;
-            this.readTimeOut = function (x) {
-                arg.prototype.readTimeOut.call(this, x)
-            }
-        };
-        this.ConnectAck.prototype = new MessageCallback();
-        this.ConnectAck.prototype.constructor = this.ConnectAck;
+
         var SyncTimeQueue = [];
         SyncTimeQueue.state = "complete";
         function invoke() {
@@ -2276,6 +2251,8 @@
                 invoke()
             }
         }
+
+
     }
 
     Client.connect = function (appId, token, callback) {
@@ -2287,6 +2264,9 @@
         Client.getServerEndpoint(token, appId, function () {
             client.connect(callback);
         }, callback.onError, true);
+        Client.getInstance = function () {
+            return client;
+        }
         return client;
     };
     Client.getServerEndpoint = function (_token, _appId, _onsuccess, _onerror, unignore) {
@@ -2309,7 +2289,7 @@
                 "navUrl-Release": "http://nav.cn.rong.io/"
             },
             xss = document.createElement("script");
-        xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+        xss.src = Url["navUrl-Release"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
             _onerror(RongIMClient.ConnectErrorStatus.setValue(4));
@@ -2329,7 +2309,6 @@
         var temp = document.cookie.match(new RegExp("(^| )navi\\w+?=([^;]*)(;|$)"));
         temp !== null && RongIMClient.getInstance().getIO().util.cookieHelper.deleteCookie(temp[0].split("=")[0].replace(/^\s/, ""));
         RongIMClient.getInstance().getIO().util.cookieHelper.setCookie("navi" + global.MD5(window.RongBrIdge._client.token).slice(8, 16), x["server"] + "," + (x.userId || ""));
-
     };
 
     global.RongBrIdge = bridge = function (_appkey, _token, _callback) {
@@ -2338,18 +2317,13 @@
         this.getIO = function () {
             return io
         };
-        this.setConnectionStatusListener = function (one, two) {
-            if (bridge._client) {
-                bridge._client.setConnectionStatusListener(one, two);
-                return true
-            }
-            return false
-        };
-        this.setReceiveMessageListener = function (_listener) {
-            if (bridge._client) {
-                bridge._client.setReceiveMessageListener(_listener)
-            } else {
-                throw new Error("NullPointException")
+        this.setListener = function (_changer) {
+            if (typeof _changer == "object" ) {
+                if(typeof _changer.onChanged=='function'){
+                    _ConnectionStatusListener = _changer;
+                }else if(typeof _changer.onReceived=='function'){
+                    _ReceiveMessageListener = _changer;
+                }
             }
         };
         this.removeConversationListCache = function () {
@@ -2471,12 +2445,9 @@
             m = a.getIO();
             if (o.length) {
                 for (var d = 0; d < o.length; d++) {
-                    a[o[d].name](o[d].args)
+                    a['setListener'](o[d])
                 }
                 o = [];
-            }
-            if (p) {
-                a.setConnectionStatusListener(RongIMClient.ConnectionStatus, p)
             }
         };
         this.disconnect = function () {
@@ -2673,20 +2644,17 @@
             a.queryMsg(14, m.util.arrayFrom(e.toArrayBuffer()), global.RongBrIdge._client.userId, c, "GetQNdownloadUrlOutput")
         };
         this.setConnectionStatusListener = function (c) {
-            if (!a) {
-                p = c;
+            if (a) {
+               a.setListener(c);
             } else {
-                a.setConnectionStatusListener(RongIMClient.ConnectionStatus, c);
+                o.push(c)
             }
         };
         this.setOnReceiveMessageListener = function (c) {
             if (a) {
-                a.setReceiveMessageListener(c)
+                a.setListener(c)
             } else {
-                o.push({
-                    name: "setReceiveMessageListener",
-                    args: c
-                })
+                o.push(c)
             }
         };
         //未读消息
@@ -2749,7 +2717,7 @@
                                 m.util.cookieHelper.setCookie(global.RongBrIdge._client.userId + 'CST', sync, 86400);
                                 var list = collection.getList();
                                 for (var i = 0; i < list.length; i++) {
-                                    RongBrIdge._client.handler.listener.onReceived(list[i])
+                                    RongBrIdge._client.handler.onReceived(list[i])
                                 }
                             }
                         },
@@ -2943,10 +2911,13 @@
         document.body.appendChild(xss);
         xss.onerror = function () {
             callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
+            xss.parentNode.removeChild(xss);
         };
         RongIMClient.hasUnreadMessages.RCcallback = function (x) {
             callback.onSuccess(!!+x.status);
+            xss.parentNode.removeChild(xss);
         };
+
     };
     RongIMClient.init = function (d) {
         var instance = null;
