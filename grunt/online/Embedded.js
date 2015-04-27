@@ -6,7 +6,7 @@
             _head = document.documentElement.appendChild(document.createElement("head"));
         }
         _doc.type = "text/javascript";
-        _doc.src = "http://res.websdk.rongcloud.cn/RongIMClient-0.9.8.min.js";
+        _doc.src = "http://res.websdk.rongcloud.cn/RongIMClient-0.9.8.min.js?v=123";
         _doc.onload = function () {
             _doc1.src = "http://res.websdk.rongcloud.cn/RongIMClient.emoji-0.9.2.min.js";
             _head.appendChild(_doc1);
@@ -870,23 +870,25 @@
         RongIMClient.connect(token, new RongIMClient.callback(function (x) {
             self.io = RongIMClient.getInstance().getIO().getInstance();
             console.log("connected，userid＝" + x);
-            RongIMClient.getInstance().getUserInfo(targetId, {
-                'onSuccess': function (userInfoObj) {
-                    isSuccess = true;
-                    var userImgUrl = userInfoObj.getPortraitUri() || conf.defaultUserImgUri;
-                    var userName = userInfoObj.getUserName() || '客服';
-                    $(".rc_wbim_img").html('<span><img src="' + userImgUrl + '" /></span>');
-                    if (!conf.isURL)
-                        $(".rc_chat_name").text(userName);
-                    if (self.initRongIMClient.onload) {
-                        self.initRongIMClient.onload();
-                        self.initRongIMClient.onload = null;
+            setTimeout(function(){
+                RongIMClient.getInstance().getUserInfo(targetId, {
+                    'onSuccess': function (userInfoObj) {
+                        isSuccess = true;
+                        var userImgUrl = userInfoObj.getPortraitUri() || conf.defaultUserImgUri;
+                        var userName = userInfoObj.getUserName() || '客服';
+                        $(".rc_wbim_img").html('<span><img src="' + userImgUrl + '" /></span>');
+                        if (!conf.isURL)
+                            $(".rc_chat_name").text(userName);
+                        if (self.initRongIMClient.onload) {
+                            self.initRongIMClient.onload();
+                            self.initRongIMClient.onload = null;
+                        }
+                    },
+                    'onError': function () {
+                        console.log("get userinfo fail")
                     }
-                },
-                'onError': function (errorCodeObj) {
-                    console.log("get userinfo fail")
-                }
-            });
+                });
+            },1000);
         }, function (val) {
             conf.onConnectError && conf.onConnectError(val);
             errorurl();

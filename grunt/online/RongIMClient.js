@@ -1195,7 +1195,7 @@
                         var escFunc = function (m) {
                             return escMap[m] || '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).substr(1);
                         };
-                        var escRE = new RegExp('[\\"\u0000-\u001F\u2028\u2029]', 'g');
+                        var escRE = new RegExp('[\\"'+unescape("%00-%1F%u2028%u2029")+']', 'g');
                         return function stringify(value) {
                             if (value == null) {
                                 return 'null';
@@ -2264,9 +2264,6 @@
         Client.getServerEndpoint(token, appId, function () {
             client.connect(callback);
         }, callback.onError, true);
-        Client.getInstance = function () {
-            return client;
-        }
         return client;
     };
     Client.getServerEndpoint = function (_token, _appId, _onsuccess, _onerror, unignore) {
