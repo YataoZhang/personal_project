@@ -2,9 +2,9 @@
  * Created by yataozhang on 15/1/23.
  */
 (function (d) {
-    if(!('now' in Date)){
-        Date.now=function(){
-            var d=new Date();
+    if (!('now' in Date)) {
+        Date.now = function () {
+            var d = new Date();
             return d.getTime();
         }
     }
@@ -24,7 +24,7 @@
         SyncRequestMsg: function () {
             var a = {};
             this.setSyncTime = function (b) {
-                a.syncTime = b||0;
+                a.syncTime = b || 0;
             };
             this.setIspolling = function (b) {
                 a.ispolling = !!b
@@ -78,7 +78,7 @@
                 a.classname = b
             };
             this.setContent = function (b) {
-                if (b) 
+                if (b)
                     a.content = b
             };
             this.setDataTime = function (b) {
@@ -394,8 +394,8 @@
         GroupInput: function () {
             var a = {};
             this.setGroupInfo = function (b) {
-                for(var i= 0,arr=[];i< b.length;i++){
-                    arr.push({id: b[i].getContent().id,name:b[i].getContent().name})
+                for (var i = 0, arr = []; i < b.length; i++) {
+                    arr.push({id: b[i].getContent().id, name: b[i].getContent().name})
                 }
                 a.groupInfo = arr;
             };
@@ -420,7 +420,7 @@
             this.setName = function (b) {
                 a.name = b;
             };
-            this.getContent=function(){
+            this.getContent = function () {
                 return a;
             };
             this.toArrayBuffer = function () {
@@ -478,29 +478,71 @@
                 return a
             }
         },
-        RelationsInput:function(){
-            var a={};
-            this.setNothing=function(b){
-                a.nothing = b;
+        RelationsInput: function () {
+            var a = {};
+            this.setType = function (b) {
+                a.type = b;
             };
-            this.toArrayBuffer = function() {
-                return a;
+            this.toArrayBuffer = function () {
+                return a
             }
         },
-        RelationsOutput:function(){
-            var a={};
-            this.setUserIds = function(b) {
-                a.userIds = b;
+        RelationsOutput: function () {
+            var a = {};
+            this.setInfo = function (b) {
+                a.info = b;
             };
-            this.toArrayBuffer = function() {
-                return a;
+            this.toArrayBuffer = function () {
+                return a
+            }
+        },
+        RelationInfo: function () {
+            var a = {};
+            this.setType = function (b) {
+                a.type = b;
+            };
+            this.setUserId = function (b) {
+                a.userId = b;
+            };
+            this.toArrayBuffer = function () {
+                return a
+            }
+        },
+        HistoryMessageInput: function () {
+            var a={};
+            this.setTargetId=function(b){
+                a.targetId=b;
+            };
+            this.setDataTime=function(b){
+                a.dataTime=b;
+            };
+            this.setSize=function(b){
+                a.size=b;
+            };
+            this.toArrayBuffer = function () {
+                return a
+            }
+        },
+        HistoryMessagesOuput: function () {
+            var a={};
+            this.setList=function(b){
+                a.list=b;
+            };
+            this.setSyncTime=function(b){
+                a.syncTime=b;
+            };
+            this.setHasMsg=function(b){
+                a.hasMsg=b;
+            };
+            this.toArrayBuffer = function () {
+                return a
             }
         }
     };
 
     for (var f in e) {
         e[f].decode = function (b) {
-            var back = {},val=JSON.parse(b)||eval("("+b+")");
+            var back = {}, val = JSON.parse(b) || eval("(" + b + ")");
             for (var i in val) {
                 back["get" + i.charAt(0).toUpperCase() + i.slice(1)] = (function (x) {
                     return function () {

@@ -110,7 +110,8 @@
             var script = document.createElement("script"), head = document.getElementsByTagName("head")[0];
             io._TransportType = "websocket";
             if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
-                script.src = "http://res.websdk.rongcloud.cn/protobuf-0.2.min.js?v=1";
+//                script.src = "http://res.websdk.rongcloud.cn/protobuf-0.2.min.js?v=1";
+                script.src = "/grunt/online/protobuf.js";
             } else if (!/opera/i.test(navigator.userAgent) && !global.WEB_XHR_POLLING && (function () {
                 if ('navigator' in global && 'plugins' in navigator && navigator.plugins['Shockwave Flash']) {
                     return !!navigator.plugins['Shockwave Flash'].description;
@@ -123,13 +124,15 @@
                 }
                 return false;
             })()) {
-                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=7";
+                script.src = "/grunt/online/swfobject.js?v=7";
+//                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=7";
             } else {
                 if (navigator.cookieEnabled === false) {
                     throw new Error("Cookie is not available, please open the cookie");
                 }
                 io._TransportType = "xhr-polling";
-                script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=4";
+                script.src = "/grunt/online/xhrpolling.js?v=4";
+//                script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=4";
             }
             head.appendChild(script);
             messageIdHandler = new function () {
@@ -1195,7 +1198,7 @@
                         var escFunc = function (m) {
                             return escMap[m] || '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).substr(1);
                         };
-                        var escRE = new RegExp('[\\"'+unescape("%00-%1F%u2028%u2029")+']', 'g');
+                        var escRE = new RegExp('[\\"' + unescape("%00-%1F%u2028%u2029") + ']', 'g');
                         return function stringify(value) {
                             if (value == null) {
                                 return 'null';
@@ -1564,9 +1567,6 @@
     })();
     (function () {
         var Socket = io.createServer = function () {
-            if (io.getInstance) {
-                return io.getInstance()
-            }
             this.options = {
                 token: "",
                 transports: ["websocket", "xhr-polling"]
@@ -1693,18 +1693,20 @@
 
 
     function MessageCallback(error) {
-        var timeoutMillis;
+        var timeoutMillis, me = this;
         this.timeout = null;
         this.onError = null;
         if (error && typeof error == "number") {
             timeoutMillis = error
         } else {
-            timeoutMillis = 30000;
+            timeoutMillis = 5000;
             this.onError = error;
         }
         this.resumeTimer = function () {
-            if (timeoutMillis > 0 && (!this.timeout)) {
-                this.timeout = setTimeout((new _readTimeoutTask(this)).run, timeoutMillis)
+            if (timeoutMillis > 0 && !this.timeout) {
+                this.timeout = setTimeout(function () {
+                    me.readTimeOut(true);
+                }, timeoutMillis)
             }
         };
         this.pauseTimer = function () {
@@ -1720,12 +1722,6 @@
                 this.pauseTimer()
             }
         };
-
-        function _readTimeoutTask(main) {
-            this.run = function () {
-                main.readTimeOut(true);
-            }
-        }
     }
 
     function MessageHandler(client) {
@@ -1786,7 +1782,6 @@
                     entity = Modules.DownStreamMessage.decode(msg.getData());
                     io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()), 86400);
                 } else {
-                    console.log(msg.getTopic());
                     return;
                 }
             }
@@ -1813,19 +1808,14 @@
             message.setSentTime(io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()));
             message.setSenderUserId(entity.fromUserId || entity.getFromUserId());
             message.setConversationType(RongIMClient.ConversationType.setValue(mapping[entity.type || entity.getType()]));
-            message.setTargetId(/^[234]$/.test(entity.type || entity.getType()) ? entity.groupId || entity.getGroupId() : entity.fromUserId || entity.getFromUserId());
+            message.setTargetId(/^[234]$/.test(entity.type || entity.getType()) ? entity.groupId || entity.getGroupId() : message.getSenderUserId());
             message.setMessageDirection(RongIMClient.MessageDirection.RECEIVE);
             message.setReceivedTime((new Date).getTime());
             message.setMessageId(message.getConversationType() + "_" + ~~(Math.random() * 0xffffff));
             message.setReceivedStatus(new RongIMClient.ReceivedStatus());
-            con = RongIMClient.getInstance().getConversationList().get(message.getConversationType(), message.getTargetId()) || io.util.remove(RongIMClient.getInstance().getOldestConversationTypeList(), function (item) {
-                return item.getTargetId() == message.getTargetId()
-            });
+            con = RongIMClient.getInstance().getConversationList().get(message.getConversationType(), message.getTargetId());
             if (!con) {
-                con = new RongIMClient.Conversation();
-                con.setTargetId(message.getTargetId());
-                con.setConversationType(message.getConversationType());
-                con.setConversationTitle("")
+                con = RongIMClient.getInstance().createConversation(message.getConversationType(), message.getTargetId(), "");
             }
             if (/ISCOUNTED/.test(message.getMessageTag())) {
                 con.getConversationType() != 0 && con.setUnreadMessageCount(con.getUnreadMessageCount() + 1);
@@ -1883,26 +1873,7 @@
         }
     }
 
-    var _func = function () {
-        this.add = function (x) {
-            for (var i = 0; i < this.length; i++) {
-                if (this[i].getTargetId() === x.getTargetId() && i != 0 && this[i].getConversationType() == x.getConversationType()) {
-                    this.unshift(this.splice(i, 1)[0]);
-                    return;
-                }
-            }
-            this.push(x);
-        };
-        this.get = function (conver, tarid) {
-            for (var i = 0; i < this.length; i++) {
-                if (this[i].getTargetId() == tarid && this[i].getConversationType() == conver) {
-                    return this[i]
-                }
-            }
-            return null;
-        }
-    }, _ReceiveMessageListener, _ConnectionStatusListener;
-    _func.prototype = new Array;
+    var _ReceiveMessageListener, _ConnectionStatusListener;
 
     function Channel(address, cb, self) {
         this.socket = io.connect(address.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer, cb);
@@ -1911,8 +1882,7 @@
             this.socket.on("StatusChanged", function (code) {
                 if (code instanceof DisconnectionStatus) {
                     _ConnectionStatusListener.onChanged(RongIMClient.ConnectionStatus.setValue(code + 2));
-                    self.pauseTimer();
-                    clearTimeout(self.heartbeat);
+                    self.clearHeartbeat();
                     return;
                 }
                 _ConnectionStatusListener.onChanged(RongIMClient.ConnectionStatus.setValue(code))
@@ -1985,26 +1955,10 @@
                 return entity.getResult();
                 break;
             case "QueryBlackListOutput":
-            case "RelationsOutput":
                 return entity.getUserIds();
+                break;
             default:
-                return {}
-        }
-    }
-
-    function _myTask(x) {
-        this.run = function () {
-            if (!x.timeout_) {
-                return;
-            }
-            try {
-                x.channel.disconnect()
-            } catch (e) {
-            }
-            clearTimeout(x.timeout_);
-            x.timeout_ = null;
-            x.channel.reconnect();
-            x.channel.socket.fire("StatusChanged", 5);
+                return entity;
         }
     }
 
@@ -2021,9 +1975,8 @@
                 _timeout(RongIMClient.SendErrorStatus.setValue(_staus));
             }
         };
-        var arg = arguments.callee;
         this.readTimeOut = function (x) {
-            arg.prototype.readTimeOut.call(this, x)
+            PublishCallback.prototype.readTimeOut.call(this, x)
         }
     };
     PublishCallback.prototype = new MessageCallback();
@@ -2047,9 +2000,8 @@
                 _timeout(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
             }
         };
-        var arg = arguments.callee;
         this.readTimeOut = function (x) {
-            arg.prototype.readTimeOut.call(this, x)
+            QueryCallback.prototype.readTimeOut.call(this, x)
         }
     };
     QueryCallback.prototype = new MessageCallback();
@@ -2061,7 +2013,9 @@
             this.readTimeOut();
             if (status == 0) {
                 self.userId = userId;
-                self.syncTime(self.handler);
+                if (!RongIMClient.isNotPullMsg) {
+                    self.syncTime(self.handler);
+                }
                 if (self.reconnectObj.onSuccess) {
                     self.reconnectObj.onSuccess(userId);
                     delete self.reconnectObj.onSuccess;
@@ -2073,7 +2027,7 @@
             } else if (status == 6) {
                 //重定向
                 Client.getServerEndpoint(self.appId, self.token, function () {
-                    clearInterval(self.heartbeat);
+                    self.clearHeartbeat();
                     this.channel.socket = io.connect(Client.Endpoint.host + "/websocket?appId=" + self.appId + "&token=" + encodeURIComponent(self.token) + "&sdkVer=" + self.sdkVer + "&apiVer=" + self.apiVer, function () {
                         io._TransportType == "websocket" && self.keepLive();
                     });
@@ -2087,9 +2041,8 @@
                 }
             }
         };
-        var arg = arguments.callee;
         this.readTimeOut = function (x) {
-            arg.prototype.readTimeOut.call(this, x)
+            ConnectAck.prototype.readTimeOut.call(this, x)
         }
     };
     ConnectAck.prototype = new MessageCallback();
@@ -2106,21 +2059,25 @@
         this.channel = null;
         this.handler = null;
         this.userId = "";
-        this.ConversationList = new _func();
-        this.oldestConversation = [];
         this.reconnectObj = {};
         this.heartbeat = null;
         this.chatroomId = 0;
 
-        this.removeConversationListCache = function () {
-            var val = this.ConversationList.splice(30);
-            this.oldestConversation.splice(10 - val.length);
-            [].unshift.apply(this.oldestConversation, val);
-        };
         this.resumeTimer = function () {
             if (!this.timeout_) {
-                task = new _myTask(this);
-                this.timeout_ = setTimeout(task.run, timeoutMillis)
+                this.timeout_ = setTimeout(function () {
+                    if (!self.timeout_) {
+                        return;
+                    }
+                    try {
+                        self.channel.disconnect()
+                    } catch (e) {
+                    }
+                    clearTimeout(self.timeout_);
+                    self.timeout_ = null;
+                    self.channel.reconnect();
+                    self.channel.socket.fire("StatusChanged", 5);
+                }, timeoutMillis)
             }
             lastReadTimer = (new Date).getTime()
         };
@@ -2130,6 +2087,7 @@
                 this.timeout_ = null;
             }
         };
+
         this.connect = function (_callback) {
             if (Client.Endpoint.host) {
                 if (io._TransportType == "websocket") {
@@ -2155,6 +2113,11 @@
                 self.channel.writeAndFlush(new PingReqMessage());
                 console.log("keep live pingReqMessage sending appId " + self.appId);
             }, 180000);
+        };
+
+        this.clearHeartbeat = function () {
+            clearInterval(this.heartbeat);
+            this.pauseTimer();
         };
         this.publishMessage = function (_topic, _data, _targetId, _callback, _msg) {
             var msgId = messageIdHandler.messageIdPlus(this.channel.reconnect);
@@ -2286,7 +2249,7 @@
                 "navUrl-Release": "http://nav.cn.rong.io/"
             },
             xss = document.createElement("script");
-        xss.src = Url["navUrl-Release"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+        xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
             _onerror(RongIMClient.ConnectErrorStatus.setValue(4));
@@ -2310,46 +2273,24 @@
 
     global.RongBrIdge = bridge = function (_appkey, _token, _callback) {
         bridge._client = Client.connect(_appkey, _token, _callback);
-        var _topic = ["invtDiz", "crDiz", "qnUrl", "userInf", "dizInf", "userInf", "joinGrp", "quitDiz", "exitGrp", "evctDiz", ["ppMsgP", "pdMsgP", "pgMsgP", "pcMsgP", "chatMsg"], "pdOpen", "rename", "uGcmpr", "qnTkn", 'destroyChrm', 'createChrm', 'exitChrm', 'queryChrm', 'joinChrm', "pGrps", "addBlack", "rmBlack", "getBlack", "blackStat", "relations"];
+        var _topic = ["invtDiz", "crDiz", "qnUrl", "userInf", "dizInf", "userInf", "joinGrp", "quitDiz", "exitGrp", "evctDiz", ["ppMsgP", "pdMsgP", "pgMsgP", "pcMsgP", "chatMsg"], "pdOpen", "rename", "uGcmpr", "qnTkn", 'destroyChrm', 'createChrm', 'exitChrm', 'queryChrm', 'joinChrm', "pGrps", "addBlack", "rmBlack", "getBlack", "blackStat", "addRelation", 'qryRelation', 'delRelation'];
         this.getIO = function () {
             return io
         };
         this.setListener = function (_changer) {
-            if (typeof _changer == "object" ) {
-                if(typeof _changer.onChanged=='function'){
+            if (typeof _changer == "object") {
+                if (typeof _changer.onChanged == 'function') {
                     _ConnectionStatusListener = _changer;
-                }else if(typeof _changer.onReceived=='function'){
+                } else if (typeof _changer.onReceived == 'function') {
                     _ReceiveMessageListener = _changer;
                 }
             }
-        };
-        this.removeConversationListCache = function () {
-            bridge._client.removeConversationListCache()
-        };
-        this.getCurrentConversationList = function () {
-            return bridge._client.ConversationList
-        };
-        this.clearConversations = function (list) {
-            var arr = [];
-            for (var i = 0; i < list.length; i++) {
-                for (var j = 0; j < bridge._client.ConversationList.length; j++) {
-                    bridge._client.ConversationList[j].getConversationType() == list[i] && arr.push(j);
-                }
-            }
-            for (i = 0; i < arr.length; i++) {
-                [].unshift.apply(bridge._client.oldestConversation, bridge._client.ConversationList.splice(arr[i] - i, 1));
-            }
-            bridge._client.oldestConversation.splice(10);
-            return true;
-        };
-        this.getCurrentOldestConversationList = function () {
-            return bridge._client.oldestConversation
         };
         this.reConnect = function (callback) {
             bridge._client.channel.reconnect(callback)
         };
         this.disConnect = function () {
-            clearTimeout(bridge._client.heartbeat);
+            bridge._client.clearHeartbeat();
             bridge._client.channel.disconnect()
         };
         this.queryMsg = function (topic, content, targetId, callback, pbname) {
@@ -2362,21 +2303,58 @@
 })(window);
 
 (function (global, undefined) {
-    global.RongIMClient = function (r) {
-        function getType(str) {
-            var temp = Object.prototype.toString.call(str).toLowerCase();
-            return temp.slice(8, temp.length - 1);
+    var _func = function () {
+        this.add = function (x) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i].getTargetId() === x.getTargetId() && i != 0 && this[i].getConversationType() == x.getConversationType()) {
+                    this.unshift(this.splice(i, 1)[0]);
+                    return;
+                }
+            }
+            this.push(x);
+        };
+        this.get = function (conver, tarid) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i].getTargetId() == tarid && this[i].getConversationType() == conver) {
+                    return this[i]
+                }
+            }
+            return null;
         }
+    }
+    _func.prototype = new Array;
+
+    var S2C = {
+        "1": 4,
+        "2": 2,
+        "3": 3,
+        "4": 0,
+        "5": 1,
+        "6": 5
+    },C2S={
+        "4": 1,
+        "2": 2,
+        "3": 3,
+        "0": 4,
+        "1": 5,
+        "5": 6
+    },k = {
+        "1": "3",
+        "2": "1",
+        "3": "2",
+        "4": "0",
+        "0": "4"
+    };
+
+    function getType(str) {
+        var temp = Object.prototype.toString.call(str).toLowerCase();
+        return temp.slice(8, temp.length - 1);
+    }
+
+    global.RongIMClient = function (r) {
 
         var m, l = r,
             self = this,
-            k = {
-                "1": "3",
-                "2": "1",
-                "3": "2",
-                "4": "0",
-                "0": "4"
-            },
             p, a, q = function (f, d) {
                 var c = arguments.callee.caller;
                 if (self.options.isEnableDebug()) {
@@ -2392,7 +2370,7 @@
                     throw new Error("The parameter is incorrect or was not yet instantiated RongIMClient")
                 }
             },
-            o = [],
+            o = [], _ConversationList = new _func(),
             n = global.sessionStorage || new function () {
                 var c = {};
                 this.length = 0;
@@ -2458,44 +2436,38 @@
                 a.reConnect(callback);
             }
         };
-        this.syncConversationList = function () {
-            if (m._TransportType == "xhr-polling") {
-                return;
-            }
+
+        this.syncConversationList = function (_conversationType) {
+            q(["object"]);
             var modules = new Modules.RelationsInput();
-            modules.setNothing(1);
-            a.queryMsg(25, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
+            modules.setType(C2S[_conversationType.valueOf()]);
+            a.queryMsg(26, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
                 onSuccess: function (list) {
-                    m.util.forEach(list.slice(0, 30), function (x) {
-                        self.getUserInfo(x, {
-                            onSuccess: function (info) {
-                                var con = new RongIMClient.Conversation;
-                                con.setConversationTitle(info.getUserName());
-                                con.setSenderUserId(info.getUserId());
-                                con.setConversationType(RongIMClient.ConversationType.PRIVATE);
-                                con.setTargetId(global.RongBrIdge._client.userId);
-                                con.setTop();
-                            },
-                            onError: function () {
-                            }
-                        })
+                    m.util.forEach(list.getInfo(), function (x) {
+                        if (x.type == 1) {
+                            self.getUserInfo(x.userId, {
+                                onSuccess: function (info) {
+                                    self.createConversation(RongIMClient.ConversationType.PRIVATE, x.userId, info.getUserName());
+                                },
+                                onError: function () {
+                                }
+                            })
+                        } else {
+                            self.createConversation(RongIMClient.ConversationType.setValue(S2C[x.type]), x.userId, '');
+                        }
                     });
                 },
                 onError: function () {
                     callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
                 }
             }, "RelationsOutput");
-            this.checkoutOfflineConversationList = undefined;
         };
         this.getConversation = function (c, e) {
             q(["object", "string"]);
             return this.getConversationList().get(c, e);
         };
         this.getConversationList = function () {
-            return a.getCurrentConversationList();
-        };
-        this.getOldestConversationTypeList = function () {
-            return a.getCurrentOldestConversationList()
+            return _ConversationList;
         };
         this.getConversationNotificationStatus = function (f, d, e) {
             q(["object", "string", "object"]);
@@ -2506,9 +2478,18 @@
                 e.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR)
             }
         };
-        this.clearConversations = function (_conversationTypes) {
+        this.clearConversations = function (list) {
             q(["array"]);
-            return a.clearConversations(_conversationTypes);
+            var arr = [];
+            for (var i = 0; i < list.length; i++) {
+                for (var j = 0; j < _ConversationList.length; j++) {
+                    _ConversationList[j].getConversationType() == list[i] && arr.push(j);
+                }
+            }
+            for (i = 0; i < arr.length; i++) {
+                this.removeConversation(arr[i].getConversationType(), arr[i].getTargetId());
+                _ConversationList.splice(arr[i] - i, 1);
+            }
         };
         this.getGroupConversationList = function () {
             var arr = [];
@@ -2524,11 +2505,14 @@
             var d = m.util.remove(this.getConversationList(), function (f) {
                 return f.getTargetId() == e && f.getConversationType() == c
             });
-            this.getOldestConversationTypeList().unshift(d);
-            this.removeConversationListCache()
-        };
-        this.removeConversationListCache = function () {
-            a.removeConversationListCache()
+            var mod = new Modules.RelationInfo();
+            mod.setType(C2S[c.valueOf()]);
+            mod.setUserId(e);
+            a.queryMsg(27, m.util.arrayFrom(mod.toArrayBuffer()), e, {
+                onSucess: function () {
+                }, onError: function () {
+                }
+            });
         };
         this.setConversationNotificationStatus = function (f, d, g, e) {
             q(["object", "string", "object", "object"]);
@@ -2559,8 +2543,18 @@
             c.setConversationType(f);
             c.setConversationTitle(e);
             c.setTop();
+            var mod = new Modules.RelationInfo();
+            mod.setType(C2S[f.valueOf()]);
+            mod.setUserId(d);
+            a.queryMsg(25, m.util.arrayFrom(mod.toArrayBuffer()), d, {
+                onSucess: function () {
+                }, onError: function () {
+                }
+            });
             return c
         };
+
+
         this.getCurrentUserInfo = function (callback) {
             q(["object"]);
             this.getUserInfo(global.RongBrIdge._client.userId, callback);
@@ -2588,7 +2582,7 @@
                 i = e.getMessage(),
                 j;
             if (!f) {
-                throw new Error("NullPointException")
+                throw new Error("ConversationType was wrong")
             }
             i.setConversationType(h);
             i.setMessageDirection(RongIMClient.MessageDirection.SEND);
@@ -2599,14 +2593,9 @@
             i.setSentTime((new Date).getTime());
             i.setTargetId(v);
             if (/ISCOUNTED/.test(i.getMessageTag())) {
-                j = this.getConversationList().get(h, v) || m.util.remove(this.getOldestConversationTypeList(), function (s) {
-                    return s.getTargetId() == v
-                });
+                j = this.getConversationList().get(h, v);
                 if (!j) {
-                    j = new RongIMClient.Conversation();
-                    j.setTargetId(v);
-                    j.setConversationType(h);
-                    j.setConversationTitle("")
+                    j = this.createConversation(h, v, "");
                 }
                 j.setSentTime((new Date).getTime());
                 j.setSentStatus(RongIMClient.SentStatus.SENDING);
@@ -2642,7 +2631,7 @@
         };
         this.setConnectionStatusListener = function (c) {
             if (a) {
-               a.setListener(c);
+                a.setListener(c);
             } else {
                 o.push(c)
             }
@@ -2890,7 +2879,7 @@
             a.queryMsg(22, m.util.arrayFrom(modules.toArrayBuffer()), userId, callback);
         };
     };
-    RongIMClient.version = "0.9.7";
+    RongIMClient.version = "0.9.8";
     RongIMClient.connect = function (d, a) {
         if (!RongIMClient.getInstance) {
             throw new Error("please init")
@@ -3153,8 +3142,8 @@
             return u
         };
         this.isTop = function () {
-            var c = RongIMClient.getInstance().getConversationList();
-            return c[0] == this
+            var e = RongIMClient.getInstance().getConversationList();
+            return e[0] != undefined && e[0].getTargetId() == this.getTargetId() && e[0].getConversationType() == this.getConversationType();
         };
         this.setConversationTitle = function (c) {
             G = c
@@ -3199,14 +3188,10 @@
             x = c
         };
         this.setTop = function () {
-            if (!s.getTargetId()) {
+            if (s.getTargetId() == undefined || this.isTop()) {
                 return
             }
-            var e = RongIMClient.getInstance().getConversationList();
-            if (e[0] === undefined || e[0].getTargetId() != s.getTargetId()) {
-                e.add(s);
-            }
-            RongIMClient.getInstance().removeConversationListCache()
+            RongIMClient.getInstance().getConversationList().add(this);
         };
         this.setUnreadMessageCount = function (c) {
             u = c
@@ -3584,7 +3569,7 @@
         }
     };
     RongIMClient.ReceivedStatus = function (d) {
-        var a = d || 0;
+        var a = d || 1;
         this.getFlag = function () {
             return a
         };

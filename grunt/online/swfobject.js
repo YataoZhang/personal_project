@@ -837,7 +837,8 @@ var swfobject = function () {
     };
     WebSocket.__initialize = function () {
         if (typeof window != 'undefined') {
-            window.WEB_SOCKET_SWF_LOCATION = 'http://res.websdk.rongcloud.cn/WebSocketMainInsecure-0.2.swf?v=3';
+//            window.WEB_SOCKET_SWF_LOCATION = 'http://res.websdk.rongcloud.cn/WebSocketMainInsecure-0.2.swf?v=3';
+            window.WEB_SOCKET_SWF_LOCATION = '/personal_project/flash/WebSocketMainInsecure-0.2.swf?v=4';
             try {
                 WebSocket.loadFlashPolicyFile();
             } catch (e) {
@@ -1387,21 +1388,64 @@ var swfobject = function () {
             this.toArrayBuffer = function () {
                 return WebSocket.Serialize("ChrmPullMsg", a)
             }
-        },RelationsInput:function(){
+        },RelationsInput: function() {
             var a = {};
-            this.setNothing = function (b) {
-                a.nothing = b;
+            this.setType = function(b) {
+                a.type = b;
             };
-            this.toArrayBuffer = function () {
+            this.toArrayBuffer = function() {
                 return WebSocket.Serialize("RelationsInput", a)
             }
-        },RelationsOutput:function(){
+        },
+        RelationsOutput: function() {
             var a = {};
-            this.setUserIds = function (b) {
-                a.userIds = b;
+            this.setInfo = function(b) {
+                a.info = b;
+            };
+            this.toArrayBuffer = function() {
+                return WebSocket.Serialize("RelationsOutput", a)
+            }
+        },
+        RelationInfo:function(){
+            var a={};
+            this.setType=function(b){
+                a.type=b;
+            };
+            this.setUserId=function(b){
+                a.userId=b;
+            };
+            this.toArrayBuffer = function() {
+                return WebSocket.Serialize("RelationInfo", a)
+            }
+        },
+        HistoryMessageInput: function () {
+            var a={};
+            this.setTargetId=function(b){
+                a.targetId=b;
+            };
+            this.setDataTime=function(b){
+                a.dataTime=parseNum(b);
+            };
+            this.setSize=function(b){
+                a.size=b;
             };
             this.toArrayBuffer = function () {
-                return WebSocket.Serialize("RelationsOutput", a)
+                return WebSocket.Serialize("HistoryMessageInput", a)
+            }
+        },
+        HistoryMessagesOuput: function () {
+            var a={};
+            this.setList=function(b){
+                a.list=b;
+            };
+            this.setSyncTime=function(b){
+                a.syncTime=parseNum(b);
+            };
+            this.setHasMsg=function(b){
+                a.hasMsg=b;
+            };
+            this.toArrayBuffer = function () {
+                return WebSocket.Serialize("HistoryMessagesOuput", a)
             }
         }};
     for (var c in a)
