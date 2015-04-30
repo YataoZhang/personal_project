@@ -106,8 +106,7 @@
             var script = document.createElement("script"), head = document.getElementsByTagName("head")[0];
             io._TransportType = "websocket";
             if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
-//                script.src = "http://res.websdk.rongcloud.cn/protobuf-0.2.min.js?v=1";
-                script.src = "/grunt/online/protobuf.js";
+                script.src = "http://res.websdk.rongcloud.cn/protobuf-0.2.min.js?v=20150430";
             } else if (!/opera/i.test(navigator.userAgent) && !global.WEB_XHR_POLLING && (function () {
                 if ('navigator' in global && 'plugins' in navigator && navigator.plugins['Shockwave Flash']) {
                     return !!navigator.plugins['Shockwave Flash'].description;
@@ -120,15 +119,13 @@
                 }
                 return false;
             })()) {
-                script.src = "/grunt/online/swfobject.js?v=7";
-//                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=7";
+                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=20150430";
             } else {
                 if (navigator.cookieEnabled === false) {
                     throw new Error("Cookie is not available, please open the cookie");
                 }
                 io._TransportType = "xhr-polling";
-                script.src = "/grunt/online/xhrpolling.js?v=4";
-//                script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=4";
+                script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=20150430";
             }
             head.appendChild(script);
             messageIdHandler = new function () {
@@ -1938,7 +1935,7 @@
                     downloadUrl: entity.downloadUrl
                 };
             case "CreateDiscussionOutput":
-                return entity.getId();
+                return entity.id;
             case "ChannelInfoOutput":
                 var disInfo = new RongIMClient.Discussion();
                 disInfo.setCreatorId(entity.adminUserId);
@@ -2316,7 +2313,7 @@
             }
             return null;
         }
-    }
+    };
     _func.prototype = new Array;
 
     var S2C = {
@@ -2351,9 +2348,6 @@
             self = this,
             p, a, q = function (f, d) {
                 var c = arguments.callee.caller;
-                if (self.options.isEnableDebug()) {
-                    console.log("Being executed: \n" + c);
-                }
                 if (c.length == c.arguments.length && (a || d)) {
                     for (var g = 0, e = c.arguments.length; g < e; g++) {
                         if (!new RegExp(getType(c.arguments[g])).test(f[g])) {
@@ -2389,7 +2383,6 @@
                     return false;
                 }
             };
-        this.options = new RongIMClient.Options();
         this.clearTextMessageDraft = function (c, e) {
             q(["object", "string"]);
             return n.removeItem(c + "_" + e)
@@ -2431,8 +2424,11 @@
             }
         };
 
-        this.syncConversationList = function (_conversationType) {
-            q(["object"]);
+        this.syncConversationList = function (_conversationType, callback) {
+            if (m._TransportType == "xhr-polling") {
+                return;
+            }
+            q(["object","object"]);
             var modules = new Modules.RelationsInput();
             modules.setType(C2S[_conversationType.valueOf()]);
             a.queryMsg(26, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
@@ -2450,6 +2446,7 @@
                             self.createConversation(RongIMClient.ConversationType.setValue(S2C[x.type]), x.userId, '');
                         }
                     });
+                    callback.onSuccess();
                 },
                 onError: function () {
                     callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
@@ -2481,8 +2478,8 @@
                 }
             }
             for (i = 0; i < arr.length; i++) {
-                this.removeConversation(arr[i].getConversationType(), arr[i].getTargetId());
-                _ConversationList.splice(arr[i] - i, 1);
+               var val= _ConversationList.splice(arr[i] - i, 1)[0];
+                this.removeConversation(val.getConversationType(), val.getTargetId());
             }
         };
         this.getGroupConversationList = function () {
@@ -2602,9 +2599,7 @@
             }
             a.pubMsg(f, g, v, u, i)
         };
-        this.setOptions = function (c) {
-            this.options.setEnableDebug(c)
-        };
+
         this.uploadMedia = function (f, c, d, e) {
             q(["object", "string", "string", "object"])
         };
@@ -2871,6 +2866,9 @@
             "5": "qrySMsg"
         }, lastReadTime = 0;
         this.getHistoryMessages = function (_conversationtype, targetid, size, callback) {
+            if (m._TransportType == "xhr-polling") {
+                return;
+            }
             q(["object", "string", "number", "object"]);
             if (_conversationtype.valueOf() == 0) {
                 callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
@@ -2963,11 +2961,7 @@
         }
         RongIMClient.getInstance().setConnectionStatusListener(a)
     };
-    RongIMClient.setOptions = function (a) {
-        if (RongIMClient.getInstance) {
-            RongIMClient.getInstance().setOptions(!!a);
-        }
-    };
+
     RongIMClient.RongIMMessage = function (content) {
         var x = "unknown",
             u, z = content || {},
@@ -3575,15 +3569,7 @@
             throw new Error("MessageHandler:arguments type is error")
         }
     };
-    RongIMClient.Options = function () {
-        var a = false;
-        this.isEnableDebug = function () {
-            return a
-        };
-        this.setEnableDebug = function (d) {
-            a = !!d
-        }
-    };
+
     RongIMClient.ReceivedStatus = function (d) {
         var a = d || 1;
         this.getFlag = function () {
