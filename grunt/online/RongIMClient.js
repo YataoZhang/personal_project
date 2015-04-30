@@ -17,13 +17,9 @@
         };
 
         function inherit(superCtor) {
-            var f = function () {
-            };
-            f.prototype = superCtor;
             var ctor = function () {
             };
-            ctor.prototype = new f();
-            ctor.prototype.constructor = superCtor.constructor;
+            ctor.prototype = superCtor;
             return new ctor;
         }
 
@@ -1699,7 +1695,7 @@
         if (error && typeof error == "number") {
             timeoutMillis = error
         } else {
-            timeoutMillis = 5000;
+            timeoutMillis = 30000;
             this.onError = error;
         }
         this.resumeTimer = function () {
@@ -1772,22 +1768,22 @@
             var entity, message, content, con;
             if (msg.constructor._name != "PublishMessage") {
                 entity = msg;
-                io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()), 86400);
+                io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime), 86400);
             } else {
                 if (msg.getTopic() == "s_ntf") {
                     entity = Modules.NotifyMsg.decode(msg.getData());
-                    client.syncTime(this, entity.getType(), msg.getDate());
+                    client.syncTime(this, entity.type, msg.getDate());
                     return;
                 } else if (msg.getTopic() == "s_msg") {
                     entity = Modules.DownStreamMessage.decode(msg.getData());
-                    io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()), 86400);
+                    io.util.cookieHelper.setCookie(client.userId, io.util.int64ToTimestamp(entity.dataTime), 86400);
                 } else {
                     return;
                 }
             }
-            content = entity.getContent ? entity.getContent() : entity.content;
+            content = entity.content;
             var de = JSON.parse(binaryHelper.readUTF(content.offset ? io.util.arrayFrom(content.buffer).slice(content.offset, content.limit) : content)),
-                objectName = entity.classname || entity.getClassname();
+                objectName = entity.classname;
 
             if ("Expression" in RongIMClient && "RC:TxtMsg" == objectName && de.content) {
                 de.content = de.content.replace(/[\uf000-\uf700]/g, function (x) {
@@ -1805,10 +1801,10 @@
             } else {
                 message = new RongIMClient.UnknownMessage(de, objectName);
             }
-            message.setSentTime(io.util.int64ToTimestamp(entity.dataTime || entity.getDataTime()));
-            message.setSenderUserId(entity.fromUserId || entity.getFromUserId());
-            message.setConversationType(RongIMClient.ConversationType.setValue(mapping[entity.type || entity.getType()]));
-            message.setTargetId(/^[234]$/.test(entity.type || entity.getType()) ? entity.groupId || entity.getGroupId() : message.getSenderUserId());
+            message.setSentTime(io.util.int64ToTimestamp(entity.dataTime));
+            message.setSenderUserId(entity.fromUserId);
+            message.setConversationType(RongIMClient.ConversationType.setValue(mapping[entity.type]));
+            message.setTargetId(/^[234]$/.test(entity.type || entity.getType()) ? entity.groupId : message.getSenderUserId());
             message.setMessageDirection(RongIMClient.MessageDirection.RECEIVE);
             message.setReceivedTime((new Date).getTime());
             message.setMessageId(message.getConversationType() + "_" + ~~(Math.random() * 0xffffff));
@@ -1928,34 +1924,34 @@
         switch (tag) {
             case "GetUserInfoOutput":
                 var userInfo = new RongIMClient.UserInfo();
-                userInfo.setUserId(entity.getUserId());
-                userInfo.setUserName(entity.getUserName());
-                userInfo.setPortraitUri(entity.getUserPortrait());
+                userInfo.setUserId(entity.userId);
+                userInfo.setUserName(entity.userName);
+                userInfo.setPortraitUri(entity.userPortrait);
                 return userInfo;
             case "GetQNupTokenOutput":
                 return {
-                    deadline: io.util.int64ToTimestamp(entity.getDeadline()),
-                    token: entity.getToken()
+                    deadline: io.util.int64ToTimestamp(entity.deadline),
+                    token: entity.token
                 };
             case "GetQNdownloadUrlOutput":
                 return {
-                    downloadUrl: entity.getDownloadUrl()
+                    downloadUrl: entity.downloadUrl
                 };
             case "CreateDiscussionOutput":
                 return entity.getId();
             case "ChannelInfoOutput":
                 var disInfo = new RongIMClient.Discussion();
-                disInfo.setCreatorId(entity.getAdminUserId());
-                disInfo.setId(entity.getChannelId());
-                disInfo.setMemberIdList(entity.getFirstTenUserIds());
-                disInfo.setName(entity.getChannelName());
-                disInfo.setOpen(RongIMClient.DiscussionInviteStatus.setValue(entity.getOpenStatus()));
+                disInfo.setCreatorId(entity.adminUserId);
+                disInfo.setId(entity.channelId);
+                disInfo.setMemberIdList(entity.firstTenUserIds);
+                disInfo.setName(entity.channelName);
+                disInfo.setOpen(RongIMClient.DiscussionInviteStatus.setValue(entity.openStatus));
                 return disInfo;
             case "GroupHashOutput":
-                return entity.getResult();
+                return entity.result;
                 break;
             case "QueryBlackListOutput":
-                return entity.getUserIds();
+                return entity.userIds;
                 break;
             default:
                 return entity;
@@ -1990,12 +1986,10 @@
                 if (pbtype && data) {
                     data = callbackMapping(Modules[pbtype].decode(data), pbtype);
                     if ("GetUserInfoOutput" == pbtype) {
-                        userInfoMapping[data.getUserId()] = data;
+                        userInfoMapping[data.userId] = data;
                     }
-                    cb(data);
-                } else {
-                    cb(status, data, serverTime)
                 }
+                cb(data);
             } else {
                 _timeout(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
             }
@@ -2095,6 +2089,7 @@
                         _callback.onError(RongIMClient.ConnectErrorStatus.setValue(1));
                         return;
                     }
+                    'loadFlashPolicyFile' in WebSocket && WebSocket.loadFlashPolicyFile();
                 }
                 this.handler = new MessageHandler(this);
                 this.channel = new Channel(Client.Endpoint, function () {
@@ -2184,28 +2179,25 @@
             }
             modules.setSyncTime(time);
             self.queryMessage(str, io.util.arrayFrom(modules.toArrayBuffer()), target, Qos.AT_LEAST_ONCE, {
-                onSuccess: function (status, data) {
-                    if (status == 0) {
-                        var collection = Modules.DownStreamMessages.decode(data),
-                            sync = io.util.int64ToTimestamp(collection.getSyncTime()),
-                            symbol = self.userId;
-                        if (str == "chrmPull") {
-                            symbol += 'CST';
-                        }
-                        io.util.cookieHelper.setCookie(symbol, sync, 86400);
-                        var list = collection.getList();
-                        if (temp.listener) {
-                            for (var i = 0; i < list.length; i++) {
-                                temp.listener.onReceived(list[i])
-                            }
-                        }
-                        SyncTimeQueue.state = "complete";
-                        invoke();
+                onSuccess: function (collection) {
+                    var sync = io.util.int64ToTimestamp(collection.syncTime),
+                        symbol = self.userId;
+                    if (str == "chrmPull") {
+                        symbol += 'CST';
                     }
+                    io.util.cookieHelper.setCookie(symbol, sync, 86400);
+                    var list = collection.list;
+                    if (temp.listener) {
+                        for (var i = 0; i < list.length; i++) {
+                            temp.listener.onReceived(list[i])
+                        }
+                    }
+                    SyncTimeQueue.state = "complete";
+                    invoke();
                 },
                 onError: function () {
                 }
-            })
+            }, "DownStreamMessages");
         }
 
         this.syncTime = function (_listener, _type, pullTime) {
@@ -2294,7 +2286,10 @@
             bridge._client.channel.disconnect()
         };
         this.queryMsg = function (topic, content, targetId, callback, pbname) {
-            bridge._client.queryMessage(_topic[topic], content, targetId, Qos.AT_MOST_ONCE, callback, pbname)
+            if (typeof topic != "string") {
+                topic = _topic[topic]
+            }
+            bridge._client.queryMessage(topic, content, targetId, Qos.AT_MOST_ONCE, callback, pbname)
         };
         this.pubMsg = function (topic, content, targetId, callback, msg) {
             bridge._client.publishMessage(_topic[10][topic], content, targetId, callback, msg)
@@ -2331,14 +2326,14 @@
         "4": 0,
         "5": 1,
         "6": 5
-    },C2S={
+    }, C2S = {
         "4": 1,
         "2": 2,
         "3": 3,
         "0": 4,
         "1": 5,
         "5": 6
-    },k = {
+    }, k = {
         "1": "3",
         "2": "1",
         "3": "2",
@@ -2352,7 +2347,6 @@
     }
 
     global.RongIMClient = function (r) {
-
         var m, l = r,
             self = this,
             p, a, q = function (f, d) {
@@ -2443,7 +2437,7 @@
             modules.setType(C2S[_conversationType.valueOf()]);
             a.queryMsg(26, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
                 onSuccess: function (list) {
-                    m.util.forEach(list.getInfo(), function (x) {
+                    m.util.forEach(list.info, function (x) {
                         if (x.type == 1) {
                             self.getUserInfo(x.userId, {
                                 onSuccess: function (info) {
@@ -2553,8 +2547,6 @@
             });
             return c
         };
-
-
         this.getCurrentUserInfo = function (callback) {
             q(["object"]);
             this.getUserInfo(global.RongBrIdge._client.userId, callback);
@@ -2643,7 +2635,6 @@
                 o.push(c)
             }
         };
-        //未读消息
         this.getTotalUnreadCount = function () {
             var count = 0;
             m.util.forEach(this.getConversationList(), function (x) {
@@ -2678,7 +2669,6 @@
             var end = this.getConversationList().get(conversationType, targetId);
             return !!(end ? end.setUnreadMessageCount(0) || 1 : 0);
         };
-        //聊天室
         this.initChatRoom = function (Id) {
             q(["string"]);
             global.RongBrIdge._client.chatroomId = Id;
@@ -2696,21 +2686,18 @@
                     modules.setCount(defMessageCount);
                     modules.setSyncTime(0);
                     global.RongBrIdge._client.queryMessage('chrmPull', m.util.arrayFrom(modules.toArrayBuffer()), Id, 1, {
-                        onSuccess: function (status, data) {
-                            if (status == 0) {
-                                var collection = Modules.DownStreamMessages.decode(data),
-                                    sync = m.util.int64ToTimestamp(collection.getSyncTime());
-                                m.util.cookieHelper.setCookie(global.RongBrIdge._client.userId + 'CST', sync, 86400);
-                                var list = collection.getList();
-                                for (var i = 0; i < list.length; i++) {
-                                    RongBrIdge._client.handler.onReceived(list[i])
-                                }
+                        onSuccess: function (collection) {
+                            var sync = m.util.int64ToTimestamp(collection.syncTime);
+                            m.util.cookieHelper.setCookie(global.RongBrIdge._client.userId + 'CST', sync, 86400);
+                            var list = collection.list;
+                            for (var i = 0; i < list.length; i++) {
+                                RongBrIdge._client.handler.onReceived(list[i])
                             }
                         },
                         onError: function (x) {
                             callback.onError(x);
                         }
-                    })
+                    }, 'DownStreamMessages')
                 },
                 onError: function () {
                     callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
@@ -2723,7 +2710,6 @@
             e.setNothing(1);
             a.queryMsg(17, m.util.arrayFrom(e.toArrayBuffer()), Id, callback, "ChrmOutput")
         };
-        //通知消息
         this.sendNotification = function (_conversationType, _targetId, _content, _callback) {
             q(["object", "string", "object", "object"]);
             if (_content instanceof RongIMClient.NotificationMessage)
@@ -2738,7 +2724,6 @@
             else
                 throw new Error("Wrong Parameters");
         };
-        //讨论组 群 聊天室
         this.setDiscussionInviteStatus = function (_targetId, _status, _callback) {
             q(["string", "object", "object"]);
             var modules = new Modules.ModifyPermissionInput();
@@ -2802,7 +2787,7 @@
             var modules = new Modules.LeaveChannelInput();
             modules.setNothing(1);
             a.queryMsg(8, m.util.arrayFrom(modules.toArrayBuffer()), _groupId, _callback);
-        }; //exitGrp
+        };
         this.joinGroup = function (_groupId, _groupName, _callback) {
             q(["string", "string", "object"]);
             var modules = new Modules.GroupInfo();
@@ -2847,8 +2832,6 @@
                     _callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
                 }
             }, "GroupHashOutput");
-
-
         };
         this.addToBlacklist = function (userId, callback) {
             q(["string", "object"]);
@@ -2869,7 +2852,9 @@
             a.queryMsg(24, m.util.arrayFrom(modules.toArrayBuffer()), userId, {
                 onSuccess: function (x) {
                     callback.onSuccess(RongIMClient.BlacklistStatus.setValue(x));
-                }, onError: callback.onError
+                }, onError: function () {
+                    callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
+                }
             })
         };
         this.removeFromBlacklist = function (userId, callback) {
@@ -2878,6 +2863,37 @@
             modules.setUserId(userId);
             a.queryMsg(22, m.util.arrayFrom(modules.toArrayBuffer()), userId, callback);
         };
+        var HistoryMsgType = {
+            "4": "qryPMsg",
+            "1": "qryCMsg",
+            "3": "qryGMsg",
+            "2": "qryDMsg",
+            "5": "qrySMsg"
+        }, lastReadTime = 0;
+        this.getHistoryMessages = function (_conversationtype, targetid, size, callback) {
+            q(["object", "string", "number", "object"]);
+            if (_conversationtype.valueOf() == 0) {
+                callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
+                return;
+            }
+            var modules = new Modules.HistoryMessageInput();
+            modules.setTargetId(targetid);
+            lastReadTime = Date.now();
+            modules.setDataTime(lastReadTime);
+            modules.setSize(size);
+            a.queryMsg(HistoryMsgType[_conversationtype.valueOf()], m.util.arrayFrom(modules.toArrayBuffer()), targetid, {
+                onSuccess: function (data) {
+                    var list = data.list.reverse();
+                    callback.onError(!!data.hasMsg);
+                    lastReadTime = m.util.int64ToTimestamp(data.syncTime);
+                    for (var i = 0; i < list.length; i++) {
+                        RongBrIdge._client.handler.onReceived(list[i])
+                    }
+                }, onError: function () {
+                    callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
+                }
+            }, "HistoryMessagesOuput");
+        }
     };
     RongIMClient.version = "0.9.8";
     RongIMClient.connect = function (d, a) {

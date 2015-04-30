@@ -825,7 +825,7 @@ var swfobject = function () {
     WebSocket.__nextId = 0;
     WebSocket.loadFlashPolicyFile = function () {
         WebSocket.__addTask(function () {
-            WebSocket.__flash.loadManualPolicyFile("xmlsocket://119.254.110.241:8300");
+            WebSocket.__flash.loadManualPolicyFile("xmlsocket://"+RongBrIdge._client.constructor.Endpoint.host.replace(/\d+?$/,"8300"));
         })
     };
 
@@ -838,11 +838,11 @@ var swfobject = function () {
     WebSocket.__initialize = function () {
         if (typeof window != 'undefined') {
 //            window.WEB_SOCKET_SWF_LOCATION = 'http://res.websdk.rongcloud.cn/WebSocketMainInsecure-0.2.swf?v=3';
-            window.WEB_SOCKET_SWF_LOCATION = '/personal_project/flash/WebSocketMainInsecure-0.2.swf?v=4';
-            try {
-                WebSocket.loadFlashPolicyFile();
-            } catch (e) {
-            }
+            window.WEB_SOCKET_SWF_LOCATION = '/flash/WebSocketMainInsecure-0.2.swf?v=4';
+//            try {
+//                WebSocket.loadFlashPolicyFile();
+//            } catch (e) {
+//            }
             window.WEB_SOCKET_DEBUG = 0;
         }
         if (WebSocket.__initialized) {
@@ -1454,11 +1454,9 @@ var swfobject = function () {
                 b = WebSocket.deSerialize(y, b);
                 var c = {},
                     d;
-                for (d in b) c["get" + d.charAt(0).toUpperCase() + d.slice(1)] = function (y) {
-                    return function () {
-                        return y
-                    }
-                }(b[d]);
+                for (d in b) {
+                    c[d]=b[d];
+                }
                 return c;
             }
         })(c);

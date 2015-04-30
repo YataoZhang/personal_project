@@ -544,11 +544,7 @@
         e[f].decode = function (b) {
             var back = {}, val = JSON.parse(b) || eval("(" + b + ")");
             for (var i in val) {
-                back["get" + i.charAt(0).toUpperCase() + i.slice(1)] = (function (x) {
-                    return function () {
-                        return x;
-                    }
-                })(val[i])
+                back[i]=val[i];
             }
             return back;
         }
