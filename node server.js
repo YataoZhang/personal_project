@@ -9,8 +9,8 @@ http.createServer(function (req, res) {
     var url = urls.pathname;
     urls.query ? console.log(urls.query) : void 0;
     if (url == "/") {
-        readFile("junk/ajax.html", res);
-//        readFile("emoji_test.html", res);
+//        readFile("junk/ajax.html", res);
+        readFile("SDK_Invoker.html", res);
     } else if (url == "/qwer") {
 //        res.writeHead(200,
 //            {"Access-Control-Allow-Origin": "*",

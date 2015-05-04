@@ -57,7 +57,7 @@
             initCss();
             var e = this;
             this.getAllExpression = function (a, b) {
-                if (0 < a && -1 < b && 128 > a + b) {
+                if (0 < a && -1 < b && 127 > a + b) {
                     var h = [], d = 0, f;
                     for (f in c) {
                         if (d >= b + a)break;

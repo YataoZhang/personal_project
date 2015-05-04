@@ -1451,6 +1451,9 @@ var swfobject = function () {
                     d;
                 for (d in b) {
                     c[d]=b[d];
+                    c["get"+ d.charAt(0).toUpperCase()+ d.slice(1)]=function(){
+                        return b[d];
+                    }
                 }
                 return c;
             }

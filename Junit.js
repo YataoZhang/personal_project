@@ -154,7 +154,8 @@
             return true;
         }).then(function () {
             log("清除某类型会话");
-            if (instance.clearConversations([_default.ConversationType]) && instance.getConversation(_default.ConversationType, _default.targetId) == null) {
+                instance.clearConversations([_default.ConversationType]);
+            if (instance.getConversation(_default.ConversationType, _default.targetId) == null) {
                 return info();
             } else {
                 return error("clearConversations");

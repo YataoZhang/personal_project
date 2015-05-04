@@ -247,6 +247,7 @@
             return this.writeUTF(str)
         }
     };
+
     var RongIMStream = function (arr) {
         var pool = binaryHelper.init(arr),
             self = this,
@@ -342,6 +343,7 @@
             return pool
         }
     };
+
     var Qos = global.RongIMEnum({
             AT_MOST_ONCE: 0,
             AT_LEAST_ONCE: 1,
@@ -1058,6 +1060,7 @@
         instance.connect(token, args);
         return instance;
     };
+
     (function () {
         var _pageLoaded = false;
         io.util = {
@@ -1087,15 +1090,19 @@
             isArray: function (obj) {
                 return Object.prototype.toString.call(obj) == "[object Array]";
             },
-            forEach: function (arr, func) {
+            forEach: (function () {
                 if ([].forEach) {
-                    return [].forEach.call(arr, func)
+                    return function (arr, func) {
+                        [].forEach.call(arr, func)
+                    }
                 } else {
-                    for (var i = 0; i < arr.length; i++) {
-                        func.call(arr, arr[i], i, arr)
+                    return function (arr, func) {
+                        for (var i = 0; i < arr.length; i++) {
+                            func.call(arr, arr[i], i, arr)
+                        }
                     }
                 }
-            },
+            })(),
             merge: function (target, additional) {
                 for (var i in additional) {
                     if (additional.hasOwnProperty(i)) {
@@ -1223,6 +1230,7 @@
             }
         });
     })();
+
     (function () {
         var Transport = io.Transport = function (base, options) {
             this.base = base;
@@ -1979,16 +1987,19 @@
         MessageCallback.call(this, _timeout);
         this.process = function (status, data, serverTime, pbtype) {
             this.readTimeOut();
-            if (status == 0) {
-                if (pbtype && data) {
+            if (pbtype && data) {
+                try {
                     data = callbackMapping(Modules[pbtype].decode(data), pbtype);
-                    if ("GetUserInfoOutput" == pbtype) {
-                        userInfoMapping[data.userId] = data;
-                    }
+                } catch (e) {
+                    _timeout(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
+                    return;
+                }
+                if ("GetUserInfoOutput" == pbtype) {
+                    userInfoMapping[data.getUserId()] = data;
                 }
                 cb(data);
             } else {
-                _timeout(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
+                cb(status)
             }
         };
         this.readTimeOut = function (x) {
@@ -2111,6 +2122,7 @@
             clearInterval(this.heartbeat);
             this.pauseTimer();
         };
+
         this.publishMessage = function (_topic, _data, _targetId, _callback, _msg) {
             var msgId = messageIdHandler.messageIdPlus(this.channel.reconnect);
             if (!msgId) {
@@ -2238,7 +2250,7 @@
                 "navUrl-Release": "http://nav.cn.rong.io/"
             },
             xss = document.createElement("script");
-        xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+        xss.src = Url["navUrl-Release"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
             _onerror(RongIMClient.ConnectErrorStatus.setValue(4));
@@ -2251,6 +2263,7 @@
             }
         }
     };
+
     Client.Endpoint = {};
     global.getServerEndpoint = function (x) {
         Client.Endpoint.host = x["server"];
@@ -2348,7 +2361,7 @@
             self = this,
             p, a, q = function (f, d) {
                 var c = arguments.callee.caller;
-                if (c.length == c.arguments.length && (a || d)) {
+                if (a || d) {
                     for (var g = 0, e = c.arguments.length; g < e; g++) {
                         if (!new RegExp(getType(c.arguments[g])).test(f[g])) {
                             throw new Error("The index of " + g + " parameter was wrong type " + getType(c.arguments[g]) + " [" + f[g] + "]")
@@ -2424,26 +2437,25 @@
             }
         };
 
-        this.syncConversationList = function (_conversationType, callback) {
+        this.syncConversationList = function (callback) {
             if (m._TransportType == "xhr-polling") {
                 return;
             }
-            q(["object","object"]);
+            q(["object"]);
             var modules = new Modules.RelationsInput();
-            modules.setType(C2S[_conversationType.valueOf()]);
+            modules.setType(1);
             a.queryMsg(26, m.util.arrayFrom(modules.toArrayBuffer()), global.RongBrIdge._client.userId, {
                 onSuccess: function (list) {
                     m.util.forEach(list.info, function (x) {
+                        var val = self.createConversation(RongIMClient.ConversationType.setValue(S2C[x.type]), x.userId, '', true);
                         if (x.type == 1) {
                             self.getUserInfo(x.userId, {
                                 onSuccess: function (info) {
-                                    self.createConversation(RongIMClient.ConversationType.PRIVATE, x.userId, info.getUserName());
+                                    val.setConversationTitle(info.getUserName());
                                 },
                                 onError: function () {
                                 }
                             })
-                        } else {
-                            self.createConversation(RongIMClient.ConversationType.setValue(S2C[x.type]), x.userId, '');
                         }
                     });
                     callback.onSuccess();
@@ -2478,7 +2490,7 @@
                 }
             }
             for (i = 0; i < arr.length; i++) {
-               var val= _ConversationList.splice(arr[i] - i, 1)[0];
+                var val = _ConversationList.splice(arr[i] - i, 1)[0];
                 this.removeConversation(val.getConversationType(), val.getTargetId());
             }
         };
@@ -2496,11 +2508,13 @@
             var d = m.util.remove(this.getConversationList(), function (f) {
                 return f.getTargetId() == e && f.getConversationType() == c
             });
+            if (!d)
+                return;
             var mod = new Modules.RelationInfo();
             mod.setType(C2S[c.valueOf()]);
             mod.setUserId(e);
             a.queryMsg(27, m.util.arrayFrom(mod.toArrayBuffer()), e, {
-                onSucess: function () {
+                onSuccess: function () {
                 }, onError: function () {
                 }
             });
@@ -2523,8 +2537,8 @@
             q(["object", "string", "string"]);
             this.getConversation(f, e).setConversationTitle(d)
         };
-        this.createConversation = function (f, d, e) {
-            q(["object", "string", "string"]);
+        this.createConversation = function (f, d, e, islocal) {
+            q(["object", "string", "string", "boolean|undefined"]);
             var g = this.getConversationList().get(f, d);
             if (g) {
                 return g
@@ -2537,11 +2551,14 @@
             var mod = new Modules.RelationInfo();
             mod.setType(C2S[f.valueOf()]);
             mod.setUserId(d);
-            a.queryMsg(25, m.util.arrayFrom(mod.toArrayBuffer()), d, {
-                onSucess: function () {
-                }, onError: function () {
-                }
-            });
+            if (!islocal) {
+                a.queryMsg(25, m.util.arrayFrom(mod.toArrayBuffer()), d, {
+                    onSuccess: function () {
+                    }, onError: function () {
+
+                    }
+                });
+            }
             return c
         };
         this.getCurrentUserInfo = function (callback) {

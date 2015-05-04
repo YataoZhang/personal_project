@@ -545,6 +545,9 @@
             var back = {}, val = JSON.parse(b) || eval("(" + b + ")");
             for (var i in val) {
                 back[i]=val[i];
+                back["get"+ i.charAt(0).toUpperCase()+i.slice(1)]=function(){
+                    return val[i];
+                }
             }
             return back;
         }
