@@ -7,7 +7,7 @@
     <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.7.min.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.net/RongIMClient.js"></script>-->
     <!--<script src="grunt/release/RongIMClient.min.js"></script>-->
-    <!--<script src="grunt/release/RongIMClient.min.js"></script>-->
+    <script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.8.min.js"></script>
     <script src="grunt/online/RongIMClient.js"></script>
     <script src="Junit.js"></script>
     <script>
@@ -38,7 +38,7 @@
 
         //kefu targetid kefu1427083338236
         function load() {
-            RongIMClient.init("z3v5yqkbv8v30");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
+            RongIMClient.init("p5tvi9dst2uq4");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
 
             RongIMClient.setConnectionStatusListener({//焦点判断
                 onChanged: function (status) {
@@ -88,7 +88,7 @@
             //
             var _erqi = 'iLgZ5FcvdMIKasmZ6p5oDW2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlJayyApFvl2MeIpTh0vT3g0ZtMOymgc0EA=='; //27
             var _erwu = 'ceCwNfOHo1QY0YRBnAiUXG2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlMTBnf8OYqaUNPxcR+fFusEZtMOymgc0EA=='; //25
-            RongIMClient.connect(jeams, {
+            RongIMClient.connect('CZxmpBI5ytEjEPhkc++U1IfeH9MGrSPt0KlY60yIm8Qx9cxX6T4+iBJQfAiuKNXLYeiFXVeufvPSkAz6gD4xPLhWdqyuIrKk', {
                 onSuccess: function (x) {
                     console.log("connected，userid＝" + x)
 //                    RongIMClient.getInstance().syncConversationList(RongIMClient.ConversationType.PRIVATE,{
