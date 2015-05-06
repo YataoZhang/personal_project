@@ -106,7 +106,7 @@
             var script = document.createElement("script"), head = document.getElementsByTagName("head")[0];
             io._TransportType = "websocket";
             if ("WebSocket" in global && "ArrayBuffer" in global && !global.WEB_SOCKET_FORCE_FLASH && !global.WEB_XHR_POLLING) {
-                script.src = "http://res.websdk.rongcloud.cn/protobuf-0.2.min.js?v=20150430";
+                script.src = "http://res.websdk.rongcloud.cn/protobuf-0.2.min.js?v=12345";
             } else if (!/opera/i.test(navigator.userAgent) && !global.WEB_XHR_POLLING && (function () {
                 if ('navigator' in global && 'plugins' in navigator && navigator.plugins['Shockwave Flash']) {
                     return !!navigator.plugins['Shockwave Flash'].description;
@@ -119,13 +119,13 @@
                 }
                 return false;
             })()) {
-                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?v=20150430";
+                script.src = "http://res.websdk.rongcloud.cn/swfobject-0.2.min.js?";
             } else {
                 if (navigator.cookieEnabled === false) {
                     throw new Error("Cookie is not available, please open the cookie");
                 }
                 io._TransportType = "xhr-polling";
-                script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=20150430";
+                script.src = "http://res.websdk.rongcloud.cn/xhrpolling-0.2.min.js?v=12345";
             }
             head.appendChild(script);
             messageIdHandler = new function () {
@@ -2250,7 +2250,7 @@
                 "navUrl-Release": "http://nav.cn.rong.io/"
             },
             xss = document.createElement("script");
-        xss.src = Url["navUrl-Release"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
+        xss.src = Url["navUrl-Debug"] + (io._TransportType == "xhr-polling" ? "cometnavi.js" : "navi.js") + "?appId=" + _appId + "&token=" + encodeURIComponent(_token) + "&" + "callBack=getServerEndpoint&t=" + (new Date).getTime();
         document.body.appendChild(xss);
         xss.onerror = function () {
             _onerror(RongIMClient.ConnectErrorStatus.setValue(4));
@@ -2899,7 +2899,7 @@
             a.queryMsg(HistoryMsgType[_conversationtype.valueOf()], m.util.arrayFrom(modules.toArrayBuffer()), targetid, {
                 onSuccess: function (data) {
                     var list = data.list.reverse();
-                    callback.onError(!!data.hasMsg);
+                    callback.onSuccess(!!data.hasMsg);
                     lastReadTime = m.util.int64ToTimestamp(data.syncTime);
                     for (var i = 0; i < list.length; i++) {
                         RongBrIdge._client.handler.onReceived(list[i])

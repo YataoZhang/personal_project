@@ -1460,3 +1460,6 @@ var swfobject = function () {
         })(c);
     b.Modules = a;
 })(window);
+if (RongIMClient.connect.token) {
+    RongIMClient.getInstance().connect(RongIMClient.connect.token, RongIMClient.connect.callback);
+}

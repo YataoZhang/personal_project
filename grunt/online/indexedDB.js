@@ -104,7 +104,6 @@
             }
         };
     }
-
     rong.indexedDB = {
         getMessageListFromIndexedDB: function (func) {
             displayData(func);
@@ -113,7 +112,6 @@
             if(message instanceof RongIMClient.RongIMMessage){
                 addMessageObject(JSON.parse(message.toJSONString()), func)
             }
-
         }, deleteMessageFromIndexedDB: function (messageid, func) {
             deleteResult(messageid, func)
         }, getMessageListCountFromIndexedDB: function (func) {
