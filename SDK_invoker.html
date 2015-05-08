@@ -6,9 +6,10 @@
     <title></title>
     <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.7.min.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.net/RongIMClient.js"></script>-->
-    <!--<script src="grunt/release/RongIMClient.min.js"></script>-->
-    <script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.8.min.js"></script>
-    <script src="grunt/online/RongIMClient.js"></script>
+    <script src="grunt/release/RongIMClient.min.js"></script>
+    <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.8.min.js"></script>-->
+    <!--<script src="grunt/online/RongIMClient.js"></script>-->
+
     <script src="Junit.js"></script>
     <script>
         /**
@@ -19,7 +20,7 @@
          * 可根据控制台输出的内容检查bug
          */
 //       window.WEB_SOCKET_FORCE_FLASH=true;
-//       window.WEB_XHR_POLLING=true;
+       window.WEB_XHR_POLLING=true;
 
         window.callback = {
             onSuccess: function (x) {
@@ -30,7 +31,6 @@
             }
         };
 
-
         //"e74d17d7-b087-46cf-b46e-2b9cb120b0cb" release
         //37abe2b1-1d46-490e-8a63-be736f6f2ba8 讨论组id
         //be6a5792-2841-4cd7-8794-6a51fd692fa0
@@ -38,7 +38,7 @@
 
         //kefu targetid kefu1427083338236
         function load() {
-            RongIMClient.init("p5tvi9dst2uq4");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
+            RongIMClient.init("z3v5yqkbv8v30");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
 
             RongIMClient.setConnectionStatusListener({//焦点判断
                 onChanged: function (status) {
@@ -80,15 +80,19 @@
                 }
             });
             //release
-            var jeams = 'bEVSfJuyK+vKcWWvsodcDs2yq+hfEluLjZ78E1qo4hGoJtlXfHETWJyjgbNQyiI7wYp5+CmaTzP+\/bv+vI++xg=='; //7991
-            var qwe = '9ACxQKwgWXawwAKvIBbWb7I6ZiT8q7s0UEaMPWY0lMxOPhe7Hp2dtgkbUxMCkoU0HAhlPdxTPg4C80jqu46\/1Q=='; //9813
-            //degub
-            var lipo = 'TOzO1ORZdSKfz9qnv8VAG6ZMo\/KVDHrEYcpc\/b7q1ztnoRGG0NzjemycRjB5XF3Aea2rzNZnQGzgRMdJ12F0ag==',  //2189
-                    onetowthree = 'ZnucOgwOxCFKahyttWB37qZMo\/KVDHrEYcpc\/b7q1ztnoRGG0Nzjeg1b2fUuhRY\/r261hg2zdyI+cSWhr8lNwQ=='; //2180
-            //
-            var _erqi = 'iLgZ5FcvdMIKasmZ6p5oDW2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlJayyApFvl2MeIpTh0vT3g0ZtMOymgc0EA=='; //27
-            var _erwu = 'ceCwNfOHo1QY0YRBnAiUXG2V0rtz9Et1a3Gcs+xV6rv9BDa69IwMlMTBnf8OYqaUNPxcR+fFusEZtMOymgc0EA=='; //25
-            RongIMClient.connect('CZxmpBI5ytEjEPhkc++U1IfeH9MGrSPt0KlY60yIm8Qx9cxX6T4+iBJQfAiuKNXLYeiFXVeufvPSkAz6gD4xPLhWdqyuIrKk', {
+
+           var config={
+                release:{
+                    "jeams":'bEVSfJuyK+vKcWWvsodcDs2yq+hfEluLjZ78E1qo4hGoJtlXfHETWJyjgbNQyiI7wYp5+CmaTzP+\/bv+vI++xg==', //7991
+                    "qwe":'9ACxQKwgWXawwAKvIBbWb7I6ZiT8q7s0UEaMPWY0lMxOPhe7Hp2dtgkbUxMCkoU0HAhlPdxTPg4C80jqu46\/1Q==' //9813
+                },debug:{
+                    lipo:'TOzO1ORZdSKfz9qnv8VAG6ZMo\/KVDHrEYcpc\/b7q1ztnoRGG0NzjemycRjB5XF3Aea2rzNZnQGzgRMdJ12F0ag==',  //2189
+                    ott:'ZnucOgwOxCFKahyttWB37qZMo\/KVDHrEYcpc\/b7q1ztnoRGG0Nzjeg1b2fUuhRY\/r261hg2zdyI+cSWhr8lNwQ==' //2180
+                }
+            };
+            var val=location.search.slice(1);
+            var  temp=val.split("=");
+            RongIMClient.connect(config[temp[0]][temp[1]], {
                 onSuccess: function (x) {
                     console.log("connected，userid＝" + x)
 //                    RongIMClient.getInstance().syncConversationList(RongIMClient.ConversationType.PRIVATE,{

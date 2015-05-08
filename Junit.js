@@ -80,7 +80,7 @@
         ConversationType: RongIMClient.ConversationType.setValue(4),
         targetId: "2189",
         content: "开始测试了",
-        discussId: "37abe2b1-1d46-490e-8a63-be736f6f2ba8",
+        discussId: "ee23c0d6-4d38-4aaf-97a7-8155f0b93518",
         chatroomId: "tr002",
         groupId: "group001"
     };
@@ -282,7 +282,7 @@
             return true;
         }).delay(2000).then(function () {
             log("创建讨论组");
-            instance.createDiscussion("单元测试", ["2189"], {
+            instance.createDiscussion("单元测试", ["2180"], {
                 onSuccess: function (id) {
                     _default.discussId = id;
                     info();
