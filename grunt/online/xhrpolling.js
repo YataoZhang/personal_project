@@ -539,7 +539,6 @@
             }
         }
     };
-
     for (var f in e) {
         e[f].decode = function (b) {
             var back = {}, val = JSON.parse(b) || eval("(" + b + ")");
@@ -554,6 +553,16 @@
     }
     d.Modules = e;
 })(window);
-if (RongIMClient.connect.token) {
-    RongIMClient.getInstance().connect(RongIMClient.connect.token, RongIMClient.connect.callback);
-}
+(function (g) {
+    if (g.RongIMClient) {
+        if (RongIMClient.connect.token) {
+            RongIMClient.getInstance().connect(RongIMClient.connect.token, RongIMClient.connect.callback);
+        }
+    } else {
+        require(['RongIMClient'], function (r) {
+            if (r.connect.token) {
+                r.getInstance().connect(r.connect.token, r.connect.callback);
+            }
+        })
+    }
+})(this);

@@ -1447,8 +1447,7 @@ var swfobject = function () {
         a[c].decode = (function (y) {
             return function (b) {
                 b = WebSocket.deSerialize(y, b);
-                var c = {},
-                    d;
+                var c = {}, d;
                 for (d in b) {
                     c[d]=b[d];
                     c["get"+ d.charAt(0).toUpperCase()+ d.slice(1)]=function(){
@@ -1460,6 +1459,16 @@ var swfobject = function () {
         })(c);
     b.Modules = a;
 })(window);
-if (RongIMClient.connect.token) {
-    RongIMClient.getInstance().connect(RongIMClient.connect.token, RongIMClient.connect.callback);
-}
+(function (g) {
+    if (g.RongIMClient) {
+        if (RongIMClient.connect.token) {
+            RongIMClient.getInstance().connect(RongIMClient.connect.token, RongIMClient.connect.callback);
+        }
+    } else {
+        require(['RongIMClient'], function (r) {
+            if (r.connect.token) {
+                r.getInstance().connect(r.connect.token, r.connect.callback);
+            }
+        })
+    }
+})(this);

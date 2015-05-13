@@ -4,12 +4,12 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <!--<script data-main="main" src="lib/require.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.7.min.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.net/RongIMClient.js"></script>-->
     <!--<script src="grunt/release/RongIMClient.min.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.8.min.js"></script>-->
     <script src="grunt/online/RongIMClient.js"></script>
-
     <script src="Junit.js"></script>
     <script>
         /**
@@ -21,23 +21,7 @@
          */
 //       window.WEB_SOCKET_FORCE_FLASH=true;
 //       window.WEB_XHR_POLLING=true;
-
-        window.callback = {
-            onSuccess: function () {
-                console.log(1, arguments)
-            }, onError: function (x) {
-                console.log(arguments.callee.caller);
-                console.log(2, x)
-            }
-        };
-
-        //"e74d17d7-b087-46cf-b46e-2b9cb120b0cb" release
-        //37abe2b1-1d46-490e-8a63-be736f6f2ba8 讨论组id
-        //be6a5792-2841-4cd7-8794-6a51fd692fa0
-        //d8378329-ea5f-45e8-acb9-26edf0485013
-
-        //kefu targetid kefu1427083338236
-        function load() {
+        window.onload=function(){
             RongIMClient.init("e0x9wycfx7flq");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
 
             RongIMClient.setConnectionStatusListener({//焦点判断
@@ -46,7 +30,7 @@
                         //链接成功
                         case RongIMClient.ConnectionStatus.CONNECTED:
                             //do something...
-                                console.log('链接成功');
+                            console.log('链接成功');
                             break;
                         //正在链接
                         case RongIMClient.ConnectionStatus.CONNECTING:
@@ -81,17 +65,17 @@
             });
             //release
 
-           var config={
-                release:{
-                    "jeams":'bEVSfJuyK+vKcWWvsodcDs2yq+hfEluLjZ78E1qo4hGoJtlXfHETWJyjgbNQyiI7wYp5+CmaTzP+\/bv+vI++xg==', //7991
-                    "qwe":'9ACxQKwgWXawwAKvIBbWb7I6ZiT8q7s0UEaMPWY0lMxOPhe7Hp2dtgkbUxMCkoU0HAhlPdxTPg4C80jqu46\/1Q==' //9813
-                },debug:{
-                    lipo:'TOzO1ORZdSKfz9qnv8VAG6ZMo\/KVDHrEYcpc\/b7q1ztnoRGG0NzjemycRjB5XF3Aea2rzNZnQGzgRMdJ12F0ag==',  //2189
-                    ott:'ZnucOgwOxCFKahyttWB37qZMo\/KVDHrEYcpc\/b7q1ztnoRGG0Nzjeg1b2fUuhRY\/r261hg2zdyI+cSWhr8lNwQ==' //2180
+            var config = {
+                release: {
+                    "jeams": 'bEVSfJuyK+vKcWWvsodcDs2yq+hfEluLjZ78E1qo4hGoJtlXfHETWJyjgbNQyiI7wYp5+CmaTzP+\/bv+vI++xg==', //7991
+                    "qwe": '9ACxQKwgWXawwAKvIBbWb7I6ZiT8q7s0UEaMPWY0lMxOPhe7Hp2dtgkbUxMCkoU0HAhlPdxTPg4C80jqu46\/1Q==' //9813
+                }, debug: {
+                    lipo: 'TOzO1ORZdSKfz9qnv8VAG6ZMo\/KVDHrEYcpc\/b7q1ztnoRGG0NzjemycRjB5XF3Aea2rzNZnQGzgRMdJ12F0ag==',  //2189
+                    ott: 'ZnucOgwOxCFKahyttWB37qZMo\/KVDHrEYcpc\/b7q1ztnoRGG0Nzjeg1b2fUuhRY\/r261hg2zdyI+cSWhr8lNwQ==' //2180
                 }
             };
-            var val=location.search.slice(1);
-            var  temp=val.split("=");
+            var val = location.search.slice(1);
+        var temp = val.split("=");//'g82tas7cuHF2alD1SOxG3/S0EfBoXiTJkMl9cfDtCfJomIZVGpPHqsW/g+HuXXPhy/nyWFQiXsIHvUCNzzMZQQ=='
             RongIMClient.connect(config[temp[0]][temp[1]], {
                 onSuccess: function (x) {
                     console.log("connected，userid＝" + x)
@@ -103,63 +87,76 @@
 //
 //                        }
 //                    })
+                    window.PRIVATE=RongIMClient.ConversationType.PRIVATE;
+                    window.GROUP=RongIMClient.ConversationType.GROUP;
+                    window.DISCUSSION=RongIMClient.ConversationType.DISCUSSION;
+                    window.CHATROOM=RongIMClient.ConversationType.CHATROOM;
+                    window.CUSTOMER_SERVICE=RongIMClient.ConversationType.CUSTOMER_SERVICE;
                 },
                 onError: function (c) {
-                    var info='';
+                    var info = '';
                     switch (c) {
                         case RongIMClient.callback.ErrorCode.TIMEOUT:
-                            info='超时';
+                            info = '超时';
                             break;
                         case RongIMClient.callback.ErrorCode.UNKNOWN_ERROR:
-                            info='未知错误';
+                            info = '未知错误';
                             break;
                         case RongIMClient.ConnectErrorStatus.UNACCEPTABLE_PROTOCOL_VERSION:
-                            info='不可接受的协议版本';
+                            info = '不可接受的协议版本';
                             break;
                         case RongIMClient.ConnectErrorStatus.IDENTIFIER_REJECTED:
-                            info='appkey不正确';
+                            info = 'appkey不正确';
                             break;
                         case RongIMClient.ConnectErrorStatus.SERVER_UNAVAILABLE:
-                            info='服务器不可用';
+                            info = '服务器不可用';
                             break;
                         case RongIMClient.ConnectErrorStatus.TOKEN_INCORRECT:
-                            info='token无效';
+                            info = 'token无效';
                             break;
                         case RongIMClient.ConnectErrorStatus.NOT_AUTHORIZED:
-                            info='未认证';
+                            info = '未认证';
                             break;
                         case RongIMClient.ConnectErrorStatus.REDIRECT:
-                            info='重新获取导航';
+                            info = '重新获取导航';
                             break;
                         case RongIMClient.ConnectErrorStatus.PACKAGE_ERROR:
-                            info='包名错误';
+                            info = '包名错误';
                             break;
                         case RongIMClient.ConnectErrorStatus.APP_BLOCK_OR_DELETE:
-                            info='应用已被封禁或已被删除';
+                            info = '应用已被封禁或已被删除';
                             break;
                         case RongIMClient.ConnectErrorStatus.BLOCK:
-                            info='用户被封禁';
+                            info = '用户被封禁';
                             break;
                         case RongIMClient.ConnectErrorStatus.TOKEN_EXPIRE:
-                            info='token已过期';
+                            info = 'token已过期';
                             break;
                         case RongIMClient.ConnectErrorStatus.DEVICE_ERROR:
-                            info='设备号错误';
+                            info = '设备号错误';
                             break;
                     }
-                    console.info("失败:"+info);
+                    console.info("失败:" + info);
                 }
             });
 
             RongIMClient.getInstance().setOnReceiveMessageListener({
                 onReceived: function (data) {
                     console.log(data.getSenderUserId(), new Date);
-//                    if (data.getSenderUserId() != RongBrIdge._client.userId)
-                        received.value += data.getContent() + "\n";
+                    received.value += data.getContent() + "\n";
                 }
             });
+            window.callback = {
+                onSuccess: function () {
+                    console.log(1, arguments)
+                }, onError: function (x) {
+                    console.log(arguments.callee.caller);
+                    console.log(2, x)
+                }
+            };
 
             ins = RongIMClient.getInstance();
+
 
             var send = document.getElementById("send");
             var id = document.getElementById("userid");
@@ -172,31 +169,31 @@
                         con.value = parseInt(con.value) + 1;
                     },
                     onError: function (x) {
-                        var info='';
-                        switch (x){
+                        var info = '';
+                        switch (x) {
                             case RongIMClient.callback.ErrorCode.TIMEOUT:
-                                info='超时';
+                                info = '超时';
                                 break;
                             case RongIMClient.callback.ErrorCode.UNKNOWN_ERROR:
-                                info='未知错误';
+                                info = '未知错误';
                                 break;
                             case RongIMClient.SendErrorStatus.REJECTED_BY_BLACKLIST:
-                                info='在黑名单中，无法向对方发送消息';
+                                info = '在黑名单中，无法向对方发送消息';
                                 break;
                             case RongIMClient.SendErrorStatus.NOT_IN_DISCUSSION:
-                                info='不在讨论组中';
+                                info = '不在讨论组中';
                                 break;
                             case RongIMClient.SendErrorStatus.NOT_IN_GROUP:
-                                info='不在群组中';
+                                info = '不在群组中';
                                 break;
                             case RongIMClient.SendErrorStatus.NOT_IN_CHATROOM:
-                                info='不在聊天室中';
+                                info = '不在聊天室中';
                                 break;
                             default :
-                                info=x;
+                                info = x;
                                 break;
                         }
-                        console.info('发送失败:'+info);
+                        console.info('发送失败:' + info);
                     }
                 });
             };
@@ -205,11 +202,6 @@
             ones.onchange = function () {
                 window.ba = this.files[0];
             };
-        }
-        if (window.attachEvent) {
-            window.attachEvent("onload", load);
-        } else {
-            window.addEventListener("load", load, false);
         }
     </script>
 </head>
