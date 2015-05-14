@@ -16,13 +16,14 @@
                 return (isinit = true);
             };
             this.play = function (DataURL, duration) {
-                if (isinit) {
+                if (isinit&&+duration==duration) {
                     if (window.handleFileSelect)
                         window.handleFileSelect(DataURL);
                     else
                         throw new Error("Has not been initialized, please wait");
                     if(!duration)
                         return;
+                    duration=Math.ceil(duration);
                     this.onprogress(0);
                     var self = this, c = 1, timer = setInterval(function () {
                         self.onprogress(c / duration);
