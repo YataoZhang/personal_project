@@ -1,264 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e2fcb2a3-7cfd-415b-8a38-f8e4f3a00ba8" name="Default" comment="修改美剧">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/async/.gitmodules" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/.jshintrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/getobject/.jshintrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/async/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/node_modules/graceful-fs/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/minimatch/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/test/00-setup.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/rimraf/AUTHORS" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/CONTRIBUTING.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/node_modules/abbrev/CONTRIBUTING.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/release/Embedded.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/Gruntfile.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/HISTORY.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/HISTORY.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/LICENSE-MIT" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/LICENSE-MIT" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/hooker/LICENSE-MIT" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/async/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/node_modules/graceful-fs/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/minimatch/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/node_modules/abbrev/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/rimraf/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/which/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/colors/MIT-LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/async/Makefile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/async/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/node_modules/graceful-fs/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/node_modules/inherits/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/hooker/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/lodash/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/node_modules/abbrev/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/rimraf/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/which/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/colors/ReadMe.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/release/RongIMClient-0.9.7.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/release/RongIMClient.emoji-0.9.2.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/release/RongIMClient.indexedDB.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/release/RongIMClient.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/release/RongIMClient.voice-0.9.1.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/node_modules/abbrev/abbrev.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action_container.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/help/added_formatters.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/mvc/view/admin.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/aja.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/ajax.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/ajax.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action/append.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/appveyor.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/argparse.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/argument_parser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/examples/arguments.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/async/lib/async.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/hooker/dist/ba-hooker.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/hooker/dist/ba-hooker.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/test/bash-comparison.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/test/bash-results.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/rimraf/bin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/binary.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/bool.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/.bin/cake" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/coffee-script/bin/cake" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/hooker/child.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/examples/choice.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/grunt/cli.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/.bin/coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/coffee-script/bin/coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/colors/colors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/common.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/test/compat.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/grunt/config.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/const.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action/append/constant.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action/store/constant.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/examples/constants.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/mvc/view/contact.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action/count.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/test/fixtures/create-files.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/examples/custom_types.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/examples/custom_types.yaml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/test/cwd-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/schema/default.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/examples/dumper.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/dumper.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/examples/dumper.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/emoji_test.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/argument/error.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/bin/esparse.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esparse" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/esprima.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/bin/esvalidate.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esvalidate" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/grunt/event.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/colors/example.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/colors/example.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/exception.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/argument/exclusive.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/lib/exit.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/test/exit_test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/grunt/fail.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action/store/false.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/grunt/file.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/float.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/help/formatter.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/js/function.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/examples/g.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/getobject/lib/getobject.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/glob.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/node_modules/graceful-fs/graceful-fs.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/argument/group.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/.bin/grunt-strip" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt-strip/bin/grunt-strip" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/grunt.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/hooker/grunt.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/grunt/help.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/examples/help.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action/help.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/mvc/view/home.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/hooker/lib/hooker.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/hooker/test/hooker_test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/html5.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/indexed DB/moz/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/async/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/indexed DB/indexedDB.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/node_modules/inherits/inherits.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/int.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/bin/js-yaml.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/.bin/js-yaml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/juicer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/laroux.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/loader.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/lodash/lodash.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/lodash/lodash.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/lodash/lodash.underscore.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/lodash/lodash.underscore.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/test/fixtures/log-broken.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/test/fixtures/log.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/map.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/test/mark.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/mark.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/merge.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/schema/minimal.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/minimatch/minimatch.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/indexed DB/moz/moz_demo.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/mvc/mvc.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/examples/my-program.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/mvc/myMVC.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/namespace.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/getobject/test/namespace_test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/examples/nargs.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/test/nocase-nomagic.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/bin/nopt.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/lib/nopt.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/.bin/nopt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/null.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/omap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/node_modules/graceful-fs/test/open.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/grunt/option.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/async/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/colors/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/exit/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/getobject/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/node_modules/graceful-fs/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/node_modules/inherits/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/hooker/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/lodash/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/minimatch/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/node_modules/abbrev/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/rimraf/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/which/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/pairs.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/hooker/parent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/examples/parents.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/test/pause-resume.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/examples/prefix_chars.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/release/protobuf-0.2.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/test/reflect.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/js/regexp.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/require.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/rimraf/rimraf.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/.bin/rimraf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/test/root-nomount.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/test/root.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/test/run.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/rimraf/test/run.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/test/runner.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/schema/safe.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/examples/sample_document.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/examples/sample_document.yaml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/schema.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/sea.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/seq.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/set.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/rimraf/test/setup.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action/store.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/str.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/indexed DB/moz/style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/examples/sub_commands.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action/subparsers.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/examples/sum.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/release/swfobject-0.2.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/grunt/task.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/util/task.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/lib/grunt/template.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/rimraf/test/test-async.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/rimraf/test/test-sync.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/colors/test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/test/test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/nopt/node_modules/abbrev/test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/examples/testformatters.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/timestamp.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action/store/true.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/node_modules/graceful-fs/test/ulimit.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/lib/js-yaml/type/js/undefined.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/examples/usr-local.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/action/version.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/which/which.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/.bin/which" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/which/bin/which" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/colors/themes/winston-dark.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/colors/themes/winston-light.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/release/xhrpolling-0.2.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/glob/test/zz-cleanup.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/junk/技巧.txt" />
+    <list default="true" id="e2fcb2a3-7cfd-415b-8a38-f8e4f3a00ba8" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grunt/online/Embedded.js" afterPath="$PROJECT_DIR$/grunt/online/Embedded.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grunt/Gruntfile.js" afterPath="$PROJECT_DIR$/grunt/Gruntfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grunt/online/RongIMClient.js" afterPath="$PROJECT_DIR$/grunt/online/RongIMClient.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SDK_invoker.html" afterPath="$PROJECT_DIR$/SDK_invoker.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/embed.html" afterPath="$PROJECT_DIR$/embed.html" />
+    </list>
+    <list id="c984084d-0f5e-4cdc-b42d-e0fd9cf28f5b" name="New changelist" comment="New changelist">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="personal_project.iws" />
     <ignored path=".idea/workspace.xml" />
+    <file path="$PROJECT_DIR$/.idea/workspace.xml" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,76 +33,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SDK_invoker.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SDK_invoker.html">
+      <file leaf-file-name="Embedded.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grunt/online/Embedded.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.52" vertical-offset="304" max-vertical-offset="3648">
-              <caret line="37" column="25" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.25" vertical-offset="0" max-vertical-offset="16096">
+              <caret line="10" column="76" selection-start-line="10" selection-start-column="76" selection-end-line="10" selection-end-column="76" />
               <folding>
-                <element signature="n#style#0;n#select#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#textarea#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#textarea#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1431945057000" expanded="true" signature="3064:3078" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="3457:3476" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="3528:3541" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="3867:4130" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="4251:4357" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="4852:4865" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="46842:46890" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="46905:46955" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="47648:47696" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="47752:47819" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="48840:48888" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="48956:49023" placeholder="..." />
+                <marker date="1431945057000" expanded="true" signature="55863:56032" placeholder="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RongIMClient.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/grunt/online/RongIMClient.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38906088" vertical-offset="59079" max-vertical-offset="60048">
-              <caret line="3716" column="45" selection-start-line="3716" selection-start-column="45" selection-end-line="3716" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="swfobject.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grunt/online/swfobject.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="13164" max-vertical-offset="22848">
-              <caret line="838" column="43" selection-start-line="838" selection-start-column="43" selection-end-line="838" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="emoji-0.9.2.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grunt/online/emoji-0.9.2.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="160" max-vertical-offset="1856">
-              <caret line="10" column="83" selection-start-line="10" selection-start-column="83" selection-end-line="10" selection-end-column="83" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ajax.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/ajax.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1376" max-vertical-offset="5360">
-              <caret line="86" column="31" selection-start-line="86" selection-start-column="31" selection-end-line="86" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="laroux.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/laroux.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5072" max-vertical-offset="5360">
-              <caret line="317" column="10" selection-start-line="317" selection-start-column="10" selection-end-line="317" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="aja.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/aja.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1776" max-vertical-offset="13328">
-              <caret line="111" column="55" selection-start-line="111" selection-start-column="55" selection-end-line="111" selection-end-column="55" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -355,43 +60,126 @@
       <file leaf-file-name="embed.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/embed.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="672" max-vertical-offset="960">
-              <caret line="42" column="38" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="emoji_test.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/emoji_test.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="224" max-vertical-offset="432">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            <state vertical-scroll-proportion="-6.44" vertical-offset="255" max-vertical-offset="912">
+              <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Embedded.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grunt/online/Embedded.js">
+        <entry file="file://$PROJECT_DIR$/grunt/release/Embedded.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="12828" max-vertical-offset="16064">
-              <caret line="821" column="9" selection-start-line="821" selection-start-column="9" selection-end-line="821" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="112">
+              <caret line="1" column="263" selection-start-line="1" selection-start-column="263" selection-end-line="1" selection-end-column="263" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="xhrpolling.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/online/xhrpolling.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="8505" max-vertical-offset="9184">
+              <caret line="560" column="12" selection-start-line="560" selection-start-column="12" selection-end-line="560" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="protobuf-0.2.min.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/release/protobuf-0.2.min.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2486" max-vertical-offset="3184">
+              <caret line="192" column="54" selection-start-line="192" selection-start-column="54" selection-end-line="192" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="xhrpolling-0.2.min.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/release/xhrpolling-0.2.min.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="320">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="swfobject-0.2.min.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/release/swfobject-0.2.min.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="214" max-vertical-offset="880">
+              <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RongIMClient.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/online/RongIMClient.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.807693" vertical-offset="35563" max-vertical-offset="50272">
+              <caret line="2333" column="0" selection-start-line="2333" selection-start-column="0" selection-end-line="2333" selection-end-column="0" />
               <folding>
-                <marker date="1429778213000" expanded="true" signature="3058:3072" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="3451:3470" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="3522:3535" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="3861:4124" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="4245:4351" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="4846:4859" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="46836:46884" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="46899:46949" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="47642:47690" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="47746:47813" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="48834:48882" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="48950:49017" placeholder="..." />
-                <marker date="1429778213000" expanded="true" signature="55857:56026" placeholder="..." />
+                <element signature="e#131#1524#0" expanded="false" />
+                <element signature="e#1553#5973#0" expanded="false" />
+                <element signature="e#117774#117945#0" expanded="false" />
+                <element signature="e#118000#120930#0" expanded="false" />
+                <element signature="e#120984#121190#0" expanded="false" />
+                <element signature="e#121416#121556#0" expanded="false" />
+                <element signature="e#125616#126420#0" expanded="false" />
+                <element signature="e#126466#126947#0" expanded="false" />
+                <element signature="e#126993#127158#0" expanded="false" />
+                <element signature="e#127214#127327#0" expanded="false" />
+                <element signature="e#127528#127887#0" expanded="false" />
+                <element signature="e#127957#128107#0" expanded="false" />
+                <element signature="e#128317#128869#0" expanded="false" />
+                <element signature="e#128952#129133#0" expanded="false" />
+                <element signature="e#129355#129714#0" expanded="false" />
+                <element signature="e#129784#129933#0" expanded="false" />
+                <element signature="e#130140#130306#0" expanded="false" />
+                <element signature="e#130523#130687#0" expanded="false" />
+                <element signature="e#130902#131060#0" expanded="false" />
+                <element signature="e#131273#132008#0" expanded="false" />
+                <element signature="e#132097#132305#0" expanded="false" />
+                <element signature="e#132535#133546#0" expanded="false" />
+                <element signature="e#133825#134016#0" expanded="false" />
+                <element signature="e#134094#134229#0" expanded="false" />
+                <element signature="e#134507#135509#0" expanded="false" />
+                <element signature="e#135622#135868#0" expanded="false" />
+                <element signature="e#136461#137029#0" expanded="false" />
+                <element signature="e#137111#137271#0" expanded="false" />
+                <element signature="e#137537#138081#0" expanded="false" />
+                <element signature="e#138158#138308#0" expanded="false" />
+                <element signature="e#138562#139204#0" expanded="false" />
+                <element signature="e#139253#139425#0" expanded="false" />
+                <element signature="e#139475#140008#0" expanded="false" />
+                <element signature="e#140057#140554#0" expanded="false" />
+                <element signature="e#140597#140735#0" expanded="false" />
+                <element signature="e#140799#140855#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="emoji-0.9.2.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/online/emoji-0.9.2.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="1856">
+              <caret line="33" column="44" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gruntfile.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grunt/Gruntfile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1440">
+              <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -412,65 +200,63 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/online_protobuf/protobuf.min.js" />
-        <option value="$PROJECT_DIR$/modules/emoji-0.9.2.js" />
-        <option value="$PROJECT_DIR$/flash/swfobject.min.js" />
-        <option value="$PROJECT_DIR$/online/new_SDK.js" />
-        <option value="$USER_HOME$/Documents/grunt/Gruntfile.js" />
-        <option value="$PROJECT_DIR$/test_SDK.html" />
-        <option value="$PROJECT_DIR$/junk/视觉滚动差.html" />
-        <option value="$PROJECT_DIR$/junk/技巧.txt" />
-        <option value="$PROJECT_DIR$/grunt/online/temp.js" />
-        <option value="$PROJECT_DIR$/junk/promise.html" />
-        <option value="$PROJECT_DIR$/grunt/online/xhrpolling.js" />
-        <option value="$PROJECT_DIR$/junk/mvc.js" />
-        <option value="$PROJECT_DIR$/junk/myMVC.html" />
-        <option value="$PROJECT_DIR$/junk/view/admin.html" />
-        <option value="$PROJECT_DIR$/junk/view/contact.html" />
-        <option value="$PROJECT_DIR$/junk/view/home.html" />
-        <option value="$PROJECT_DIR$/junk/mvc/view/home.html" />
-        <option value="$PROJECT_DIR$/junk/mvc/mvc.js" />
-        <option value="$PROJECT_DIR$/junk/mvc/myMVC.html" />
-        <option value="$PROJECT_DIR$/junk/mvc/view/admin.html" />
-        <option value="$PROJECT_DIR$/junk/mvc/view/contact.html" />
-        <option value="$PROJECT_DIR$/junk/indexed DB/indexedDB.html" />
-        <option value="$PROJECT_DIR$/junk/indexed DB/moz_demo.js" />
-        <option value="$PROJECT_DIR$/junk/indexed DB/moz/style.css" />
-        <option value="$PROJECT_DIR$/junk/indexed DB/moz/index.html" />
-        <option value="$PROJECT_DIR$/junk/indexed DB/moz/moz_demo.js" />
-        <option value="$PROJECT_DIR$/junk/indexed DB/indexedDB.js" />
-        <option value="$PROJECT_DIR$/grunt/online/indexedDB.js" />
-        <option value="$PROJECT_DIR$/Junit.js" />
-        <option value="$PROJECT_DIR$/junk/xhr-polling.html" />
-        <option value="$PROJECT_DIR$/emoji_test.html" />
-        <option value="$PROJECT_DIR$/grunt/online/emoji-0.9.2.js" />
-        <option value="$PROJECT_DIR$/modules/embed.html" />
         <option value="$PROJECT_DIR$/modules/Embedded.js" />
         <option value="$USER_HOME$/Documents/PaulGuo-Juicer-de634bf/src/juicer.js" />
         <option value="$PROJECT_DIR$/junk/juicer.js" />
         <option value="$PROJECT_DIR$/junk/sea.js" />
-        <option value="$PROJECT_DIR$/grunt/release/Embedded.js" />
-        <option value="$PROJECT_DIR$/grunt/Gruntfile.js" />
-        <option value="$USER_HOME$/web-im-lib/RongIMClient.js" />
-        <option value="$PROJECT_DIR$/node server.js" />
-        <option value="$PROJECT_DIR$/junk/ajax.html" />
-        <option value="$PROJECT_DIR$/grunt/online/swfobject.js" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/junk/aja.js" />
-        <option value="$PROJECT_DIR$/junk/ajax.js" />
         <option value="$PROJECT_DIR$/junk/laroux.js" />
-        <option value="$PROJECT_DIR$/grunt/online/Embedded.js" />
-        <option value="$PROJECT_DIR$/embed.html" />
+        <option value="$PROJECT_DIR$/junk/ajax.js" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/grunt/release/empty.js" />
+        <option value="$PROJECT_DIR$/junk/fanxianghefu/Reverse_service.js" />
+        <option value="$PROJECT_DIR$/junk/reverse/Reverse_service.js" />
+        <option value="$PROJECT_DIR$/junk/reverse/index.html" />
+        <option value="$PROJECT_DIR$/node server.js" />
+        <option value="$PROJECT_DIR$/grunt/online/emoji-0.9.2.js" />
+        <option value="zeptojs.com/zepto.js" />
+        <option value="$PROJECT_DIR$/junk/index.html" />
+        <option value="$PROJECT_DIR$/grunt/online/indexedDB.js" />
+        <option value="$PROJECT_DIR$/junk/nothing.js" />
+        <option value="$PROJECT_DIR$/grunt/release/RongIMClient-0.9.8.min.js" />
+        <option value="$PROJECT_DIR$/emoji_test.html" />
+        <option value="$PROJECT_DIR$/nodejs/express/views/index.jade" />
+        <option value="$PROJECT_DIR$/nodejs/express/ex_server.js" />
+        <option value="$PROJECT_DIR$/lib/require.js" />
+        <option value="$PROJECT_DIR$/lib/main.js" />
+        <option value="$PROJECT_DIR$/grunt/release/protobuf-0.2.min.js" />
+        <option value="$PROJECT_DIR$/junk/aja.js" />
+        <option value="$PROJECT_DIR$/grunt/online/swfobject.js" />
+        <option value="$PROJECT_DIR$/grunt/online/xhrpolling.js" />
+        <option value="$PROJECT_DIR$/grunt/online/protobuf.js" />
+        <option value="$PROJECT_DIR$/main.js" />
+        <option value="$PROJECT_DIR$/Junit.js" />
+        <option value="$PROJECT_DIR$/junk/html5.html" />
+        <option value="$PROJECT_DIR$/junk/ajax.html" />
+        <option value="$PROJECT_DIR$/node/process.js" />
+        <option value="$PROJECT_DIR$/node/util.js" />
+        <option value="$PROJECT_DIR$/node/events.js" />
+        <option value="$PROJECT_DIR$/node/buffers.js" />
+        <option value="$PROJECT_DIR$/node/streams.js" />
+        <option value="$PROJECT_DIR$/node/fs.js" />
+        <option value="$PROJECT_DIR$/node/path.js" />
+        <option value="$PROJECT_DIR$/node/net.js" />
+        <option value="$PROJECT_DIR$/node/module.js" />
+        <option value="$PROJECT_DIR$/grunt/online/voice-0.9.1.js" />
+        <option value="$USER_HOME$/web-im-lib/RongIMClient.js" />
+        <option value="$PROJECT_DIR$/grunt/Gruntfile.js" />
         <option value="$PROJECT_DIR$/SDK_invoker.html" />
         <option value="$PROJECT_DIR$/grunt/online/RongIMClient.js" />
+        <option value="$PROJECT_DIR$/grunt/release/RongIMClient.min.js" />
+        <option value="$PROJECT_DIR$/grunt/release/RongIMClient-0.9.9.min.js" />
+        <option value="$PROJECT_DIR$/grunt/release/Embedded.js" />
+        <option value="$PROJECT_DIR$/embed.html" />
+        <option value="$PROJECT_DIR$/grunt/online/Embedded.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1920" />
-    <option name="y" value="-66" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -479,7 +265,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="1" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
@@ -498,7 +284,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -581,22 +366,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="personal_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="personal_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flash" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -604,7 +376,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/WebstormProjects/websocket/server.js" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FullScreen" value="true" />
     <property name="recentsLimit" value="5" />
@@ -612,31 +384,48 @@
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="LayoutCode.rearrangeEntriesHTML" value="false" />
+    <property name="LayoutCode.rearrangeEntriesPlain text" value="false" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/flash" />
     </key>
+    <key name="OPEN_URL_DIALOG">
+      <recent name="http://zeptojs.com/zepto.js" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/junk" />
-      <recent name="$PROJECT_DIR$/grunt/online" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/junk" />
+      <recent name="$PROJECT_DIR$/flash" />
+      <recent name="$PROJECT_DIR$/grunt/online" />
       <recent name="$PROJECT_DIR$/junk/indexed DB/moz" />
-      <recent name="$PROJECT_DIR$/junk/mvc" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.node server.js">
+  <component name="RunManager" selected="Node.js.module.js">
     <configuration default="false" name="node server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="node server.js" working-dir="$PROJECT_DIR$">
       <RunnerSettings RunnerId="NodeJS.run" />
       <ConfigurationWrapper RunnerId="NodeJS.run" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
+    <configuration default="false" name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="server.js" working-dir="$USER_HOME$/WebstormProjects/websocket">
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="RongIMClient-0.9.8.min.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="RongIMClient-0.9.8.min.js" working-dir="$PROJECT_DIR$/grunt/release">
+      <RunnerSettings RunnerId="NodeJS.debug" />
+      <ConfigurationWrapper RunnerId="NodeJS.debug" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ex_server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="ex_server.js" working-dir="$PROJECT_DIR$/nodejs/express">
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="module.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="module.js" working-dir="$PROJECT_DIR$/node">
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -649,14 +438,12 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="CucumberJavaScriptRunConfigurationType" factoryName="Cucumber.js">
-      <option name="cucumberJsArguments" />
-      <option name="executablePath" />
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
       <option name="filePath" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
-      <envs />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
       <method />
     </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
@@ -666,18 +453,36 @@
       <setting name="preferredDebugBrowser" value="Chrome" />
       <method />
     </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaScriptRunConfigurationType" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
       <method />
     </configuration>
-    <list size="1">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Node.js.node server.js" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.server.js" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.RongIMClient-0.9.8.min.js" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.ex_server.js" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.module.js" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.node server.js" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.module.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.node server.js" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.ex_server.js" />
+        <item index="3" class="java.lang.String" itemvalue="Node.js.RongIMClient-0.9.8.min.js" />
+        <item index="4" class="java.lang.String" itemvalue="Node.js.server.js" />
       </list>
     </recent_temporary>
   </component>
@@ -688,6 +493,7 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e2fcb2a3-7cfd-415b-8a38-f8e4f3a00ba8" name="Default" comment="" />
+      <changelist id="c984084d-0f5e-4cdc-b42d-e0fd9cf28f5b" name="New changelist" comment="" />
       <created>1426331552104</created>
       <updated>1426331552104</updated>
     </task>
@@ -879,7 +685,87 @@
       <created>1429778419744</created>
       <updated>1429778419744</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="修改美剧">
+      <created>1429851036670</created>
+      <updated>1429851036670</updated>
+    </task>
+    <task id="LOCAL-00049" summary="修改枚举">
+      <created>1429851999138</created>
+      <updated>1429851999139</updated>
+    </task>
+    <task id="LOCAL-00050" summary="修改枚举">
+      <created>1429852860222</created>
+      <updated>1429852860223</updated>
+    </task>
+    <task id="LOCAL-00051" summary="修改枚举">
+      <created>1430128000693</created>
+      <updated>1430128000693</updated>
+    </task>
+    <task id="LOCAL-00052" summary="修改底层代码">
+      <created>1430134824934</created>
+      <updated>1430134824934</updated>
+    </task>
+    <task id="LOCAL-00053" summary="修改底层代码">
+      <created>1430364131950</created>
+      <updated>1430364131950</updated>
+    </task>
+    <task id="LOCAL-00054" summary="修改底层代码">
+      <created>1430364167110</created>
+      <updated>1430364167111</updated>
+    </task>
+    <task id="LOCAL-00055" summary="增加会话列表和历史纪录功能&#10;修改flash policy file加载不到的问题">
+      <created>1430370635085</created>
+      <updated>1430370635085</updated>
+    </task>
+    <task id="LOCAL-00056" summary="修改底层代码">
+      <created>1430370669613</created>
+      <updated>1430370669613</updated>
+    </task>
+    <task id="LOCAL-00057" summary="修改底层代码">
+      <created>1430388949671</created>
+      <updated>1430388949671</updated>
+    </task>
+    <task id="LOCAL-00058" summary="修改底层代码">
+      <created>1430739023336</created>
+      <updated>1430739023336</updated>
+    </task>
+    <task id="LOCAL-00059" summary="修改底层代码">
+      <created>1430908162838</created>
+      <updated>1430908162838</updated>
+    </task>
+    <task id="LOCAL-00060" summary="修改底层代码">
+      <created>1430908197150</created>
+      <updated>1430908197151</updated>
+    </task>
+    <task id="LOCAL-00061" summary="修改底层代码">
+      <created>1431051486181</created>
+      <updated>1431051486181</updated>
+    </task>
+    <task id="LOCAL-00062" summary="修改getHistoryMessages方法">
+      <created>1431059363727</created>
+      <updated>1431059363728</updated>
+    </task>
+    <task id="LOCAL-00063" summary="messageparser">
+      <created>1431062426180</created>
+      <updated>1431062426180</updated>
+    </task>
+    <task id="LOCAL-00064" summary="messageparser">
+      <created>1431081006311</created>
+      <updated>1431081006311</updated>
+    </task>
+    <task id="LOCAL-00065" summary="兼容AMD、CMD">
+      <created>1431500411071</created>
+      <updated>1431500411071</updated>
+    </task>
+    <task id="LOCAL-00066" summary="兼容AMD、CMD">
+      <created>1431600587494</created>
+      <updated>1431600587495</updated>
+    </task>
+    <task id="LOCAL-00067" summary="兼容AMD、CMD">
+      <created>1431943152928</created>
+      <updated>1431943152928</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -903,47 +789,48 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1920" y="-66" width="1920" height="1080" extended-state="0" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="false" />
     <layout>
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="100" y="100" width="1080" height="600" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27123287" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970297" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2494043" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21537651" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24907847" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23344104" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2279587" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871288" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.102970295" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32739726" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34383562" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970297" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970297" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2279587" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871288" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871288" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2494043" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2279587" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21432333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.102970295" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -961,13 +848,7 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="ceshi" />
-    <MESSAGE value="test" />
-    <MESSAGE value="backup" />
-    <MESSAGE value="添加syncGroup和黑名单操作" />
-    <MESSAGE value="修改xhr-polling" />
-    <MESSAGE value="修改表情库" />
-    <MESSAGE value="0.9.7 source code" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
     <MESSAGE value="大换血" />
     <MESSAGE value="normal" />
     <MESSAGE value="添加grunt构建工具" />
@@ -986,392 +867,316 @@
     <MESSAGE value="修改接收消息会话类型错误" />
     <MESSAGE value="修改flash" />
     <MESSAGE value="细节改进" />
-    <option name="LAST_COMMIT_MESSAGE" value="细节改进" />
+    <MESSAGE value="修改美剧" />
+    <MESSAGE value="修改枚举" />
+    <MESSAGE value="增加会话列表和历史纪录功能&#10;修改flash policy file加载不到的问题" />
+    <MESSAGE value="修改底层代码" />
+    <MESSAGE value="修改getHistoryMessages方法" />
+    <MESSAGE value="messageparser" />
+    <MESSAGE value="兼容AMD、CMD" />
+    <option name="LAST_COMMIT_MESSAGE" value="兼容AMD、CMD" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="15" />
+      <option name="time" value="24" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/junk/mvc/view/home.html">
+    <entry file="file://$PROJECT_DIR$/junk/技巧.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="112">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="560">
+          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/mvc/view/contact.html">
+    <entry file="file://$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/grunt-legacy-log/node_modules/underscore.string/test/test_underscore/vendor/jquery.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="32" max-vertical-offset="128">
-          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5120" max-vertical-offset="150336">
+          <caret line="360" column="17" selection-start-line="360" selection-start-column="17" selection-end-line="360" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/mvc/view/admin.html">
+    <entry file="file://$PROJECT_DIR$/junk/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="112" max-vertical-offset="208">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1552" max-vertical-offset="1872">
+          <caret line="97" column="31" selection-start-line="97" selection-start-column="31" selection-end-line="97" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flash/WebSocketMainInsecure-0.2.swf.bak">
+    <entry file="http://zeptojs.com/zepto.js">
+      <provider selected="true" editor-type-id="httpFileEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.voice-0.9.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="25392">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/indexed DB/moz/style.css">
+    <entry file="file://$PROJECT_DIR$/junk/reverse/Reverse_service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="704">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3328424" vertical-offset="46" max-vertical-offset="1344">
+          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/node_modules/grunt/node_modules/underscore.string/test/test_underscore/functions.js">
+    <entry file="file://$PROJECT_DIR$/junk/ajax.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3264">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5354" max-vertical-offset="6288">
+          <caret line="348" column="0" selection-start-line="348" selection-start-column="0" selection-end-line="348" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/indexed DB/moz/index.html">
+    <entry file="file://$PROJECT_DIR$/junk/nothing.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.8" vertical-offset="0" max-vertical-offset="480">
-          <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/indexed DB/moz/moz_demo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="186" max-vertical-offset="3408">
-          <caret line="52" column="49" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/indexed DB/indexedDB.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.4" vertical-offset="0" max-vertical-offset="256">
-          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/mvc/myMVC.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1168">
-          <caret line="51" column="36" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Junit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="96" max-vertical-offset="8208">
-          <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/loadImage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42362526" vertical-offset="0" max-vertical-offset="1232">
-          <caret line="26" column="70" selection-start-line="26" selection-start-column="70" selection-end-line="26" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/技巧.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24439919" vertical-offset="0" max-vertical-offset="982">
-          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="702">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/junk/promise.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.84" vertical-offset="1603" max-vertical-offset="2560">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2224" max-vertical-offset="2560">
           <caret line="139" column="30" selection-start-line="139" selection-start-column="30" selection-end-line="139" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/视觉滚动差.html">
+    <entry file="file://$PROJECT_DIR$/junk/laroux.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.96" vertical-offset="48" max-vertical-offset="1248">
-          <caret line="42" column="45" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2630" max-vertical-offset="5360">
+          <caret line="159" column="24" selection-start-line="159" selection-start-column="24" selection-end-line="159" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/sea.js">
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/core-scripting.rnc">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14656">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/protobuf-0.2.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3184">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.indexedDB.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
-          <caret line="0" column="9" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient-0.9.7.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
-          <caret line="0" column="60" selection-start-line="0" selection-start-column="60" selection-end-line="0" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/swfobject-0.2.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="946">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/xhrpolling-0.2.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="946">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/Gruntfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="112" max-vertical-offset="1440">
-          <caret line="26" column="25" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/Embedded.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="176">
-          <caret line="5" column="1122" selection-start-line="5" selection-start-column="1122" selection-end-line="5" selection-end-column="1122" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.emoji-0.9.2.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
-          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/indexedDB.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="2048">
-          <caret line="74" column="51" selection-start-line="74" selection-start-column="51" selection-end-line="74" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/web-im-lib/RongIMClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="56000">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.2827688" vertical-offset="0" max-vertical-offset="5520">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.min.js">
+    <entry file="file://$PROJECT_DIR$/lib/require.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="96">
-          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="13056" max-vertical-offset="33104">
+          <caret line="40" column="29" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emoji_test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="464">
+          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/online/swfobject.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="8118" max-vertical-offset="8784">
+          <caret line="1451" column="30" selection-start-line="1451" selection-start-column="30" selection-end-line="1451" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/AJAX.js">
+    <entry file="file://$PROJECT_DIR$/junk/ajax.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57637477" vertical-offset="954" max-vertical-offset="1936">
-          <caret line="95" column="25" selection-start-line="95" selection-start-column="25" selection-end-line="95" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.50078005" vertical-offset="3327" max-vertical-offset="6320">
+          <caret line="228" column="1" selection-start-line="228" selection-start-column="1" selection-end-line="228" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/node_modules/grunt-contrib-uglify/node_modules/grunt-lib-contrib/node_modules/zlib-browserify/index.js">
+    <entry file="file://$PROJECT_DIR$/junk/html5.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06517312" vertical-offset="0" max-vertical-offset="982">
-          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="224" max-vertical-offset="1440">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="896">
-          <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/ajax.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="608">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/html5.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.92" vertical-offset="0" max-vertical-offset="1056">
-          <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/juicer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="8784">
-          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flash/WebSocketMainInsecure-0.2.swf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="25904">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/protobuf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03258656" vertical-offset="0" max-vertical-offset="982">
-          <caret line="4180" column="9" selection-start-line="4180" selection-start-column="9" selection-end-line="4180" selection-end-column="9" />
-          <folding>
-            <element signature="e#13#13720#0" expanded="false" />
-            <element signature="e#13739#88075#0" expanded="false" />
-            <element signature="e#13759#87606#0" expanded="false" />
-            <element signature="e#88098#198235#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/voice-0.9.1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="800">
-          <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/xhrpolling.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="336" max-vertical-offset="8384">
-          <caret line="38" column="31" selection-start-line="38" selection-start-column="31" selection-end-line="38" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="12839" max-vertical-offset="14400">
-          <caret line="830" column="5" selection-start-line="830" selection-start-column="5" selection-end-line="830" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/node_modules/grunt-contrib-uglify/node_modules/uglify-js/node_modules/source-map/build/mini-require.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50509167" vertical-offset="0" max-vertical-offset="2528">
-          <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/ajax.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="5360">
-          <caret line="86" column="31" selection-start-line="86" selection-start-column="31" selection-end-line="86" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/laroux.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4378" max-vertical-offset="5360">
-          <caret line="317" column="10" selection-start-line="317" selection-start-column="10" selection-end-line="317" selection-end-column="10" />
-          <folding />
+          <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/junk/aja.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1360" max-vertical-offset="13296">
-          <caret line="111" column="55" selection-start-line="111" selection-start-column="55" selection-end-line="111" selection-end-column="55" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1376" max-vertical-offset="13424">
+          <caret line="818" column="21" selection-start-line="818" selection-start-column="21" selection-end-line="818" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+    <entry file="file://$PROJECT_DIR$/junk/juicer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3329939" vertical-offset="1209" max-vertical-offset="14992">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8784">
+          <caret line="530" column="45" selection-start-line="530" selection-start-column="45" selection-end-line="530" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/sea.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="14656">
+          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="16485" max-vertical-offset="17248">
+          <caret line="1042" column="21" selection-start-line="1042" selection-start-column="21" selection-end-line="1042" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="688">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/buffers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1353" max-vertical-offset="2032">
+          <caret line="117" column="6" selection-start-line="117" selection-start-column="6" selection-end-line="117" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/util.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/process.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1705" max-vertical-offset="2384">
+          <caret line="128" column="36" selection-start-line="128" selection-start-column="36" selection-end-line="128" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/streams.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="1376">
+          <caret line="70" column="20" selection-start-line="70" selection-start-column="20" selection-end-line="70" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/fs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="112">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/path.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="702">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/net.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="112">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="704">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/web-im-lib/RongIMClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2072072" vertical-offset="49686" max-vertical-offset="52288">
+          <caret line="3114" column="11" selection-start-line="3114" selection-start-column="11" selection-end-line="3114" selection-end-column="11" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/online/indexedDB.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1337" max-vertical-offset="2016">
           <caret line="96" column="17" selection-start-line="96" selection-start-column="17" selection-end-line="96" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/embed.html">
+    <entry file="file://$PROJECT_DIR$/grunt/online/loadImage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="672" max-vertical-offset="960">
-          <caret line="42" column="38" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/emoji_test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="224" max-vertical-offset="432">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.voice-0.9.1.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="969">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1232">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/Embedded.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="12828" max-vertical-offset="16064">
-          <caret line="821" column="9" selection-start-line="821" selection-start-column="9" selection-end-line="821" selection-end-column="9" />
-          <folding>
-            <marker date="1429778213000" expanded="true" signature="3058:3072" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="3451:3470" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="3522:3535" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="3861:4124" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="4245:4351" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="4846:4859" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="46836:46884" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="46899:46949" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="47642:47690" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="47746:47813" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="48834:48882" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="48950:49017" placeholder="..." />
-            <marker date="1429778213000" expanded="true" signature="55857:56026" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/emoji-0.9.2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1856">
-          <caret line="10" column="83" selection-start-line="10" selection-start-column="83" selection-end-line="10" selection-end-column="83" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grunt/online/swfobject.js">
+    <entry file="file://$PROJECT_DIR$/grunt/online/voice-0.9.1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="13164" max-vertical-offset="22848">
-          <caret line="838" column="43" selection-start-line="838" selection-start-column="43" selection-end-line="838" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3280">
+          <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/online/protobuf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="65878" max-vertical-offset="66544">
+          <caret line="4138" column="41" selection-start-line="4138" selection-start-column="41" selection-end-line="4138" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Junit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1526" max-vertical-offset="8256">
+          <caret line="113" column="20" selection-start-line="113" selection-start-column="20" selection-end-line="113" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.indexedDB.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="666">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SDK_invoker.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.52" vertical-offset="304" max-vertical-offset="3648">
-          <caret line="37" column="25" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
+        <state vertical-scroll-proportion="-9.6" vertical-offset="0" max-vertical-offset="3840">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
           <folding>
             <element signature="n#style#0;n#select#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#textarea#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1380,11 +1185,150 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="666">
+          <caret line="0" column="47762" selection-start-line="0" selection-start-column="47762" selection-end-line="0" selection-end-column="47762" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/RongIMClient-0.9.9.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="666">
+          <caret line="0" column="47681" selection-start-line="0" selection-start-column="47681" selection-end-line="0" selection-end-column="47681" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/Gruntfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1440">
+          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/online/xhrpolling.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="8505" max-vertical-offset="9184">
+          <caret line="560" column="12" selection-start-line="560" selection-start-column="12" selection-end-line="560" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/protobuf-0.2.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2486" max-vertical-offset="3184">
+          <caret line="192" column="54" selection-start-line="192" selection-start-column="54" selection-end-line="192" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/xhrpolling-0.2.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="320">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/swfobject-0.2.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="214" max-vertical-offset="880">
+          <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/embed.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.44" vertical-offset="255" max-vertical-offset="912">
+          <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/release/Embedded.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="112">
+          <caret line="1" column="263" selection-start-line="1" selection-start-column="263" selection-end-line="1" selection-end-column="263" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/online/emoji-0.9.2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="1856">
+          <caret line="33" column="44" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/grunt/online/RongIMClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38906088" vertical-offset="59079" max-vertical-offset="60048">
-          <caret line="3716" column="45" selection-start-line="3716" selection-start-column="45" selection-end-line="3716" selection-end-column="45" />
-          <folding />
+        <state vertical-scroll-proportion="-8.807693" vertical-offset="35563" max-vertical-offset="50272">
+          <caret line="2333" column="0" selection-start-line="2333" selection-start-column="0" selection-end-line="2333" selection-end-column="0" />
+          <folding>
+            <element signature="e#131#1524#0" expanded="false" />
+            <element signature="e#1553#5973#0" expanded="false" />
+            <element signature="e#117774#117945#0" expanded="false" />
+            <element signature="e#118000#120930#0" expanded="false" />
+            <element signature="e#120984#121190#0" expanded="false" />
+            <element signature="e#121416#121556#0" expanded="false" />
+            <element signature="e#125616#126420#0" expanded="false" />
+            <element signature="e#126466#126947#0" expanded="false" />
+            <element signature="e#126993#127158#0" expanded="false" />
+            <element signature="e#127214#127327#0" expanded="false" />
+            <element signature="e#127528#127887#0" expanded="false" />
+            <element signature="e#127957#128107#0" expanded="false" />
+            <element signature="e#128317#128869#0" expanded="false" />
+            <element signature="e#128952#129133#0" expanded="false" />
+            <element signature="e#129355#129714#0" expanded="false" />
+            <element signature="e#129784#129933#0" expanded="false" />
+            <element signature="e#130140#130306#0" expanded="false" />
+            <element signature="e#130523#130687#0" expanded="false" />
+            <element signature="e#130902#131060#0" expanded="false" />
+            <element signature="e#131273#132008#0" expanded="false" />
+            <element signature="e#132097#132305#0" expanded="false" />
+            <element signature="e#132535#133546#0" expanded="false" />
+            <element signature="e#133825#134016#0" expanded="false" />
+            <element signature="e#134094#134229#0" expanded="false" />
+            <element signature="e#134507#135509#0" expanded="false" />
+            <element signature="e#135622#135868#0" expanded="false" />
+            <element signature="e#136461#137029#0" expanded="false" />
+            <element signature="e#137111#137271#0" expanded="false" />
+            <element signature="e#137537#138081#0" expanded="false" />
+            <element signature="e#138158#138308#0" expanded="false" />
+            <element signature="e#138562#139204#0" expanded="false" />
+            <element signature="e#139253#139425#0" expanded="false" />
+            <element signature="e#139475#140008#0" expanded="false" />
+            <element signature="e#140057#140554#0" expanded="false" />
+            <element signature="e#140597#140735#0" expanded="false" />
+            <element signature="e#140799#140855#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grunt/online/Embedded.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25" vertical-offset="0" max-vertical-offset="16096">
+          <caret line="10" column="76" selection-start-line="10" selection-start-column="76" selection-end-line="10" selection-end-column="76" />
+          <folding>
+            <marker date="1431945057000" expanded="true" signature="3064:3078" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="3457:3476" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="3528:3541" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="3867:4130" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="4251:4357" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="4852:4865" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="46842:46890" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="46905:46955" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="47648:47696" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="47752:47819" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="48840:48888" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="48956:49023" placeholder="..." />
+            <marker date="1431945057000" expanded="true" signature="55863:56032" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
