@@ -43,4 +43,4 @@
     } else {
         throw new Error("Please load RongIMClient.min.js,http://res.websdk.rong.io/RongIMClient.min.js");
     }
-})(window)
+})(window);
