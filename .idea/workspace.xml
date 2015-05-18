@@ -7,13 +7,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grunt/online/RongIMClient.js" afterPath="$PROJECT_DIR$/grunt/online/RongIMClient.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SDK_invoker.html" afterPath="$PROJECT_DIR$/SDK_invoker.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/embed.html" afterPath="$PROJECT_DIR$/embed.html" />
-    </list>
-    <list id="c984084d-0f5e-4cdc-b42d-e0fd9cf28f5b" name="New changelist" comment="New changelist">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="personal_project.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="$PROJECT_DIR$/.idea/workspace.xml" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -493,7 +490,7 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e2fcb2a3-7cfd-415b-8a38-f8e4f3a00ba8" name="Default" comment="" />
-      <changelist id="c984084d-0f5e-4cdc-b42d-e0fd9cf28f5b" name="New changelist" comment="" />
+      <changelist id="" name="New changelist" comment="" />
       <created>1426331552104</created>
       <updated>1426331552104</updated>
     </task>
@@ -765,7 +762,11 @@
       <created>1431943152928</created>
       <updated>1431943152928</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="New changelist">
+      <created>1431945099614</created>
+      <updated>1431945099614</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -849,7 +850,6 @@
       <TodoPanelSettings />
     </option>
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="大换血" />
     <MESSAGE value="normal" />
     <MESSAGE value="添加grunt构建工具" />
     <MESSAGE value="add grunt util" />
@@ -874,7 +874,8 @@
     <MESSAGE value="修改getHistoryMessages方法" />
     <MESSAGE value="messageparser" />
     <MESSAGE value="兼容AMD、CMD" />
-    <option name="LAST_COMMIT_MESSAGE" value="兼容AMD、CMD" />
+    <MESSAGE value="New changelist" />
+    <option name="LAST_COMMIT_MESSAGE" value="New changelist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

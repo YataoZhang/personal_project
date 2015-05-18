@@ -6,7 +6,7 @@
             _head = document.documentElement.appendChild(document.createElement("head"));
         }
         _doc.type = "text/javascript";
-        _doc.src = "http://res.websdk.rongcloud.cn/RongIMClient-0.9.9.min.js";
+        _doc.src = "http://res.websdk.rongcloud.cn/RongIMClient-0.9.8.min.js";
         _doc.onload = function () {
             _doc1.src = "http://res.websdk.rongcloud.cn/RongIMClient.emoji-0.9.2.min.js";
             _head.appendChild(_doc1);

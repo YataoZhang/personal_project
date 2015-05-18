@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         minJs:{
             version:"0.9.7",
             rootPath:"./online/",
-            resource:[{src:"RongIMClient.js",nameList:"RongIMClient.min.js,RongIMClient-0.9.8.min.js",operate:"pack"},
+            resource:[{src:"RongIMClient.js",nameList:"RongIMClient.min.js,RongIMClient-0.9.9.min.js",operate:"pack"},
                 {src:"emoji-0.9.2.js",nameList:"RongIMClient.emoji-0.9.2.min.js",operate:"pack"},
                 {src:"protobuf.js",nameList:"protobuf-0.2.min.js",operate:"uglify"},
                 {src:"swfobject.js",nameList:"swfobject-0.2.min.js",operate:"uglify"},
