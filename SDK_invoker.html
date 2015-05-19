@@ -4,14 +4,16 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <!--<script src="junk/sea.js"></script>-->
+    <!--<script src="main.js"></script>-->
     <!--<script data-main="main" src="lib/require.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.7.min.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.net/RongIMClient.js"></script>-->
     <script src="grunt/release/RongIMClient.min.js"></script>
-    <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.8.min.js"></script>-->
+    <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.9.min.js"></script>-->
     <!--<script src="grunt/online/RongIMClient.js"></script>-->
     <!--<script src="grunt/online/voice-0.9.1.js"></script>-->
-    <!--<script src="Junit.js"></script>-->
+    <!--<script src="asdf.js"></script>-->
 
     <script>
         /**
@@ -27,7 +29,14 @@
 //       window.WEB_SOCKET_FORCE_FLASH=true;
        window.WEB_XHR_POLLING=true;
         window.onload=function(){
-            RongIMClient.init("e0x9wycfx7flq");//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
+            var val = location.search.slice(1);
+            var temp = val.split("=");
+            var appkey={
+                release:'z3v5yqkbv8v30',
+                debug:'e0x9wycfx7flq'
+            };
+
+            RongIMClient.init(appkey[temp[0]]);//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
 
             RongIMClient.setConnectionStatusListener({//焦点判断
                 onChanged: function (status) {
@@ -76,11 +85,11 @@
                     "qwe": '9ACxQKwgWXawwAKvIBbWb7I6ZiT8q7s0UEaMPWY0lMxOPhe7Hp2dtgkbUxMCkoU0HAhlPdxTPg4C80jqu46\/1Q==' //9813
                 }, debug: {
                     lipo: 'TOzO1ORZdSKfz9qnv8VAG6ZMo\/KVDHrEYcpc\/b7q1ztnoRGG0NzjemycRjB5XF3Aea2rzNZnQGzgRMdJ12F0ag==',  //2189
-                    ott: 'ZnucOgwOxCFKahyttWB37qZMo\/KVDHrEYcpc\/b7q1ztnoRGG0Nzjeg1b2fUuhRY\/r261hg2zdyI+cSWhr8lNwQ==' //2180
+                    ott: 'ZnucOgwOxCFKahyttWB37qZMo\/KVDHrEYcpc\/b7q1ztnoRGG0Nzjeg1b2fUuhRY\/r261hg2zdyI+cSWhr8lNwQ==', //2180
+                    lipo1:'qdgJAaoVbsnYFWU06H1D96ZMo\/KVDHrEYcpc\/b7q1zu7G6k5xy+HReYDc2l38PHzSTPeB5Zk3Tvn1jU6yYkozQ==' //2315
                 }
             };
-            var val = location.search.slice(1);
-        var temp = val.split("=");//'g82tas7cuHF2alD1SOxG3/S0EfBoXiTJkMl9cfDtCfJomIZVGpPHqsW/g+HuXXPhy/nyWFQiXsIHvUCNzzMZQQ=='
+           //'g82tas7cuHF2alD1SOxG3/S0EfBoXiTJkMl9cfDtCfJomIZVGpPHqsW/g+HuXXPhy/nyWFQiXsIHvUCNzzMZQQ=='
             //
             RongIMClient.connect(config[temp[0]][temp[1]], {
                 onSuccess: function (x) {
