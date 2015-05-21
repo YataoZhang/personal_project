@@ -10,16 +10,18 @@ http.createServer(function (req, res) {
     urls.query ? console.log(urls.query) : void 0;
     if (url == "/") {
 //        readFile("junk/ajax.html", res);
+//        readFile("test_1.html", res);
         readFile("SDK_Invoker.html", res);
     } else if (url == "/qwer") {
+        readFile("SDK_Invoker.html", res);
 //        res.writeHead(200,
 //            {"Access-Control-Allow-Origin": "*",
 //                "Set-Cookie": "phpauth=asdfasdhfgahsdgf",
 //                "Access-Control-Request-Headers": "cookie",
 //                "Access-Control-Allow-Headers": "cookie",
 //                "Access-Control-Allow-Credentials": true});
-        res.writeHead(200);
-        res.end(JSON.stringify({name:'zhangyatao',age:23}));
+//        res.writeHead(200);
+//        res.end(JSON.stringify({name:'zhangyatao',age:23}));
     } else if (url == "/register") {
         console.log(req.headers);
         res.writeHead(200,
@@ -48,4 +50,4 @@ function readFile(path, res) {
             res.end(data);
         }
     });
-};
+}

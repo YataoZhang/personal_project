@@ -9,11 +9,11 @@
     <!--<script data-main="main" src="lib/require.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.7.min.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.net/RongIMClient.js"></script>-->
-    <script src="grunt/release/RongIMClient.min.js"></script>
+    <!--<script src="grunt/release/RongIMClient.min.js"></script>-->
     <!--<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.9.min.js"></script>-->
-    <!--<script src="grunt/online/RongIMClient.js"></script>-->
+    <script src="grunt/online/RongIMClient.js"></script>
     <!--<script src="grunt/online/voice-0.9.1.js"></script>-->
-    <!--<script src="asdf.js"></script>-->
+    <!--<script src="SDK.js"></script>-->
 
     <script>
         /**
@@ -32,11 +32,11 @@
             var val = location.search.slice(1);
             var temp = val.split("=");
             var appkey={
-                release:'z3v5yqkbv8v30',
-                debug:'e0x9wycfx7flq'
+                r:'z3v5yqkbv8v30',
+                d:'e0x9wycfx7flq'
             };
 
-            RongIMClient.init(appkey[temp[0]]);//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
+            RongIMClient.init('e0x9wycfx7flq');//z3v5yqkbv8v30  pvxdm17jx5ler e0x9wycfx7flq z3v5yqkbv8z90
 
             RongIMClient.setConnectionStatusListener({//焦点判断
                 onChanged: function (status) {
@@ -44,35 +44,35 @@
                         //链接成功
                         case RongIMClient.ConnectionStatus.CONNECTED:
                             //do something...
-                            console.log('链接成功');
+                            alert('链接成功');
                             break;
                         //正在链接
                         case RongIMClient.ConnectionStatus.CONNECTING:
-                            console.log('正在链接');
+                            alert('正在链接');
                             break;
                         //重新链接
                         case RongIMClient.ConnectionStatus.RECONNECT:
-                            console.log('重新链接');
+                            alert('重新链接');
                             break;
                         //其他设备登陆
                         case RongIMClient.ConnectionStatus.OTHER_DEVICE_LOGIN:
-                            console.log('其他设备登陆');
+                            alert('其他设备登陆');
                             break;
                         //关闭
                         case RongIMClient.ConnectionStatus.CLOSURE:
-                            console.log('关闭');
+                            alert('关闭');
                             break;
                         //未知错误
                         case RongIMClient.ConnectionStatus.UNKNOWN_ERROR:
-                            console.log('未知错误');
+                            alert('未知错误');
                             break;
                         //登出
                         case RongIMClient.ConnectionStatus.LOGOUT:
-                            console.log('登出');
+                            alert('登出');
                             break;
                         //用户已被封禁
                         case RongIMClient.ConnectionStatus.BLOCK:
-                            console.log('用户已被封禁');
+                            alert('用户已被封禁');
                             break;
                     }
                 }
@@ -80,24 +80,28 @@
             //release
 
             var config = {
-                release: {
+                r: {
                     "jeams": 'bEVSfJuyK+vKcWWvsodcDs2yq+hfEluLjZ78E1qo4hGoJtlXfHETWJyjgbNQyiI7wYp5+CmaTzP+\/bv+vI++xg==', //7991
                     "qwe": '9ACxQKwgWXawwAKvIBbWb7I6ZiT8q7s0UEaMPWY0lMxOPhe7Hp2dtgkbUxMCkoU0HAhlPdxTPg4C80jqu46\/1Q==' //9813
-                }, debug: {
+                }, d: {
                     lipo: 'TOzO1ORZdSKfz9qnv8VAG6ZMo\/KVDHrEYcpc\/b7q1ztnoRGG0NzjemycRjB5XF3Aea2rzNZnQGzgRMdJ12F0ag==',  //2189
                     ott: 'ZnucOgwOxCFKahyttWB37qZMo\/KVDHrEYcpc\/b7q1ztnoRGG0Nzjeg1b2fUuhRY\/r261hg2zdyI+cSWhr8lNwQ==', //2180
-                    lipo1:'qdgJAaoVbsnYFWU06H1D96ZMo\/KVDHrEYcpc\/b7q1zu7G6k5xy+HReYDc2l38PHzSTPeB5Zk3Tvn1jU6yYkozQ==' //2315
+                    lipo1:'qdgJAaoVbsnYFWU06H1D96ZMo\/KVDHrEYcpc\/b7q1zu7G6k5xy+HReYDc2l38PHzSTPeB5Zk3Tvn1jU6yYkozQ==', //2315
+                    test:'WWW11ktxJpuOHuIPrq6sJbWcRSdGOdkm75rUuDrFPRtBviTKV0Rdssxrh/Wp8BIogwPDP2cj5iMn3WgfqlY0Xg==',// test
+                    'test1':'Ys8QMjzzuBByjS/dnrAzawxF+sgwx+nTb5OwerSH+DTKgeqy+c1zc7gGyG8ZaqhV1e+qYuC2scTQXXASIKPRHw==' //test1
                 }
             };
            //'g82tas7cuHF2alD1SOxG3/S0EfBoXiTJkMl9cfDtCfJomIZVGpPHqsW/g+HuXXPhy/nyWFQiXsIHvUCNzzMZQQ=='
-            //
+            //'WWW11ktxJpuOHuIPrq6sJbWcRSdGOdkm75rUuDrFPRtBviTKV0Rdssxrh/Wp8BIogwPDP2cj5iMn3WgfqlY0Xg==' test
+            //'Ys8QMjzzuBByjS/dnrAzawxF+sgwx+nTb5OwerSH+DTKgeqy+c1zc7gGyG8ZaqhV1e+qYuC2scTQXXASIKPRHw==' test1
+
             RongIMClient.connect(config[temp[0]][temp[1]], {
                 onSuccess: function (x) {
-                    console.log("connected，userid＝" + x)
+                    alert("connected，userid＝" + x);
 //                    RongIMClient.getInstance().syncConversationList(RongIMClient.ConversationType.PRIVATE,{
 //                        onSuccess:function(){
 //                            //同步成功后 显示同步后会话列表
-//                            console.log(RongIMClient.getInstance().getConversationList())
+//                            alert(RongIMClient.getInstance().getConversationList())
 //                        },onError:function(){
 //
 //                        }
@@ -157,16 +161,16 @@
 
             RongIMClient.getInstance().setOnReceiveMessageListener({
                 onReceived: function (data) {
-                    console.log(data.getSenderUserId(), new Date);
+                    alert(data.getSenderUserId(), new Date);
                     received.value += data.getContent() + "\n";
                 }
             });
             window.callback = {
-                onSuccess: function () {
-                    console.log(1, arguments)
+                onSuccess: function (x) {
+                    console.log(1, x,arguments)
                 }, onError: function (x) {
-                    console.log(arguments.callee.caller);
-                    console.log(2, x)
+                    alert(arguments.callee.caller);
+                    alert(2, x)
                 }
             };
 
@@ -180,7 +184,7 @@
             send.onclick = function () {
                 ins.sendMessage(RongIMClient.ConversationType.setValue(document.getElementById("conver").value), id.value, RongIMClient.TextMessage.obtain(con.value), null, {
                     onSuccess: function () {
-                        console.log("send success：" + parseInt(con.value), new Date);
+                        alert("send success：" + parseInt(con.value), new Date);
                         con.value = parseInt(con.value) + 1;
                     },
                     onError: function (x) {
@@ -208,7 +212,7 @@
                                 info = x;
                                 break;
                         }
-                        console.info('发送失败:' + info);
+                        alert('发送失败:' + info);
                     }
                 });
             };
@@ -230,8 +234,7 @@
     <option value="1">客服</option>
     <option value="5">系统</option>
 </select><label>会话类型</label>
-<textarea id="sendcontent" style="width: 100%;height: 100px;margin-top: 10px">
-    1
+<textarea id="sendcontent" style="width: 100%;height: 100px;margin-top: 10px">1
 </textarea><strong>接受的内容：</strong>
 <textarea id="receivedcontent" style="width: 100%;height: 100px;margin-top: 10px">
 
