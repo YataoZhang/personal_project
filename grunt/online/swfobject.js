@@ -825,7 +825,11 @@ var swfobject = function () {
     WebSocket.__nextId = 0;
     WebSocket.loadFlashPolicyFile = function () {
         WebSocket.__addTask(function () {
-            WebSocket.__flash.loadManualPolicyFile("xmlsocket://"+RongBinaryHelper.__host.replace(/\d+?$/,"8300"));
+            if('RongBrIdge' in window){
+                WebSocket.__flash.loadManualPolicyFile("xmlsocket://"+RongBrIdge._client.constructor.Endpoint.host.replace(/\d+?$/,"8300"));
+            }else{
+                WebSocket.__flash.loadManualPolicyFile("xmlsocket://"+RongBinaryHelper.__host.replace(/\d+?$/,"8300"));
+            }
         })
     };
 

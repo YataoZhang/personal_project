@@ -6,7 +6,7 @@
             _head = document.documentElement.appendChild(document.createElement("head"));
         }
         _doc.type = "text/javascript";
-        _doc.src = "http://res.websdk.rongcloud.cn/RongIMClient-0.9.8.min.js";
+        _doc.src = "http://res.websdk.rongcloud.cn/RongIMClient-0.9.9.min.js";
         _doc.onload = function () {
             _doc1.src = "http://res.websdk.rongcloud.cn/RongIMClient.emoji-0.9.2.min.js";
             _head.appendChild(_doc1);
@@ -747,7 +747,7 @@
         if (msg.getMessageType() == RongIMClient.MessageType.TextMessage) {
             htmlObj.find(conf.selector.msgBody).html(initEmotion(symbolreplace(msg.getContent())));
         } else if (msg.getMessageType() == RongIMClient.MessageType.ImageMessage) {
-            htmlObj.find(conf.selector.msgBody).html("<img class='imgThumbnail' src='data:image/jpg;base64," + msg.getContent() + "' bigUrl='" + msg.getsetImageUri() + "'/>");
+            htmlObj.find(conf.selector.msgBody).html("<img style='width:100%' src='data:image/jpg;base64," + msg.getContent() + "' bigUrl='" + msg.getImageUri() + "'/>");
         }
         $(conf.selector.dialog_box).append(htmlObj);
         if (!$(conf.selector.chatWin).is(":visible") && !$("#rc_msgNotice").is(":visible")) {
@@ -932,9 +932,15 @@
                 })
             },
             suspendThisChat: function (callback) {
-                var msg = new RongIMClient.SuspendMessage();
-                msg.setContent(RongBrIdge._client.userId);
-                RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, targetId, msg, null, callback);
+                RongIMClient.getInstance().getCurrentUserInfo({
+                    onSuccess:function(obj){
+                        var msg = new RongIMClient.SuspendMessage();
+                        msg.setContent(obj.getUserId());
+                        RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, targetId, msg, null, callback);
+                    },onError:function(){
+                        callback.onError(RongIMClient.callback.ErrorCode.UNKNOWN_ERROR);
+                    }
+                });
             },
             coustomerServiceHandshake: function (callback) {
                 var msg = new RongIMClient.HandshakeMessage();
