@@ -1,3 +1,6 @@
+/***
+ *此js文件为常帅强所写，具体详情可咨询常帅强
+ */
 ;
 (function (win, doc, undefined) {
     if(!(win.RongIMClient&&win.RongIMClient.Expression)){

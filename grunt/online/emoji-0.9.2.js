@@ -1,3 +1,8 @@
+/**
+ * 表情帮助库
+ * 具体参考文档 https://github.com/rongcloud/demo-web-sdk#表情帮助库如何使用
+ * */
+
 (function (b) {
     if (b.RongIMClient) {
         var c = {u1F600: {en: "grinning", zh: "\u72de\u7b11", tag: "\ud83d\ude00", "bp": "-1539px 0"}, u1F601: {en: "grin", zh: "\u9732\u9f7f\u800c\u7b11", tag: "\ud83d\ude01", "bp": "-1566px 0"}, u1F602: {en: "joy", zh: "\u6b22\u4e50", tag: "\ud83d\ude02", "bp": "-1593px 0"}, u1F603: {en: "smile", zh: "\u5fae\u7b11", tag: "\ud83d\ude03", "bp": "-1620px 0"}, u1F605: {en: "sweat_smile", zh: "\u8d54\u7b11", tag: "\ud83d\ude05", "bp": "-1647px 0"}, u1F606: {en: "satisfied",
@@ -24,7 +29,7 @@
             u26BD: {en: "soccer", zh: "\u8db3\u7403", tag: "\u26bd", "bp": "-1215px -27px"}, u26C4: {en: "snowman", zh: "\u96ea\u4eba", tag: "\u26c4", "bp": "-1242px -27px"}, u26C5: {en: "partly_sunny", zh: "\u591a\u4e91", tag: "\u26c5", "bp": "-1269px -27px"}, u261D: {en: "point_up", zh: "\u7b2c\u4e00", tag: "\u261d", "bp": "-1134px -27px"}, u263A: {en: "relaxed", zh: "\u8f7b\u677e", tag: "\u263a", "bp": "-1161px -27px"}, u270A: {en: "fist", zh: "\u62f3\u5934", tag: "\u270a",
                 "bp": "-1296px -27px"}, u270B: {en: "hand", zh: "\u624b", tag: "\u270b", "bp": "-1323px -27px"}, u270C: {en: "v", zh: "v ", tag: "\u270c", "bp": "-1350px -27px"}, u270F: {en: "pencil2", zh: "\u7b14", tag: "\u270f", "bp": "-1377px -27px"}, u2600: {en: "sunny", zh: "\u6674\u6717", tag: "\u2600", "bp": "-1026px -27px"}, u2601: {en: "cloud", zh: "\u4e91", tag: "\u2601", "bp": "-1053px -27px"}, u2614: {en: "umbrella", zh: "\u4f1e", tag: "\u2614", "bp": "-1080px -27px"},
             u2615: {en: "coffee", zh: "\u5496\u5561", tag: "\u2615", "bp": "-1107px -27px"}, u2744: {en: "snowflake", zh: "\u96ea\u82b1", tag: "\u2744", "bp": "-1404px -27px"}};
-
+        //根据浏览器初始化css
         function initCss() {
             var head = document.getElementsByTagName("head")[0] || document.createElement("head");
             if (document.createStyleSheet) {
@@ -56,8 +61,9 @@
         b.RongIMClient.Expression = new function () {
             initCss();
             var e = this;
+            //得到所有表情对象 0-128
             this.getAllExpression = function (a, b) {
-                if (0 < a && -1 < b && 127 > a + b) {
+                if (0 < a && -1 < b && 129 > a + b) {
                     var h = [], d = 0, f;
                     for (f in c) {
                         if (d >= b + a)break;
@@ -71,12 +77,14 @@
                 }
                 throw Error("Wrong parameter");
             };
+            //根据c的key得到表情对象
             this.getEmojiByContent = function (a) {
                 if (a in c) {
                     var b = initBtag(c[a]["bp"]);
                     return{englishName: c[a].en, chineseName: c[a].zh, img: b, tag: c[a].tag};
                 }
             };
+            //计算utf
             this.calcUTF = function (d) {
                 if (61440 < d.charCodeAt(0)) {
                     var b = c[escape(d).replace("%u", "u1")];
@@ -84,6 +92,7 @@
                 }
                 return d;
             };
+            //根据英文名称或中文名称得到表情对象
             this.getEmojiObjByEnglishNameOrChineseName = function (a) {
                 for (var b in c) {
                     if (c[b].en == a || c[b].zh == a) {
@@ -94,6 +103,7 @@
                 return{};
             };
             var k = /(\ud83d\ude00|\ud83d\ude01|\ud83d\ude02|\ud83d\ude03|\ud83d\ude05|\ud83d\ude06|\ud83d\ude07|\ud83d\ude08|\ud83d\ude09|\ud83d\ude11|\ud83d\ude12|\ud83d\ude13|\ud83d\ude14|\ud83d\ude15|\ud83d\ude16|\ud83d\ude18|\ud83d\ude21|\ud83d\ude22|\ud83d\ude23|\ud83d\ude24|\ud83d\ude28|\ud83d\ude29|\ud83d\ude30|\ud83d\ude31|\ud83d\ude32|\ud83d\ude33|\ud83d\ude34|\ud83d\ude35|\ud83d\ude36|\ud83d\ude37|\ud83c\udfa4|\ud83c\udfb2|\ud83c\udfb5|\ud83c\udfc0|\ud83c\udfc2|\ud83c\udfe1|\ud83c\udc04|\ud83d\udca1|\ud83d\udca2|\ud83d\udca3|\ud83d\udca4|\ud83d\udca9|\ud83d\udcaa|\ud83d\udcb0|\ud83d\udcda|\ud83d\udcde|\ud83d\udce2|\ud83d\udeab|\ud83d\udebf|\ud83c\udf0f|\ud83c\udf3b|\ud83c\udf5a|\ud83c\udf6b|\ud83c\udf7b|\ud83d\udc4a|\ud83d\udc4c|\ud83d\udc4d|\ud83d\udc4e|\ud83d\udc4f|\ud83d\udc6a|\ud83d\udc6b|\ud83d\udc7b|\ud83d\udc7c|\ud83d\udc7d|\ud83d\udc7f|\ud83d\udc8a|\ud83d\udc8b|\ud83d\udc8d|\ud83d\udd2b|\ud83d\ude0a|\ud83d\ude0b|\ud83d\ude0c|\ud83d\ude0d|\ud83d\ude0e|\ud83d\ude0f|\ud83d\ude1a|\ud83d\ude1c|\ud83d\ude1d|\ud83d\ude1e|\ud83d\ude1f|\ud83d\ude2a|\ud83d\ude2b|\ud83d\ude2c|\ud83d\ude2d|\ud83d\ude2f|\ud83d\ude4a|\ud83d\ude4f|\ud83c\udf19|\ud83c\udf32|\ud83c\udf39|\ud83c\udf49|\ud83c\udf56|\ud83c\udf66|\ud83c\udf77|\ud83c\udf81|\ud83c\udf82|\ud83c\udf84|\ud83c\udf89|\ud83c\udf93|\ud83d\udc34|\ud83d\udc36|\ud83d\udc37|\ud83d\udc51|\ud83d\udc84|\ud83d\udc94|\ud83d\udd25|\ud83d\udd56|\ud83d\ude48|\ud83d\ude49|\ud83d\ude80|\u2b50|\u23f0|\u23f3|\u26a1|\u26bd|\u26c4|\u26c5|\u261d|\u263a|\u270a|\u270b|\u270c|\u270f|\u2600|\u2601|\u2614|\u2615|\u2744)/g;
+            //解析一段字符串得到表情
             this.retrievalEmoji = function (a, b) {
                 return a.replace(k, function (a) {
                     var d;

@@ -1,5 +1,7 @@
 /**
  * Created by yataozhang on 15/4/13.
+ * 内部存储帮助库
+ * 文档地址 https://github.com/rongcloud/demo-web-sdk#web-端本地存储帮助库如何使用
  */
 (function (global, rong) {
     var db;

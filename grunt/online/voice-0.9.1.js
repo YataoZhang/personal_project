@@ -1,5 +1,7 @@
 /**
  * Created by yataozhang on 14/11/3.
+ * 音频帮助库
+ * 文档地址 https://github.com/rongcloud/demo-web-sdk#音频播放帮助库如何使用
  */
 (function (win) {
     if (win.RongIMClient) {
