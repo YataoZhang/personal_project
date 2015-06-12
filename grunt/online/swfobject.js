@@ -825,6 +825,7 @@ var swfobject = function () {
     WebSocket.__nextId = 0;
     WebSocket.loadFlashPolicyFile = function () {
         WebSocket.__addTask(function () {
+            //加载代理文件
             if('RongBrIdge' in window){
                 WebSocket.__flash.loadManualPolicyFile("xmlsocket://"+RongBrIdge._client.constructor.Endpoint.host.replace(/\d+?$/,"8300"));
             }else{
